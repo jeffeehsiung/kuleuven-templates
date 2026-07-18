@@ -1,166 +1,336 @@
-% KU Leuven poster – sans‑serif (Helvetica + sfmath) + siunitx
-\documentclass[english, xcolor=table]{beamer}
+% ============================================================
+% EUSIPCO 2026 Poster
+% Few-Shot Radar Person Identification via Tracking-Integrated
+% InISAR and Pre-Trained Meta-Learning
+% ============================================================
+% Compile with: pdflatex poster.tex  (run twice)
+% Requires: tikzposter class (texlive-full or scheme-full)
+% ============================================================
 
-% -------- POSTER SIZE & SCALE --------
-\usepackage[orientation=portrait, size=a0, scale=1.2]{beamerposter}
+\documentclass[a0paper,portrait]{tikzposter}
 
-% -------- PACKAGES --------
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath, amssymb}
-\usepackage{arev}
-\usefonttheme{professionalfonts}
+\usepackage{amsmath,amssymb}
 \usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{booktabs, multirow, tabularx}
-\usepackage{csquotes}
-\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{pifont}          % for \ding{} circled numbers
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black}
-\usepackage{changepage}                 % for adjustwidth
-\usepackage{siunitx}                    % modern units
+\usepackage{qrcode}
+\usepackage{anyfontsize}
+\graphicspath{{figures/}}
 
-% -------- KU Leuven colours (from definitions.tex) --------
-\input{definitions.tex}
+% ------------------------------------------------------------
+% 1. COLOR PALETTE  ("Radar Night" -- matches all diagram assets)
+% ------------------------------------------------------------
+\definecolor{radarNavy}{HTML}{1A2332}
+\definecolor{radarPurple}{HTML}{6B4E9E}
+\definecolor{radarOrange}{HTML}{E8734A}
+\definecolor{radarBlue}{HTML}{3B7A9E}
+\definecolor{radarGreen}{HTML}{4A9B6E}
+\definecolor{radarBG}{HTML}{FAFAF8}
+\definecolor{radarGrey}{HTML}{5A6472}
 
-% -------- POSTER INFO (EDIT THESE) --------
-\title{Your Paper Title for EUSIPCO 2026}
-\author{Author 1$^{1}$ \and Author 2$^{2}$}
-\institute{$^{1}$KU Leuven, $^{2}$Other University}
-\newcommand{\posterurl}{https://www.kuleuven.be}
-\newcommand{\posterlonginstitute}{KU Leuven, Dept. of Electrical Engineering}
-\newcommand{\posteremail}{first.last@kuleuven.be}
+\colorlet{blocktitlebgcolor}{radarBlue}
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blockbodybgcolor}{white}
+\colorlet{backgroundcolor}{radarBG}
+\colorlet{framecolor}{radarNavy}
 
-% -------- BEAMER FONT SETTINGS (sans‑serif) --------
-\usefonttheme{professionalfonts}   % Use the fonts we loaded
+% ------------------------------------------------------------
+% 2. THEME / BLOCK STYLE
+% ------------------------------------------------------------
+\usetheme{Default}
+\usecolorstyle{Default}
 
-\setbeamerfont{title in headline}{size=\VERYHuge, series=\bfseries}
-\setbeamerfont{author in headline}{size=\veryHuge}
-\setbeamerfont{institute in headline}{size=\huge}
-\setbeamerfont{block title}{size=\huge, series=\bfseries}
-\setbeamerfont{block body}{size=\Large}
-\setbeamerfont{structure}{size=\LARGE}
-\setbeamerfont{caption}{size=\Large}
-
-% -------- POSTER DIMENSIONS (computed without \ratio) --------
-\newlength{\headerheight}
-\setlength\headerheight{15cm}
-\newlength{\titlemargin}\setlength{\titlemargin}{1.5cm}
-\newlength{\authormargin}\setlength{\authormargin}{1cm}
-
-% Logo and key graphics – using decimal ratios
-\newlength{\logowidth}
-\setlength{\logowidth}{\headerheight}                     % width = height
-\newlength{\logoheight}
-\setlength{\logoheight}{\dimexpr \logowidth * 236 / 661\relax}  % 236:661 ratio
-\newlength{\margin}
-\setlength{\margin}{\dimexpr \logoheight / 2\relax}
-\newlength{\keyheight}
-\setlength{\keyheight}{0.9\headerheight}
-\newlength{\keywidth}
-\setlength{\keywidth}{\dimexpr \keyheight * 269 / 576\relax}  % 269:576 ratio
-\newlength{\padding}
-\setlength{\padding}{\dimexpr \logoheight / 3\relax}
-
-% -------- BEAMER COLOURS --------
-\setbeamercolor{background canvas}{bg=kulbg}
-\setbeamercolor{headline}{fg=white, bg=kulbg}
-\setbeamercolor{whitespace}{fg=white, bg=white}
-\setbeamercolor{footline}{fg=white, bg=kulbg}
-\setbeamercolor{normal text}{fg=kullight}
-\setbeamercolor{block body}{bg=kullight, fg=kuldark}
-\setbeamercolor{block title}{bg=kullight, fg=kuldark}
-\setbeamercolor{structure}{fg=kuldark}
-\setbeamercolor{item}{fg=kuldark}
-\setbeamercolor{caption}{fg=kuldark}
-
-% -------- BEAMER TEMPLATES (header, footer, blocks) --------
-\setbeamertemplate{navigation symbols}{}
-
-\setbeamertemplate{headline}{%
-  \begin{beamercolorbox}[ht=0.9\logoheight, wd=\paperwidth]{whitespace}%
-  \end{beamercolorbox}%
-  \vskip-0.4\logoheight
-  \leftskip0.5\logoheight
-  \begin{beamercolorbox}[ht=\logoheight, wd=\logowidth]{whitespace}%
-    \includegraphics[height=\logoheight]{templates/kuleuven}%
-  \end{beamercolorbox}%
-  \leftskip0ex
-  \begin{beamercolorbox}[wd=\paperwidth]{headline}%
-    \begin{columns}[T, totalwidth=\paperwidth]
-      \begin{column}{0.9\logoheight} \end{column}
-      \begin{column}{\dimexpr\paperwidth-1.4\logoheight-\keywidth\relax}
-        \vskip0.5\logoheight
-        {\usebeamerfont{title in headline}\inserttitle \\[\titlemargin]}
-        {\usebeamerfont{author in headline}\insertauthor \\[\authormargin]}
-        {\usebeamerfont{institute in headline}\insertinstitute}
-      \end{column}
-      \begin{column}{\keywidth}
-        \vskip-0.3\logoheight
-        \raggedleft\includegraphics[height=\keyheight]{templates/key}
-      \end{column}
-      \begin{column}{0.5\logoheight} \end{column}
-    \end{columns}
-  \end{beamercolorbox}%
+% ------------------------------------------------------------
+% helper command: consistent figure block with caption strip
+% ------------------------------------------------------------
+\newcommand{\posterfig}[3]{%
+  % #1 = width, #2 = filename, #3 = caption
+  \begin{center}
+    \includegraphics[width=#1]{#2}\\[2mm]
+    {\small\color{radarGrey}\textit{#3}}
+  \end{center}
 }
 
-\setbeamertemplate{footline}{%
-  \begin{beamercolorbox}[ht=0.6\logoheight, leftskip=1.6\margin, rightskip=1.6\margin]{footline}%
-    \url{\posterurl} \hfill \posterlonginstitute \hfill \texttt{\posteremail}
-    \vskip 0.25\logoheight
-  \end{beamercolorbox}%
+% ------------------------------------------------------------
+% 3. TITLE
+% ------------------------------------------------------------
+\title{\bfseries\color{radarNavy}\parbox{0.92\linewidth}{\centering
+  Few-Shot Radar Person Identification via Tracking-Integrated
+  InISAR and Pre-Trained Meta-Learning}}
+\author{
+  Jeffee Hsiung$^{*}$ \quad Rengin Torun$^{*}$ \quad S.\ Hamed Javadi$^{\dagger}$ \quad Hichem Sahli$^{\dagger}$\\
+  \normalsize KU Leuven \;|\; imec \;|\; Vrije Universiteit Brussel \\
+  \footnotesize $^{*}$Equal contribution (first authors) \quad $^{\dagger}$Equal contribution (supervisors)
 }
+\institute{}
 
-\setbeamertemplate{block begin}{%
-  \begin{beamercolorbox}[rounded=false, shadow=false]{block body}%
-    \begin{beamercolorbox}[ht=0.5\logoheight, dp=0.9ex, rounded=false, shadow=false]{block title}%
-      \begin{adjustwidth}{\padding}{\padding}
-        \usebeamerfont*{block title}\insertblocktitle
-      \end{adjustwidth}
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[ht=6pt, rounded=false, shadow=false]{block title}%
-      \leftskip0.3\padding \rule{\textwidth-0.6\padding}{6pt}
-    \end{beamercolorbox}%
-    \usebeamerfont{block body}%
-    \begin{beamercolorbox}[rounded=false, shadow=false, leftskip=0cm, vmode, rightskip=0cm]{block body}%
-      \begin{adjustwidth}{\padding}{\padding}
-        \parskip1em
-}
-\setbeamertemplate{block end}{%
-      \vskip0.1em
-      \end{adjustwidth}%
-    \end{beamercolorbox}%
-  \end{beamercolorbox}%
-  \vskip\margin
-}
-
-\setbeamertemplate{itemize items}[square]
-
-% -------- DOCUMENT BODY --------
+% ============================================================
 \begin{document}
+\maketitle
 
-\begin{frame}
-  \begin{columns}[t, totalwidth=\linewidth]
-    \begin{column}{0.48\linewidth}
-      \begin{block}{Introduction}
-        Your introduction text here.
-      \end{block}
+\begin{columns}
+\column{0.5}
 
-      \begin{block}{Methodology}
-        Your methodology.
-      \end{block}
-    \end{column}
+% ============================================================
+% SECTION 1 -- MOTIVATION
+% ============================================================
+\block{\textcolor{white}{\large \ding{202}\ \ Why Not Just Use a Camera?}}{
+\begin{minipage}{0.62\linewidth}
+Conventional vision-based person identification struggles under real conditions:
+\begin{itemize}
+  \setlength\itemsep{2mm}
+  \item \textbf{Low-light} environments degrade recognition accuracy
+  \item \textbf{Adverse weather} (fog, rain) obscures visual features
+  \item \textbf{Occlusions} block critical body regions
+  \item \textbf{Privacy concerns} -- facial capture raises regulatory and ethical issues
+\end{itemize}
+\vspace{2mm}
+mmWave radar avoids facial capture entirely while remaining robust to lighting, weather, and occlusion --
+a privacy-preserving alternative for surveillance and human-robot interaction.
+\end{minipage}
+\hfill
+\begin{minipage}{0.35\linewidth}
+% TODO: replace with the 4-icon motivation cluster (low-light / weather / occlusion / privacy-blur)
+\posterfig{\linewidth}{fig_motivation_cluster.png}{Vision fails; radar preserves privacy}
+\end{minipage}
+}
 
-    \begin{column}{0.48\linewidth}
-      \begin{block}{Results}
-        Your results – you can include figures.
-      \end{block}
+% ============================================================
+% SECTION 2 -- WHY RADAR (sensing theory)
+% ============================================================
+\block{\textcolor{white}{\large \ding{203}\ \ Why mmWave Radar}}{
+\begin{minipage}{0.48\linewidth}
+\posterfig{\linewidth}{fig_why_radar_mimo.png}{MIMO array senses through occlusion via reflected signals}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+\posterfig{\linewidth}{fig_radar_vs_camera.png}{Radar 3D point cloud (left) vs.\ camera view (right), same scene}
+\end{minipage}
+\vspace{3mm}
 
-      \begin{block}{Conclusions}
-        Your conclusions.
-      \end{block}
-    \end{column}
-  \end{columns}
-\end{frame}
+FMCW radar transmits chirps and measures round-trip time-of-flight from body-scatterers;
+range and Doppler are recovered via FFT along fast-time and slow-time. This gives 3D spatial
++ velocity information \emph{without} capturing identifiable facial imagery.
+}
 
+% ============================================================
+% SECTION 3 -- THE TWO PROBLEMS
+% ============================================================
+\block{\textcolor{white}{\large \ding{204}\ \ Two Bottlenecks in Radar-Based PID}}{
+\begin{minipage}{0.48\linewidth}
+\textbf{3a. Radar Imaging Quality}\\[2mm]
+Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
+resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
+InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
+\emph{articulated} human targets.
+\posterfig{0.95\linewidth}{fig_sparse_pointcloud_problem.png}{Sparsity, non-uniform density, noise -- missing body segments}
+\posterfig{0.95\linewidth}{fig_multipath_fan.png}{Indoor multipath generates ghost clusters}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+\textbf{3b. Data Scarcity}\\[2mm]
+Existing learning methods need $>$100 sequences/person (hours of recording) --
+impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
+geometry; PCT captures local structure but targets \emph{static} objects, not temporally
+evolving, noisy radar sequences.
+\posterfig{0.95\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
+\vspace{2mm}
+\textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
+literature shows pre-trained initialization accelerates meta-learning. We extend this to
+radar point-cloud PID.
+\end{minipage}
+}
+
+% ============================================================
+% SECTION 4 -- OUR FRAMEWORK (3-fold contribution, system level)
+% ============================================================
+\block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
+\posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
+
+\vspace{4mm}
+\begin{minipage}{0.31\linewidth}
+\centering
+\colorbox{radarBlue}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(1) Radar domain}\\[1mm]
+\small Tracking-integrated InISAR reconstructs high-res 3D point clouds of articulated
+human motion, validated against motion-capture ground truth.}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.31\linewidth}
+\centering
+\colorbox{radarPurple}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(2) ML domain}\\[1mm]
+\small Spatio-temporal transformer (PCTtrans) embedded in MAML; task-specific pre-trained
+initialization substantially improves few-shot adaptation.}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.31\linewidth}
+\centering
+\colorbox{radarGreen}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(3) System integration}\\[1mm]
+\small High-quality 3D reconstruction + meta-learning together enable practical few-shot
+radar PID, reducing dependence on large subject-specific datasets.}}
+\end{minipage}
+}
+
+% ============================================================
+% SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
+% ============================================================
+\block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
+\posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
+\posterfig{0.95\linewidth}{fig_range_doppler_fft.png}{Range-Doppler recovery via FFT (fast-time/slow-time), with resolution formulas}
+\posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{CFAR detection: cell-under-test, guard cells, training cells}
+\posterfig{\linewidth}{fig_mimo_antenna_array.png}{Physical $\to$ virtual MIMO antenna array (azimuth + elevation)}
+\posterfig{\linewidth}{03_preprocessing.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
+\posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{DBSCAN removes multipath ghosts: 6 clusters $\to$ 1}
+}
+
+% ============================================================
+% COLUMN BREAK
+% ============================================================
+\column{0.5}
+
+\block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
+\posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
+\posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
+\posterfig{\linewidth}{05_pcttrans_decomposed.png}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
+\posterfig{0.95\linewidth}{fig_pretrained_maml.png}{Pre-trained ($\theta^{PT}_0$) vs.\ random ($\theta^{rand}_0$) initialization within task distribution; inner/outer-loop adaptation}
+\posterfig{\linewidth}{06_pretrained_maml.png}{Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
+}
+
+% ============================================================
+% SECTION 6 -- RESULTS
+% ============================================================
+\block{\textcolor{white}{\large \ding{207}\ \ Results}}{
+
+\begin{minipage}{0.30\linewidth}
+\centering
+\colorbox{radarNavy}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+{\fontsize{40}{44}\selectfont\bfseries 98.99\%}\\[1mm]
+{\small supervised accuracy, sufficient data}\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.34\linewidth}
+\centering
+\colorbox{radarOrange}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+{\fontsize{34}{38}\selectfont\bfseries 32.05\%$\to$70.0\%}\\[1mm]
+{\small few-shot cross-session accuracy}\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.30\linewidth}
+\centering
+\colorbox{radarGreen}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+{\fontsize{40}{44}\selectfont\bfseries +15.6\,pp}\\[1mm]
+{\small gain from pre-training alone}\vspace{1mm}}}
+\end{minipage}
+
+\vspace{6mm}
+\begin{minipage}{0.55\linewidth}
+% TODO: replace with generated bar chart (Random vs Pre-Trained init, Q1/Q2/Q3, S2)
+\posterfig{\linewidth}{fig_results_barchart.png}{Random vs.\ pre-trained initialization across queries (S2)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.42\linewidth}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
+\midrule
+Q1 (same-session)      & 76.67 & \textbf{94.44} & +17.77 \\
+Q2 (cross-session)     & 54.44 & \textbf{70.00} & +15.56 \\
+Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
+\bottomrule
+\end{tabular}
+\vspace{3mm}
+
+\textbf{Highlights:}
+\begin{itemize}\small
+  \setlength\itemsep{1mm}
+  \item InISAR: 73.78\% IoU, $<$5.5\,cm height error vs.\ MoCap
+  \item PCTtrans outperforms TCPCN by +2.81pp (supervised, Q1)
+  \item Pre-training gain largest for cross-session (+15.56pp);
+        modest for cross-subject (+2.22pp) -- unseen gaits fall
+        outside pre-training distribution
+\end{itemize}
+\end{minipage}
+}
+
+% ============================================================
+% SECTION 7 -- QR VIDEOS
+% ============================================================
+\block{\textcolor{white}{\large \ding{208}\ \ Watch It In Action}}{
+\begin{minipage}{0.46\linewidth}
+\centering
+% TODO: replace URL below with your actual hosted video link
+\qrcode[height=4cm]{https://example.com/inisar-reconstruction-video}\\[2mm]
+\textbf{InISAR-Reconstructed 3D Point Cloud}\\
+\small\color{radarGrey} Full 3D reconstruction video (ffmpeg-rendered)
+\end{minipage}
+\hfill
+\begin{minipage}{0.46\linewidth}
+\centering
+% TODO: replace URL below with your actual hosted video link
+\qrcode[height=4cm]{https://example.com/dbscan-before-after-video}\\[2mm]
+\textbf{DBSCAN Before / After}\\
+\small\color{radarGrey} Ghost-cluster removal on non-tracking-integrated point clouds
+\end{minipage}
+}
+
+% ============================================================
+% SECTION 8 -- INDUSTRIAL OUTLOOK / LIMITATIONS
+% ============================================================
+\block{\textcolor{white}{\large \ding{209}\ \ Toward Industrial Deployment: Open Challenges}}{
+\small
+\begin{minipage}{0.19\linewidth}
+\centering
+\colorbox{radarBlue!15}{\parbox{0.95\linewidth}{\vspace{1mm}
+\textbf{1. Offline processing}\\[1mm]
+Per-scatterer tracking is slow.\\[1mm]
+\textit{Path forward:} online / cluster-center-only tracking\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.19\linewidth}
+\centering
+\colorbox{radarBlue!15}{\parbox{0.95\linewidth}{\vspace{1mm}
+\textbf{2. Radar-only limits}\\[1mm]
+Lacks RGB-level discriminative power at scale.\\[1mm]
+\textit{Path forward:} multimodal fusion where privacy allows\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.19\linewidth}
+\centering
+\colorbox{radarBlue!15}{\parbox{0.95\linewidth}{\vspace{1mm}
+\textbf{3. Public pretrained weights}\\[1mm]
+Needs more subjects + compute.\\[1mm]
+\textit{Path forward:} community dataset + HPC access\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.19\linewidth}
+\centering
+\colorbox{radarBlue!15}{\parbox{0.95\linewidth}{\vspace{1mm}
+\textbf{4. Tracking speed}\\[1mm]
+Not yet optimized for industrial throughput.\\[1mm]
+\textit{Path forward:} faster tracking algorithms\vspace{1mm}}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.19\linewidth}
+\centering
+\colorbox{radarBlue!15}{\parbox{0.95\linewidth}{\vspace{1mm}
+\textbf{5. Fixed occlusion tolerance}\\[1mm]
+Max missing frame = 1 (not adaptive).\\[1mm]
+\textit{Path forward:} tunable / self-adaptive threshold\vspace{1mm}}}
+\end{minipage}
+}
+
+% ============================================================
+% FOOTER
+% ============================================================
+\block[titlewidthscale=0, bodyoffsety=0cm, roundedcorners=0]{}{
+\centering\small\color{radarGrey}
+jeffee.hsiung@icloud.com \quad torun10@imec.be
+\qquad EUSIPCO 2026, Bruges \qquad imec / KU Leuven / VUB
+}
+
+\end{columns}
 \end{document}

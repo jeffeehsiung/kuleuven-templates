@@ -3,6 +3,9 @@
 
 # Name of the main .tex file (without extension)
 MAIN = poster
+
+REFERENCE=poster-arev
+
 FONTSLOG = missfonts
 # Find all .mmd files
 MMD_SRC = $(wildcard *.mmd)
@@ -30,10 +33,12 @@ clean:
 	      $(MAIN).blg $(MAIN).run.xml $(MAIN)-blx.bib \
 		  $(MAIN).pdf \
 		  $(FONTSLOG).log
+	rm -f *.aux *.log *.out *.toc *.nav *.snm *.pdf
 	rm -f $(MMD_PDF)
 
 # View the PDF (macOS default)
 view: $(MAIN).pdf
 	open $(MAIN).pdf
 
-.PHONY: all clean view
+reference:
+	pdflatex $(REFERENCE).tex

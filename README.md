@@ -1,35 +1,34 @@
 
-# Few-Shot Radar Person Identification Poster
+# EUSIPCO 2026 Poster  
+## Few-Shot Radar Person Identification via Tracking-Integrated InISAR and Pre-Trained Meta-Learning
 
-LaTeX source files for the KU Leuven conference poster:
+This repository contains the LaTeX source files for the EUSIPCO 2026 conference poster.
 
-**"Few-Shot Radar Person Identification via Tracking-Integrated InISAR and Pre-Trained Meta-Learning"**
+The project provides two poster versions:
 
-This repository contains only the poster generation pipeline.
+1. **Current poster (recommended)**
+   - `poster.tex`
+   - KU Leuven corporate design
+   - Built using `beamerposter`
 
-The poster is built using:
-
-- LaTeX / Beamerposter
-- KU Leuven poster template
-- GNU Make
-- pdflatex
-- optional Mermaid diagram generation
-
-No R, RMarkdown, Pandoc, or additional processing pipeline is required.
+2. **Previous draft version**
+   - `poster-arev.tex`
+   - Built using `tikzposter`
+   - Kept for reference only
 
 ---
 
 # Repository Structure
 
 ```
-
 .
-├── poster.tex                  # Main LaTeX entry point
-├── Makefile                    # Automated build script
-├── definitions.tex             # KU Leuven colors and LaTeX definitions
-├── references.bib              # Bibliography file (if required)
+├── poster.tex                     # Main poster source (final version)
+├── poster-arev.tex                # Old draft poster source
+├── Makefile                       # Build script
+├── definitions.tex                # KU Leuven colors and LaTeX definitions
+├── references.bib                 # Bibliography (if needed)
 │
-├── blocks/                     # Poster content sections
+├── blocks/                        # Poster content blocks
 │   ├── 01_BeyondVision.tex
 │   ├── 02_RadarSensing.tex
 │   ├── 03_Challenges.tex
@@ -38,50 +37,32 @@ No R, RMarkdown, Pandoc, or additional processing pipeline is required.
 │   ├── 06_Results.tex
 │   └── 07_Contributions.tex
 │
-├── figures/                    # All poster figures
-│   ├── fig_motivation_cluster.png
-│   ├── fig_radar_vs_camera.png
-│   ├── 01_system_architecture.png
-│   └── ...
+├── figures/                       # All poster figures
+│   ├── system diagrams
+│   ├── radar illustrations
+│   ├── PCT/MAML diagrams
+│   └── result plots
 │
-├── templates/                  # KU Leuven logos and poster assets
+├── templates/                     # KU Leuven logos and assets
 │
-└── README.md
+└── graphics/                      # Additional graphical assets
 
 ````
 
 ---
 
-# Environment Setup
+# Requirements
 
-The project requires only a LaTeX environment.
+The project requires a LaTeX environment capable of compiling:
 
-## Linux (Ubuntu/Debian)
+- `beamerposter`
+- `tikzposter` (only required for the old draft)
+- common LaTeX packages
 
-Install required packages:
-
-```bash
-sudo apt update
-
-sudo apt install \
-    make \
-    texlive-full \
-    poppler-utils
-````
-
-`texlive-full` is recommended because the poster uses several LaTeX packages:
-
-* beamer
-* beamerposter
-* xcolor
-* graphicx
-* siunitx
-* hyperref
-* booktabs
-* tabularx
-* multirow
 
 ---
+
+# Installation
 
 ## macOS
 
@@ -89,117 +70,126 @@ sudo apt install \
 
 If Homebrew is not installed:
 
-[https://brew.sh/](https://brew.sh/)
+https://brew.sh/
 
-### 2. Install LaTeX
 
-Recommended:
+### 2. Install TeX Live
+
+Install MacTeX:
 
 ```bash
 brew install --cask mactex
-```
+````
 
 After installation, restart the terminal.
 
-Verify:
+Check:
 
 ```bash
 pdflatex --version
 ```
 
-Expected output:
+---
 
+## Linux (Ubuntu)
+
+Install TeX Live:
+
+```bash
+sudo apt update
+
+sudo apt install \
+texlive-full \
+make
 ```
-pdfTeX ...
-TeX Live ...
+
+Check:
+
+```bash
+pdflatex --version
+make --version
 ```
 
 ---
 
 ## Windows
 
-Install:
+Recommended:
 
-### 1. MiKTeX
-
-Download:
+Install MiKTeX:
 
 [https://miktex.org/download](https://miktex.org/download)
 
 During installation:
 
-Enable:
+* Enable "Install missing packages on-the-fly"
+* Install Make (for example through MSYS2)
 
-```
-Install missing packages on-the-fly: Yes
-```
+Alternative:
 
-### 2. GNU Make
+Install TeX Live:
 
-Recommended:
-
-Install either:
-
-* Git Bash
-* MSYS2
-
-Check:
-
-```bash
-make --version
-```
+[https://tug.org/texlive/](https://tug.org/texlive/)
 
 ---
+z
+# Required LaTeX Packages
 
-# Optional: Mermaid Diagram Support
+The following packages are required.
 
-The current poster does not require Mermaid generation.
+For the final poster:
 
-However, the Makefile contains support for `.mmd` Mermaid diagrams.
-
-If needed:
-
-## Install Node.js
-
-Download:
-
-[https://nodejs.org/](https://nodejs.org/)
-
-Check:
-
-```bash
-node --version
-npm --version
+```
+beamer
+beamerposter
+graphicx
+xcolor
+booktabs
+multirow
+tabularx
+csquotes
+hyperref
+changepage
+siunitx
+lmodern
+type1cm
 ```
 
-Install Mermaid CLI:
+For the old draft:
 
-```bash
-npm install -g @mermaid-js/mermaid-cli
+```
+tikzposter
+tikz
+qrcode
+pifont
+array
+booktabs
+anyfontsize
 ```
 
-Verify:
-
+**Install using ocmmand e.g. (macos):**
 ```bash
-mmdc --version
+sudo tlmgr install tikzposter qrcode pifont booktabs array
 ```
+
+If using TeX Live full installation, all packages are already included.
 
 ---
 
 # Building the Poster
 
-Clone the repository:
+## Build final poster
 
-```bash
-git clone <repository-url>
-
-cd kuleuven-templates
-```
-
-Compile:
+From the repository root:
 
 ```bash
 make
+```
+
+or:
+
+```bash
+make all
 ```
 
 The generated file:
@@ -208,45 +198,51 @@ The generated file:
 poster.pdf
 ```
 
-will appear in the project folder.
+will be created.
 
 ---
 
-# Viewing the Poster
+## Build old draft poster
 
-macOS:
-
-```bash
-make view
-```
-
-Linux:
+The old draft can be compiled directly:
 
 ```bash
-xdg-open poster.pdf
+pdflatex poster-arev.tex
 ```
 
-Windows:
+or add it to Makefile as a separate target:
 
-Open:
-
-```
-poster.pdf
+```bash
+make draft
 ```
 
-manually.
+which generates:
+
+```
+poster-arev.pdf
+```
 
 ---
 
-# Cleaning Build Files
+# Makefile Commands
 
-Remove temporary LaTeX files:
+## Compile
+
+```bash
+make
+```
+
+Builds the final poster.
+
+---
+
+## Clean generated files
 
 ```bash
 make clean
 ```
 
-This removes:
+Removes:
 
 ```
 *.aux
@@ -260,134 +256,77 @@ This removes:
 
 ---
 
-# Editing the Poster
+## Open PDF (macOS)
 
-## Modify Text
+```bash
+make view
+```
 
-Do NOT directly edit the entire poster file.
+---
 
-Content is separated into blocks:
+# Editing Content
+
+The final poster content is separated into blocks.
+
+Modify:
 
 ```
 blocks/
 ```
 
-Each file corresponds to one poster section:
+instead of editing `poster.tex`.
 
-| File                 | Section           |
-| -------------------- | ----------------- |
-| 01_BeyondVision.tex  | Motivation        |
-| 02_RadarSensing.tex  | Radar sensing     |
-| 03_Challenges.tex    | Challenges        |
-| 04_Framework.tex     | Overall framework |
-| 05_DeepDive.tex      | Technical details |
-| 06_Results.tex       | Experiments       |
-| 07_Contributions.tex | Contributions     |
-
-Example:
-
-```latex
-\begin{block}{Why Not Just Use a Camera?}
-
-Poster text here.
-
-\end{block}
-```
-
----
-
-## Modify Figures
-
-All images are stored in:
+For example:
 
 ```
-figures/
+blocks/01_BeyondVision.tex
 ```
 
-When replacing an image:
+contains the motivation section.
 
-Keep the same filename, or update the corresponding LaTeX reference:
-
-Example:
-
-```latex
-\includegraphics[
-width=\linewidth
-]{figures/new_image.png}
+```
+blocks/06_Results.tex
 ```
 
----
+contains the experiment results.
 
-# LaTeX Compilation Notes
-
-The Makefile runs:
+After editing:
 
 ```bash
-pdflatex
+make
 ```
 
-multiple times because:
-
-* references
-* table of contents
-* hyperlinks
-
-require multiple compilation passes.
-
-Equivalent manual compilation:
-
-```bash
-pdflatex poster.tex
-pdflatex poster.tex
-pdflatex poster.tex
-```
+to regenerate the poster.
 
 ---
 
 # Troubleshooting
 
-## Error: Missing LaTeX package
+## Missing LaTeX package
 
-Example:
+If LaTeX reports:
 
 ```
-! LaTeX Error: File `xxx.sty' not found
+File xxx.sty not found
 ```
 
-Solution:
+Install the missing package.
 
-### Linux
+For TeX Live:
 
 ```bash
-sudo apt install texlive-full
+tlmgr install <package-name>
 ```
 
-### macOS
-
-Update MacTeX:
-
-```bash
-sudo tlmgr update --self --all
-```
-
-### Windows
-
-Open MiKTeX Console:
+For MiKTeX:
 
 ```
-Updates → Update now
+MiKTeX Console → Packages → Install
 ```
 
 ---
 
-## Error: Undefined color
-
-Example:
-
-```
-Package xcolor Error:
-Undefined color `kulxxx'
-```
+## Undefined color errors
 
 Make sure:
 
@@ -395,118 +334,84 @@ Make sure:
 definitions.tex
 ```
 
-exists and is included in:
-
-```latex
-\input{definitions.tex}
-```
-
-inside:
-
-```
-poster.tex
-```
+exists in the project root.
 
 ---
 
-## Error: Figure not found
+## Figure not found
 
-Example:
+Check that:
 
-```
-File `figures/example.png' not found
-```
-
-Check:
-
-1. File exists
-2. Filename capitalization matches exactly
-
-Linux/macOS are case-sensitive.
-
-Example:
-
-Wrong:
-
-```
-Figure.png
-```
-
-LaTeX:
-
-```latex
-figures/figure.png
-```
-
----
-
-# Development Workflow
-
-Recommended workflow:
-
-1. Modify one block:
-
-```
-blocks/XX_section.tex
-```
-
-2. Replace figures if needed:
+1. The figure exists inside:
 
 ```
 figures/
 ```
 
-3. Compile:
+2. The filename matches exactly.
 
-```bash
-make
-```
-
-4. Review:
+Linux is case-sensitive:
 
 ```
-poster.pdf
+figure.png
+Figure.png
 ```
 
-5. Commit changes.
+are different files.
 
 ---
 
 # Authors
 
-Poster prepared for EUSIPCO 2026.
+Jeffee Hsiung
+Rengin Torun
+S. Hamed Javadi
+Hichem Sahli
+
+EUSIPCO 2026
+Bruges, Belgium
 
 ````
 
 ---
 
-A few notes based on your actual project:
+## For your Makefile, I would also simplify it
 
-### 1. Remove `texlive-full` if you want lightweight installation
-Your poster currently uses:
-
-- `beamerposter`
-- `beamer`
-- `xcolor`
-- `siunitx`
-- `hyperref`
-- `graphicx`
-- `booktabs`
-- `tabularx`
-- `multirow`
-- `changepage`
-
-A minimal TeX Live install can work, but for teammates with unknown OS, `texlive-full` / MacTeX / MiKTeX is much safer.
-
-### 2. Your Makefile has one unnecessary part
-
-This:
+Your current Makefile has Mermaid support:
 
 ```make
 MMD_SRC = $(wildcard *.mmd)
-MMD_PDF = $(MMD_SRC:.mmd=.pdf)
 ````
 
-is leftover from Mermaid experiments.
+but your repository **does not contain any `.mmd` files anymore**. So remove Mermaid completely.
 
-Since your repository has no `.mmd` currently, it does nothing. But keeping it is harmless.
+Use:
+
+```make
+MAIN = poster
+
+all: $(MAIN).pdf
+
+$(MAIN).pdf:
+	pdflatex -interaction=nonstopmode $(MAIN).tex
+	pdflatex -interaction=nonstopmode $(MAIN).tex
+	pdflatex -interaction=nonstopmode $(MAIN).tex
+
+
+draft:
+	pdflatex poster-arev.tex
+	pdflatex poster-arev.tex
+
+
+clean:
+	rm -f *.aux *.log *.nav *.out *.snm *.toc *.pdf
+
+
+view:
+	open $(MAIN).pdf
+
+
+.PHONY: all draft clean view
+```
+
+---

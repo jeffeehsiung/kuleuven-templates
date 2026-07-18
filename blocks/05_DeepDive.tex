@@ -1,0 +1,41 @@
+\begin{block}{Deep Dive: Tracking-Integrated InISAR}
+    \begin{columns}[T]
+        \begin{column}{0.62\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/02_inisar_pipeline.png}
+        \end{column}
+
+        \begin{column}{0.30\linewidth}
+            Radar processing:
+            \begin{enumerate}
+            \item Range FFT
+            \item Motion compensation
+            \item Doppler processing
+            \item CFAR detection
+            \item JDPA-EKF tracking
+            \item Interferometry
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+\end{block}
+
+\begin{block}{Deep Dive: PCTtrans + Pre-trained MAML}
+    \begin{columns}[T]
+        \begin{column}{0.45\linewidth}
+            \small
+            The network combines:
+            \begin{itemize}
+            \item Spatial point-cloud encoder
+            \item Temporal transformer
+            \item Meta-learning adaptation
+            \end{itemize}
+            Pre-training provides a better initialization
+            than random MAML.
+        \end{column}
+
+        \begin{column}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{figures/fig_pcttrans_architecture.png}
+        \end{column}
+    \end{columns}
+
+\end{block}

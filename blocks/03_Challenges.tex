@@ -1,0 +1,30 @@
+\begin{block}{Two Bottlenecks in Radar-Based PID}
+
+\begin{columns}[T]
+
+    \begin{column}{0.48\linewidth}
+        \textbf{1. Radar Imaging Quality}
+        Sparse and noisy radar point clouds suffer from:
+        \begin{itemize}
+        \item Limited angular resolution
+        \item Motion-induced defocusing
+        \item Multipath ghost artifacts
+        \end{itemize}
+        \includegraphics[width=\linewidth]{figures/fig_sparse_pointcloud_problem.png}
+    \end{column}
+
+
+    \begin{column}{0.48\linewidth}
+        \textbf{2. Data Scarcity}
+        Few-shot adaptation is difficult because:
+        \begin{itemize}
+        \item New subjects have limited samples
+        \item Existing models require long recordings
+        \item Radar appearance varies across sessions
+        \end{itemize}
+        \includegraphics[width=\linewidth]{figures/fig_few_shot_motivation.png}
+    \end{column}
+
+\end{columns}
+
+\end{block}

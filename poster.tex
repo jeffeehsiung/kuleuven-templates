@@ -16,21 +16,22 @@
 \input{definitions.tex}
 
 % -------- POSTER INFO --------
-\title{Your Paper Title for EUSIPCO 2026}
-\author{Author 1$^{1}$ \and Author 2$^{2}$}
+\title{Few-Shot Radar Person Identification via 
+Tracking-Integrated InISAR and Pre-Trained Meta-Learning}
+\author{Jeffee Hsiung$^{1}$ \and Rengin Torun$^{1}$ \and S. Hamed Javadi$^{2}$ \and Hichem Sahli$^{2}$}
 \institute{$^{1}$KU Leuven, $^{2}$Other University}
 \newcommand{\posterurl}{https://www.kuleuven.be}
 \newcommand{\posterlonginstitute}{KU Leuven, Dept. of Electrical Engineering}
 \newcommand{\posteremail}{first.last@kuleuven.be}
 
 % -------- FONTS (reduced for fitting) --------
-\setbeamerfont{title in headline}{size=\VERYHuge, series=\bfseries}
-\setbeamerfont{author in headline}{size=\veryHuge}
-\setbeamerfont{institute in headline}{size=\huge}
-\setbeamerfont{block title}{size=\huge, series=\bfseries}
-\setbeamerfont{block body}{size=\Large}
-\setbeamerfont{structure}{size=\Large}
-\setbeamerfont{caption}{size=\Large}
+\setbeamerfont{title in headline}{size=\Huge, series=\bfseries}
+\setbeamerfont{author in headline}{size=\large}
+\setbeamerfont{institute in headline}{size=\normalsize}
+\setbeamerfont{block title}{size=\large, series=\bfseries}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamerfont{structure}{size=\normalsize}
+\setbeamerfont{caption}{size=\small}
 
 % -------- HEADER HEIGHT --------
 \newlength{\headerheight}
@@ -105,19 +106,19 @@
 
 % -------- SIMPLE BLOCK (no adjustwidth) --------
 \newlength{\blocktitleheight}
-\setlength{\blocktitleheight}{1.4cm}
+\setlength{\blocktitleheight}{0.75cm}
 
 \newlength{\blockpadding}
-\setlength{\blockpadding}{0.6cm}
+\setlength{\blockpadding}{0.35cm}
 
 
 \setbeamertemplate{block begin}{%
 
   \begin{beamercolorbox}
-  [rounded=false, shadow=false]{block body}
+  [rounded=true, shadow=false]{block body}
 
   \begin{beamercolorbox}
-  [ht=\blocktitleheight,dp=0.3ex,rounded=false]{block title}
+  [ht=\blocktitleheight,dp=0.3ex,rounded=true]{block title}
   \hspace{\blockpadding}
   \usebeamerfont{block title}
   \insertblocktitle
@@ -139,31 +140,40 @@
 \setbeamertemplate{block end}{
   \end{beamercolorbox}
   \end{beamercolorbox}
-  \vspace{1cm}
+  \vspace{0.3cm}
 }
 
-% -------- DOCUMENT BODY (two minipages) --------
+% -------- DOCUMENT BODY --------
+
 \begin{document}
 
 \begin{frame}[t]
 \vspace{0.5cm}
 
   \begin{columns}[t,totalwidth=0.95\paperwidth]
-
-    \begin{column}{0.46\paperwidth}
-        \vspace{0pt}
-        \input{blocks/Introduction}
-        \vspace{0.5em}
-        \input{blocks/Methodology}
+    % ================= LEFT COLUMN =================
+    \begin{column}{0.47\paperwidth}
+      \input{blocks/01_BeyondVision}
+      \input{blocks/02_RadarSensing}
+      \input{blocks/03_Challenges}
     \end{column}
-
-    \begin{column}{0.46\paperwidth}
-        \vspace{0pt}
-        \input{blocks/Results}
-        \vspace{0.5em}
-        \input{blocks/Conclusions}
+    % ================= RIGHT COLUMN =================
+    \begin{column}{0.47\paperwidth}
+      \input{blocks/04_Framework}
+      \input{blocks/05_DeepDive}
     \end{column}
+  \end{columns}
 
+  \vspace{0.3cm}
+
+  % ================= BOTTOM FULL WIDTH =================
+  \begin{columns}[t,totalwidth=0.95\paperwidth]
+    \begin{column}{0.47\paperwidth}
+      \input{blocks/06_Results}
+    \end{column}
+    \begin{column}{0.47\paperwidth}
+      \input{blocks/07_Contributions}
+    \end{column}
   \end{columns}
 
 \end{frame}

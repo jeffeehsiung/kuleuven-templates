@@ -1,0 +1,45 @@
+\begin{block}{Our Framework: Unified Sensing + Meta-Learning}
+
+\centering
+\includegraphics[width=0.95\linewidth]{figures/01_system_architecture.png}
+\vspace{0.2cm}
+
+\begin{columns}[T]
+    \begin{column}{0.32\linewidth}
+        \centering
+        \colorbox{frameworkblue}{\parbox{0.9\linewidth}{
+            \centering\color{white}
+            \textbf{Radar Domain}
+            \vspace{0.1cm}
+            Tracking-integrated InISAR reconstructs
+            high-resolution human point clouds.
+        }}
+    \end{column}
+
+    \begin{column}{0.32\linewidth}
+        \centering
+        \colorbox{frameworkpurple}{\parbox{0.9\linewidth}{
+        \centering\color{white}
+        \textbf{Learning Domain}
+        \vspace{0.1cm}
+        PCTtrans learns spatial-temporal
+        identity features.
+        }}
+    \end{column}
+
+
+    \begin{column}{0.32\linewidth}
+        \centering
+        \colorbox{frameworkgreen}{
+        \parbox{0.9\linewidth}{
+        \centering
+        \color{white}
+        \textbf{Meta Adaptation}
+        \vspace{0.1cm}
+        Pre-trained MAML enables
+        few-shot recognition.
+        }}
+    \end{column}
+\end{columns}
+
+\end{block}

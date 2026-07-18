@@ -1,0 +1,171 @@
+% KU Leuven poster – FIXED LAYOUT
+\documentclass[english, xcolor=table]{beamer}
+
+% -------- POSTER SIZE --------
+\usepackage[orientation=portrait, size=a0, scale=1.0]{beamerposter}
+
+% -------- PACKAGES --------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usefonttheme{professionalfonts}
+\usepackage{graphicx,xcolor,booktabs,multirow,tabularx,csquotes,url,hyperref,changepage,siunitx}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black}
+
+% -------- COLOURS --------
+\input{definitions.tex}
+
+% -------- POSTER INFO --------
+\title{Your Paper Title for EUSIPCO 2026}
+\author{Author 1$^{1}$ \and Author 2$^{2}$}
+\institute{$^{1}$KU Leuven, $^{2}$Other University}
+\newcommand{\posterurl}{https://www.kuleuven.be}
+\newcommand{\posterlonginstitute}{KU Leuven, Dept. of Electrical Engineering}
+\newcommand{\posteremail}{first.last@kuleuven.be}
+
+% -------- FONTS (reduced for fitting) --------
+\setbeamerfont{title in headline}{size=\VERYHuge, series=\bfseries}
+\setbeamerfont{author in headline}{size=\veryHuge}
+\setbeamerfont{institute in headline}{size=\huge}
+\setbeamerfont{block title}{size=\huge, series=\bfseries}
+\setbeamerfont{block body}{size=\Large}
+\setbeamerfont{structure}{size=\Large}
+\setbeamerfont{caption}{size=\Large}
+
+% -------- HEADER HEIGHT --------
+\newlength{\headerheight}
+\setlength\headerheight{8cm}
+
+% -------- MARGINS (used in headline) --------
+\newlength{\titlemargin}
+\setlength{\titlemargin}{0.5cm}
+\newlength{\authormargin}
+\setlength{\authormargin}{0.3cm}
+
+% -------- DIMENSIONS --------
+\newlength{\logowidth}
+\setlength{\logowidth}{\headerheight}
+\newlength{\logoheight}
+\setlength{\logoheight}{\dimexpr \logowidth * 236 / 661\relax}
+\newlength{\margin}
+\setlength{\margin}{\dimexpr \logoheight / 2\relax}
+\newlength{\keyheight}
+\setlength{\keyheight}{0.9\headerheight}
+\newlength{\keywidth}
+\setlength{\keywidth}{\dimexpr \keyheight * 269 / 576\relax}
+\newlength{\padding}
+\setlength{\padding}{0.6cm}
+
+% -------- BEAMER COLOURS --------
+\setbeamercolor{background canvas}{bg=kulbg}
+\setbeamercolor{headline}{fg=white, bg=kulbg}
+\setbeamercolor{whitespace}{fg=white, bg=white}
+\setbeamercolor{footline}{fg=white, bg=kulbg}
+\setbeamercolor{block body}{bg=kullight, fg=kuldark}
+\setbeamercolor{block title}{bg=kullight, fg=kuldark}
+\setbeamercolor{structure}{fg=kuldark}
+\setbeamercolor{item}{fg=kuldark}
+
+% -------- HEADER --------
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[ht=0.9\logoheight, wd=\paperwidth]{whitespace}%
+  \end{beamercolorbox}%
+  \vskip-0.4\logoheight
+  \leftskip0.5\logoheight
+  \begin{beamercolorbox}[ht=\logoheight, wd=\logowidth]{whitespace}%
+    \includegraphics[height=\logoheight]{templates/kuleuven}%
+  \end{beamercolorbox}%
+  \leftskip0ex
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}%
+    \begin{columns}[T, totalwidth=\paperwidth]
+      \begin{column}{0.9\logoheight} \end{column}
+      \begin{column}{\dimexpr\paperwidth-1.4\logoheight-\keywidth\relax}
+        \vskip0.5\logoheight
+        {\usebeamerfont{title in headline}\inserttitle \\[\titlemargin]}
+        {\usebeamerfont{author in headline}\insertauthor \\[\authormargin]}
+        {\usebeamerfont{institute in headline}\insertinstitute}
+      \end{column}
+      \begin{column}{\keywidth}
+        \vskip-0.3\logoheight
+        \raggedleft\includegraphics[height=\keyheight]{templates/key}
+      \end{column}
+      \begin{column}{0.5\logoheight} \end{column}
+    \end{columns}
+  \end{beamercolorbox}%
+}
+
+% -------- FOOTER --------
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[ht=0.6\logoheight, leftskip=1.6\margin, rightskip=1.6\margin]{footline}%
+    \url{\posterurl} \hfill \posterlonginstitute \hfill \texttt{\posteremail}
+    \vskip 0.25\logoheight
+  \end{beamercolorbox}%
+}
+
+% -------- SIMPLE BLOCK (no adjustwidth) --------
+\newlength{\blocktitleheight}
+\setlength{\blocktitleheight}{1.4cm}
+
+\newlength{\blockpadding}
+\setlength{\blockpadding}{0.6cm}
+
+
+\setbeamertemplate{block begin}{%
+
+  \begin{beamercolorbox}
+  [rounded=false, shadow=false]{block body}
+
+  \begin{beamercolorbox}
+  [ht=\blocktitleheight,dp=0.3ex,rounded=false]{block title}
+  \hspace{\blockpadding}
+  \usebeamerfont{block title}
+  \insertblocktitle
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}
+  [ht=4pt]{block title}
+  \hspace{0.3\blockpadding}
+  \rule{\dimexpr\linewidth-0.6\blockpadding\relax}{4pt}
+  \end{beamercolorbox}
+
+  \vspace{0.3cm}
+
+  \begin{beamercolorbox}
+  [leftskip=\blockpadding,rightskip=\blockpadding]{block body}
+  \usebeamerfont{block body}\selectfont
+
+}
+\setbeamertemplate{block end}{
+  \end{beamercolorbox}
+  \end{beamercolorbox}
+  \vspace{1cm}
+}
+
+% -------- DOCUMENT BODY (two minipages) --------
+\begin{document}
+
+\begin{frame}[t]
+\vspace{0.5cm}
+
+  \begin{columns}[t,totalwidth=0.95\paperwidth]
+
+    \begin{column}{0.46\paperwidth}
+        \vspace{0pt}
+        \input{blocks/Introduction}
+        \vspace{0.5em}
+        \input{blocks/Methodology}
+    \end{column}
+
+    \begin{column}{0.46\paperwidth}
+        \vspace{0pt}
+        \input{blocks/Results}
+        \vspace{0.5em}
+        \input{blocks/Conclusions}
+    \end{column}
+
+  \end{columns}
+
+\end{frame}
+
+\end{document}

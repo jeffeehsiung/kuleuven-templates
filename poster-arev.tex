@@ -175,28 +175,49 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 }
 
 % ============================================================
-% SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
-% ============================================================
-\block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
-\posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
-\posterfig{0.95\linewidth}{fig_range_doppler_fft.png}{Range-Doppler recovery via FFT (fast-time/slow-time), with resolution formulas}
-\posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{CFAR detection: cell-under-test, guard cells, training cells}
-\posterfig{\linewidth}{fig_mimo_antenna_array.png}{Physical $\to$ virtual MIMO antenna array (azimuth + elevation)}
-\posterfig{\linewidth}{03_preprocessing.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
-\posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{DBSCAN removes multipath ghosts: 6 clusters $\to$ 1}
-}
-
-% ============================================================
 % COLUMN BREAK
 % ============================================================
 \column{0.5}
 
+% ============================================================
+% SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
+% ============================================================
+% \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
+% \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
+% \posterfig{0.95\linewidth}{fig_motion_compensation.png}{Range recovery via FFT (fast-time/slow-time) $\to$ ISAR with Motion Compensation}
+% \posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR detection $\to$ Interferometry 3D Reconstruction $\to$ Tracking}
+% \posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
+% }
+\block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
+  \begin{minipage}{0.48\linewidth}
+    \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+    \posterfig{\linewidth}{fig_motion_compensation.png}{Range recovery via FFT $\to$ ISAR with Motion Compensation}
+  \end{minipage}
+
+  \vspace{4mm}
+  \begin{minipage}{0.48\linewidth}
+    \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR $\to$ Interferometry 3D $\to$ Tracking}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+    \posterfig{\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
+  \end{minipage}
+}
+
 \block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
 \posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
 \posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
-\posterfig{\linewidth}{05_pcttrans_decomposed.png}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
-\posterfig{0.95\linewidth}{fig_pretrained_maml.png}{Pre-trained ($\theta^{PT}_0$) vs.\ random ($\theta^{rand}_0$) initialization within task distribution; inner/outer-loop adaptation}
-\posterfig{\linewidth}{06_pretrained_maml.png}{Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
+\vspace{4mm}
+  \begin{minipage}{0.56\linewidth}
+    \posterfig{\linewidth}{05_pcttrans_decomposed}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.4\linewidth}
+    \posterfig{\linewidth}{fig_pretrained_maml}{Pre-trained ($\theta^{PT}_0$) vs. random ($\theta^{rand}_0$) initialization: Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
+  \end{minipage}
 }
 
 % ============================================================

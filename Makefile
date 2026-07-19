@@ -42,3 +42,4 @@ view: $(MAIN).pdf
 
 reference:
 	pdflatex $(REFERENCE).tex
+	pdflatex $(REFERENCE).tex

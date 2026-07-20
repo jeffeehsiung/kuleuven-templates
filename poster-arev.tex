@@ -31,6 +31,11 @@
 \definecolor{radarGreen}{HTML}{4A9B6E}
 \definecolor{radarBG}{HTML}{FAFAF8}
 \definecolor{radarGrey}{HTML}{5A6472}
+\definecolor{kuldefault}{HTML}{00407a}%
+\definecolor{kuldark}{HTML}{123C75}% heading background
+\definecolor{kullight}{HTML}{F0F7FA}% block background
+\definecolor{kulbg}{RGB}{29,141,176}% background fill
+\definecolor{kulblue}{HTML}{00407a}
 
 \colorlet{blocktitlebgcolor}{radarBlue}
 \colorlet{blocktitlefgcolor}{white}
@@ -44,6 +49,8 @@
 \usetheme{Default}
 \usecolorstyle{Default}
 
+% override afterwards
+% \colorlet{backgroundcolor}{kullight}
 % ------------------------------------------------------------
 % helper command: consistent figure block with caption strip
 % ------------------------------------------------------------
@@ -58,7 +65,7 @@
 % ------------------------------------------------------------
 % 3. TITLE
 % ------------------------------------------------------------
-\title{\bfseries\color{radarNavy}\parbox{0.92\linewidth}{\centering
+\title{\bfseries\color{radarNavy}\parbox{\linewidth}{\centering
   Few-Shot Radar Person Identification via Tracking-Integrated
   InISAR and Pre-Trained Meta-Learning}}
 \author{
@@ -82,13 +89,13 @@
 \begin{minipage}{0.62\linewidth}
 Conventional vision-based person identification struggles under real conditions:
 \begin{itemize}
-  \setlength\itemsep{2mm}
+  \setlength\itemsep{1.62mm}
   \item \textbf{Low-light} environments degrade recognition accuracy
   \item \textbf{Adverse weather} (fog, rain) obscures visual features
   \item \textbf{Occlusions} block critical body regions
   \item \textbf{Privacy concerns} -- facial capture raises regulatory and ethical issues
 \end{itemize}
-\vspace{2mm}
+\vspace{1.62mm}
 mmWave radar avoids facial capture entirely while remaining robust to lighting, weather, and occlusion --
 a privacy-preserving alternative for surveillance and human-robot interaction.
 \end{minipage}
@@ -110,7 +117,7 @@ a privacy-preserving alternative for surveillance and human-robot interaction.
 \begin{minipage}{0.48\linewidth}
 \posterfig{\linewidth}{fig_radar_vs_camera.png}{Radar 3D point cloud (left) vs.\ camera view (right), same scene}
 \end{minipage}
-\vspace{3mm}
+\vspace{2.7mm}
 
 FMCW radar transmits chirps and measures round-trip time-of-flight from body-scatterers;
 range and Doppler are recovered via FFT along fast-time and slow-time. This gives 3D spatial
@@ -122,7 +129,7 @@ range and Doppler are recovered via FFT along fast-time and slow-time. This give
 % ============================================================
 \block{\textcolor{white}{\large \ding{204}\ \ Two Bottlenecks in Radar-Based PID}}{
 \begin{minipage}{0.48\linewidth}
-\textbf{3a. Radar Imaging Quality}\\[2mm]
+\textbf{3a. Radar Imaging Quality}\\[1.62mm]
 Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
 resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
 InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
@@ -132,13 +139,13 @@ InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but no
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\linewidth}
-\textbf{3b. Data Scarcity}\\[2mm]
+\textbf{3b. Data Scarcity}\\[1.62mm]
 Existing learning methods need $>$100 sequences/person (hours of recording) --
 impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
 geometry; PCT captures local structure but targets \emph{static} objects, not temporally
 evolving, noisy radar sequences.
 \posterfig{0.95\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
-\vspace{2mm}
+\vspace{1.62mm}
 \textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
 literature shows pre-trained initialization accelerates meta-learning. We extend this to
 radar point-cloud PID.
@@ -151,7 +158,7 @@ radar point-cloud PID.
 \block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
 \posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
 
-\vspace{4mm}
+\vspace{2.91mm}
 \begin{minipage}{0.31\linewidth}
 \centering
 \colorbox{radarBlue}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(1) Radar domain}\\[1mm]
@@ -194,12 +201,12 @@ radar PID, reducing dependence on large subject-specific datasets.}}
   \end{minipage}
   \hfill
   \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{fig_motion_compensation.png}{Range recovery via FFT $\to$ ISAR with Motion Compensation}
+    \posterfig{\linewidth}{fig_motion_compensation.png}{Range-FFT $\to$ ISAR Motion Compensation}
   \end{minipage}
 
-  \vspace{4mm}
+  \vspace{2.91mm}
   \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR $\to$ Interferometry 3D $\to$ Tracking}
+    \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler-FFT $\to$ CFAR $\to$ Interferometry $\to$ Multi-Traget Tracking}
   \end{minipage}
   \hfill
   \begin{minipage}{0.48\linewidth}
@@ -210,7 +217,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
 \posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
 \posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
-\vspace{4mm}
+\vspace{2.91mm}
   \begin{minipage}{0.56\linewidth}
     \posterfig{\linewidth}{05_pcttrans_decomposed}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
   \end{minipage}
@@ -246,7 +253,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 {\small gain from pre-training alone}\vspace{1mm}}}
 \end{minipage}
 
-\vspace{6mm}
+\vspace{4.37mm}
 \begin{minipage}{0.55\linewidth}
 % TODO: replace with generated bar chart (Random vs Pre-Trained init, Q1/Q2/Q3, S2)
 \posterfig{\linewidth}{fig_results_barchart.png}{Random vs.\ pre-trained initialization across queries (S2)}
@@ -263,7 +270,7 @@ Q2 (cross-session)     & 54.44 & \textbf{70.00} & +15.56 \\
 Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
 \bottomrule
 \end{tabular}
-\vspace{3mm}
+\vspace{2.7mm}
 
 \textbf{Highlights:}
 \begin{itemize}\small
@@ -284,7 +291,7 @@ Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
 \begin{minipage}{0.46\linewidth}
 \centering
 % TODO: replace URL below with your actual hosted video link
-\qrcode[height=4cm]{https://example.com/inisar-reconstruction-video}\\[2mm]
+\qrcode[height=4cm]{https://example.com/inisar-reconstruction-video}\\[1.62mm]
 \textbf{InISAR-Reconstructed 3D Point Cloud}\\
 \small\color{radarGrey} Full 3D reconstruction video (ffmpeg-rendered)
 \end{minipage}
@@ -292,7 +299,7 @@ Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
 \begin{minipage}{0.46\linewidth}
 \centering
 % TODO: replace URL below with your actual hosted video link
-\qrcode[height=4cm]{https://example.com/dbscan-before-after-video}\\[2mm]
+\qrcode[height=4cm]{https://example.com/dbscan-before-after-video}\\[1.62mm]
 \textbf{DBSCAN Before / After}\\
 \small\color{radarGrey} Ghost-cluster removal on non-tracking-integrated point clouds
 \end{minipage}

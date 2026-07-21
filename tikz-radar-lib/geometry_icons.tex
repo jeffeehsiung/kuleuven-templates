@@ -1,0 +1,217 @@
+% ==============================================================
+%  geometry_icons.tex  (REFACTORED)
+%  Geometry / 3D-vision icons for the Radar Night TikZ library.
+%  Standardized to [-0.55, 0.55] box and geometryColor.
+% ==============================================================
+
+% ---------------------------------------------------------------
+% \CoordinateFrame -- xyz axes triad
+% ---------------------------------------------------------------
+\newcommand{\CoordinateFrame}{%
+  \begin{scope}
+    \draw[geometryColor, -{Latex[length=2mm]}, line width=0.9pt] (-0.3,0) -- (0.3,0) node[right, font=\tiny] {x};
+    \draw[geometryColor, -{Latex[length=2mm]}, line width=0.9pt] (0,-0.3) -- (0,0.3) node[above, font=\tiny] {y};
+    \draw[geometryColor, -{Latex[length=2mm]}, line width=0.9pt] (0,0) -- (-0.25,-0.25) node[below left, font=\tiny] {z};
+    \fill[iconStroke] (0,0) circle (0.02);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \VoxelCube -- 3D occupancy grid
+% ---------------------------------------------------------------
+\newcommand{\VoxelCube}{%
+  \begin{scope}[scale=0.7]
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \coordinate (dx) at (0.2,0);
+    \coordinate (dy) at (0,0.22);
+    \coordinate (dz) at (0.12,0.08);
+    \foreach \i in {0,1,2}{
+      \foreach \j in {0,1}{
+        \pgfmathsetmacro{\shade}{30+20*\i}
+        \draw[iconStroke, line width=0.4pt, fill=geometryColor!\shade!white, fill opacity=0.6]
+          ($(-0.4,-0.35)+\i*(dx)+\j*(dy)$) --
+          ($(-0.4,-0.35)+(\i+1)*(dx)+\j*(dy)$) --
+          ($(-0.4,-0.35)+(\i+1)*(dx)+(\j+1)*(dy)$) --
+          ($(-0.4,-0.35)+\i*(dx)+(\j+1)*(dy)$) -- cycle;
+      }
+    }
+    \draw[iconStroke, line width=0.6pt] (-0.4,-0.35) -- ($(-0.4,-0.35)+(dz)$);
+    \draw[iconStroke, line width=0.6pt] (0.2,-0.35) -- ($(0.2,-0.35)+(dz)$);
+    \draw[iconStroke, line width=0.6pt] (0.2,0.09) -- ($(0.2,0.09)+(dz)$);
+    \draw[iconStroke, line width=0.6pt] (-0.4,0.09) -- ($(-0.4,0.09)+(dz)$);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PointCloud -- generic scattered points (not humanoid)
+% ---------------------------------------------------------------
+\newcommand{\PointCloud}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.35,0.25),(-0.15,0.35),(0.15,0.3),(0.4,0.15),
+                    (-0.4,0.0),(-0.05,0.05),(0.25,0.0),(0.45,-0.1),
+                    (-0.25,-0.25),(0.05,-0.3),(0.3,-0.2),(-0.45,0.35)}{
+      \fill[geometryColor] \p circle (0.035);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \ICPRegistration -- aligning two point clouds with correspondences
+% ---------------------------------------------------------------
+\newcommand{\ICPRegistration}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Source (faint)
+    \foreach \p in {(-0.4,0.25),(-0.35,-0.05),(-0.4,-0.25),(-0.15,0.1)}{
+      \fill[iconFaint] \p circle (0.035);
+    }
+    % Target (colored)
+    \foreach \p in {(-0.25,0.3),(-0.2,0.0),(-0.3,-0.2),(-0.05,0.15)}{
+      \fill[geometryColor] \p circle (0.04);
+    }
+    % Correspondences (dashed)
+    \draw[iconFaint, line width=0.4pt, dashed] (-0.4,0.25) -- (-0.25,0.3);
+    \draw[iconFaint, line width=0.4pt, dashed] (-0.35,-0.05) -- (-0.2,0.0);
+    \draw[iconFaint, line width=0.4pt, dashed] (-0.4,-0.25) -- (-0.3,-0.2);
+    % Arrow and aligned set
+    \draw[geometryColor, -{Latex[length=2mm]}, line width=0.8pt] (0.0,0.0) -- (0.15,0.0);
+    \foreach \p in {(0.32,0.2),(0.4,-0.05),(0.35,-0.25),(0.2,0.1)}{
+      \fill[geometryColor] \p circle (0.04);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \BoundingBox -- 3D bounding box around a point cluster
+% ---------------------------------------------------------------
+\newcommand{\BoundingBox}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.1,0.15),(0.05,0.2),(-0.05,-0.05),(0.1,0.0),(-0.15,-0.15),(0.0,-0.1)}{
+      \fill[iconFaint] \p circle (0.03);
+    }
+    \draw[geometryColor, line width=1.0pt, rounded corners=1.5pt] (-0.35,-0.3) rectangle (0.35,0.3);
+    \draw[geometryColor, line width=0.6pt, dashed] (-0.25,-0.2) rectangle (0.45,0.4);
+    \draw[geometryColor, line width=0.5pt] (-0.35,0.3) -- (-0.25,0.4);
+    \draw[geometryColor, line width=0.5pt] (0.35,0.3) -- (0.45,0.4);
+    \draw[geometryColor, line width=0.5pt] (0.35,-0.3) -- (0.45,-0.2);
+    \draw[geometryColor, line width=0.5pt] (-0.35,-0.3) -- (-0.25,-0.2);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \TransformMatrix -- small 3x3 matrix glyph
+% ---------------------------------------------------------------
+\newcommand{\TransformMatrix}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[iconStroke, line width=0.8pt] (-0.35,-0.35) -- (-0.45,-0.35) -- (-0.45,0.35) -- (-0.35,0.35);
+    \draw[iconStroke, line width=0.8pt] (0.35,-0.35) -- (0.45,-0.35) -- (0.45,0.35) -- (0.35,0.35);
+    \foreach \i in {0,1,2}{
+      \foreach \j in {0,1,2}{
+        \fill[geometryColor] (-0.25+\i*0.2,-0.25+\j*0.2) circle (0.025);
+      }
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \CorrespondenceLines -- matched keypoints between two views
+% ---------------------------------------------------------------
+\newcommand{\CorrespondenceLines}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[iconStroke, fill=iconFaint, rounded corners=1.5pt] (-0.5,-0.35) rectangle (-0.05,0.35);
+    \draw[iconStroke, fill=iconFaint, rounded corners=1.5pt] (0.05,-0.35) rectangle (0.5,0.35);
+    \foreach \ya/\yb in {0.15/0.1,-0.05/0.2,-0.25/-0.15}{
+      \fill[geometryColor] (-0.28,\ya) circle (0.03);
+      \fill[geometryColor] (0.28,\yb) circle (0.03);
+      \draw[geometryColor, line width=0.4pt] (-0.28,\ya) -- (0.28,\yb);
+    }
+  \end{scope}
+}
+
+% ==============================================================
+%  geometry_icons.tex  (EXTENDED)
+%  Complete geometry/3D-vision icons
+% ==============================================================
+
+% ---------------------------------------------------------------
+% \HumanSilhouette -- simple stick-figure human (for point cloud context)
+% ---------------------------------------------------------------
+\newcommand{\HumanSilhouette}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Head
+    \fill[geometryColor] (0,0.42) circle (0.04);
+    % Torso line
+    \draw[geometryColor, line width=0.7pt] (0,0.38) -- (0,0.05);
+    % Arms
+    \draw[geometryColor, line width=0.5pt] (0,0.3) -- (-0.2,0.15);
+    \draw[geometryColor, line width=0.5pt] (0,0.3) -- (0.2,0.15);
+    % Legs
+    \draw[geometryColor, line width=0.6pt] (0,0.05) -- (-0.08,-0.15);
+    \draw[geometryColor, line width=0.6pt] (0,0.05) -- (0.08,-0.15);
+    \draw[geometryColor, line width=0.6pt] (-0.08,-0.15) -- (-0.12,-0.3);
+    \draw[geometryColor, line width=0.6pt] (0.08,-0.15) -- (0.12,-0.3);
+    % Small point cloud around silhouette
+    \foreach \p in {(-0.12,0.35),(-0.08,0.28),(0.08,0.32),(0.05,0.2),(-0.12,0.1),(0.15,0.0),(-0.05,-0.1),(0.1,-0.2),(-0.15,-0.25)}{
+      \fill[iconFaint] \p circle (0.02);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \SparsePointCloud -- very few scattered points
+% ---------------------------------------------------------------
+\newcommand{\SparsePointCloud}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.35,0.2),(-0.1,0.32),(0.2,0.15),(0.4,-0.1),(-0.3,-0.15),(0.0,-0.3),(0.25,-0.2)}{
+      \fill[resultsColor] \p circle (0.04);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \DensePointCloud -- many points forming a shape
+% ---------------------------------------------------------------
+\newcommand{\DensePointCloud}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.4,0.25),(-0.35,0.15),(-0.3,0.3),(-0.25,0.05),(-0.2,0.2),(-0.15,0.35),
+                    (-0.1,0.0),(-0.05,0.15),(0.0,0.3),(0.05,0.05),(0.1,0.2),(0.15,0.35),
+                    (0.2,0.0),(0.25,0.15),(0.3,0.3),(0.35,0.05),(0.4,0.2),
+                    (-0.35,-0.1),(-0.25,-0.2),(-0.15,-0.05),(-0.05,-0.2),(0.05,-0.1),
+                    (0.15,-0.25),(0.25,-0.1),(0.35,-0.2),(-0.3,-0.3),(-0.1,-0.35),
+                    (0.1,-0.3),(0.3,-0.35)}{%
+      \fill[geometryColor] \p circle (0.025);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RigidTransform -- rotation/translation arrow between point sets
+% ---------------------------------------------------------------
+\newcommand{\RigidTransform}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Source points (faint)
+    \foreach \p in {(-0.4,0.2),(-0.3,0.0),(-0.4,-0.2),(-0.2,-0.15),(-0.25,0.15)}{
+      \fill[iconFaint] \p circle (0.03);
+    }
+    % Transform matrix symbol
+    \node[draw=geometryColor, fill=geometryColor!15, rounded corners=1pt,
+          minimum width=0.6cm, minimum height=0.4cm, font=\tiny\bfseries] (T) at (0,0) {R,T};
+    % Target points (colored)
+    \foreach \p in {(0.25,0.25),(0.35,0.05),(0.25,-0.15),(0.4,-0.2),(0.35,0.15)}{
+      \fill[geometryColor] \p circle (0.035);
+    }
+    % Arrows
+    \draw[geometryColor, -{Latex[length=1.5mm]}, line width=0.5pt] (-0.28,0.1) -- (T.west);
+    \draw[geometryColor, -{Latex[length=1.5mm]}, line width=0.5pt] (T.east) -- (0.28,0.1);
+    \draw[geometryColor, -{Latex[length=1.5mm]}, line width=0.5pt] (T.east) -- (0.28,-0.05);
+    \draw[geometryColor, -{Latex[length=1.5mm]}, line width=0.5pt] (T.east) -- (0.28,-0.2);
+  \end{scope}
+}

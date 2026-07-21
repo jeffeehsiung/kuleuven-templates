@@ -1,0 +1,243 @@
+% ==============================================================
+%  radar_styles.tex
+%  Core palette, libraries, and primitives for the Radar Night
+%  TikZ graphics library (radar processing / geometry / NN icons)
+% ==============================================================
+%
+% Usage:
+%   \input{radar_styles.tex}
+% or, if used as a package-like include inside a larger project,
+% simply \input this file once before any of the icon files.
+
+% ---------------- required TikZ libraries ---------------------
+\usetikzlibrary{
+  shapes.multipart,
+  shapes.geometric,
+  shapes.arrows,
+  arrows.meta,
+  positioning,
+  calc,
+  fit,
+  decorations.pathmorphing,
+  decorations.pathreplacing,
+  patterns,
+  patterns.meta,
+  shadows,
+  backgrounds,
+  3d
+}
+
+% ------------------------------------------------------------
+% 1. COLOR PALETTE  ("Radar Night" -- matches all diagram assets)
+% ------------------------------------------------------------
+\definecolor{radarNavy}{HTML}{1A2332}
+\definecolor{radarPurple}{HTML}{6B4E9E}
+\definecolor{radarOrange}{HTML}{E8734A}
+\definecolor{radarBlue}{HTML}{3B7A9E}
+\definecolor{radarGreen}{HTML}{4A9B6E}
+\definecolor{radarBG}{HTML}{FAFAF8}
+\definecolor{radarGrey}{HTML}{5A6472}
+\definecolor{kuldefault}{HTML}{00407a}
+\definecolor{kuldark}{HTML}{123C75}    % heading background
+\definecolor{kullight}{HTML}{F0F7FA}   % block background
+\definecolor{kulbg}{RGB}{29,141,176}   % background fill
+\definecolor{kulblue}{HTML}{00407a}
+
+\colorlet{blocktitlebgcolor}{radarBlue}
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blockbodybgcolor}{white}
+\colorlet{backgroundcolor}{radarBG}
+\colorlet{framecolor}{radarNavy}
+
+% Semantic aliases used across the library so individual icon
+% files never hard-code a raw color -- only these roles.
+\colorlet{radarProcessing}{radarBlue}   % radar-domain blocks
+\colorlet{deepLearning}{radarGreen}     % NN / learning blocks
+\colorlet{resultsColor}{radarOrange}    % results / metrics
+\colorlet{geometryColor}{radarPurple}   % geometry / point-cloud blocks
+\colorlet{iconStroke}{radarNavy}
+\colorlet{iconFaint}{radarGrey!35}
+\colorlet{cardBorder}{radarNavy}
+\colorlet{cardBG}{white}
+
+% ------------------------------------------------------------
+% 2. GLOBAL PGFKEYS  (per-module color role, size, etc.)
+% ------------------------------------------------------------
+% Every icon/card macro in this library accepts a `color=` key
+% that maps to one of the semantic roles above, so a whole
+% figure can be recolored by module without touching the icons.
+\pgfkeys{
+  /radarlib/.is family, /radarlib,
+  default/.style = {
+    color       = radarProcessing,
+    scale       = 1,
+    width       = 2.1cm,
+  },
+  color/.estore in      = \radarlibColor,
+  scale/.estore in      = \radarlibScale,
+  width/.estore in      = \radarlibWidth,
+}
+\pgfkeys{/radarlib, default}
+
+% ------------------------------------------------------------
+% 3. FONTS / TEXT STYLES
+% ------------------------------------------------------------
+\tikzset{
+  card title/.style   = {font=\sffamily\bfseries\footnotesize, text=blocktitlefgcolor},
+  card subtitle/.style = {font=\sffamily\footnotesize, text=radarGrey},
+  metric number/.style = {font=\sffamily\bfseries\Large, text=radarNavy},
+  metric label/.style  = {font=\sffamily\footnotesize, text=radarGrey},
+}
+% Plain-text equivalents of the styles above, for use *inside*
+% already-open node text (where a tikz style key can't be
+% invoked directly) -- e.g. {\metricNumberFont 73.8\%}.
+\newcommand{\cardTitleFont}{\sffamily\bfseries\footnotesize\color{blocktitlefgcolor}}
+\newcommand{\cardSubtitleFont}{\sffamily\footnotesize\color{radarGrey}}
+\newcommand{\metricNumberFont}{\sffamily\bfseries\Large\color{radarNavy}}
+\newcommand{\metricLabelFont}{\sffamily\footnotesize\color{radarGrey}}
+
+% ------------------------------------------------------------
+% 4. FLOW ARROW  (the connector used between every pipeline stage)
+% ------------------------------------------------------------
+% Usage:  \draw[flow] (a) -- (b);
+%         \draw[flow, color=deepLearning] (a) -- (b);
+\tikzset{
+  flow/.style = {
+    -{Latex[length=2.6mm, width=2mm]},
+    line width=0.9pt,
+    draw=radarNavy,
+    shorten <=1pt,
+    shorten >=1pt,
+  },
+  flow dashed/.style = {
+    flow,
+    dash pattern=on 2.5pt off 2pt,
+  },
+}
+
+% Convenience macro so a simple horizontal/vertical chain reads
+% declaratively: \PipelineArrow{a}{b}
+\newcommand{\PipelineArrow}[3][flow]{\draw[#1] (#2) -- (#3);}
+
+% ------------------------------------------------------------
+% 5. PROCESS CARD
+% ------------------------------------------------------------
+% The workhorse of the whole poster: an icon on top, a colored
+% title bar on the bottom, rounded corners, subtle border.
+% Built on the `rectangle split` shape so the icon and title
+% live in one node (keeps alignment automatic).
+%
+% Usage inside a tikzpicture:
+%   \ProcessCard{a}{Raw Radar}{\RadarCube}
+%   \ProcessCard[right=1.4cm of a, titlecolor=deepLearning]{b}{Range FFT}{\RangeFFT}
+%
+% Args: #1 = extra node options (positioning etc, optional)
+%       #2 = node name
+%       #3 = title text
+%       #4 = icon content (TikZ draw commands, drawn in a small
+%            nested picture with origin at the card center)
+\tikzset{
+  process card/.style = {
+    rectangle split,
+    rectangle split parts=2,
+    rectangle split part align={center, center},
+    draw=cardBorder,
+    line width=0.8pt,
+    rounded corners=4pt,
+    text width=2.1cm,
+    align=center,
+    inner sep=5pt,
+    drop shadow={shadow xshift=0.6pt, shadow yshift=-0.6pt, opacity=0.25},
+    rectangle split part fill={cardBG, radarProcessing},
+  },
+  % Safe way to recolor a single card's title bar, e.g.:
+  %   \ProcessCard[card color=deepLearning]{b}{Range FFT}{...}
+  % (Do not set `fill=` directly on a process card -- it conflicts
+  % with `rectangle split part fill` and blanks the node.)
+  card color/.style = {rectangle split part fill={cardBG, #1}},
+}
+
+\newcommand{\ProcessCard}[4][]{%
+  \node[process card, #1] (#2) {%
+    \nodepart{one}
+      \begin{tikzpicture}[baseline, remember picture, every node/.style={shape=rectangle}]
+        #4
+      \end{tikzpicture}
+    \nodepart{two}
+      \textcolor{blocktitlefgcolor}{\sffamily\bfseries\footnotesize #3}
+  };%
+}
+
+% ------------------------------------------------------------
+% 6. METRIC BOX  (the big "73.8% IoU" style callouts)
+% ------------------------------------------------------------
+% Usage: \MetricBox{a}{0,0}{73.8\%}{IoU}
+\newcommand{\MetricBox}[4]{%
+  \node[align=center, inner sep=2pt] (#1) at (#2) {%
+    {\metricNumberFont #3}\\[1pt]
+    {\metricLabelFont #4}%
+  };%
+}
+
+% ------------------------------------------------------------
+% 7. LEGEND BOX  (small colored swatch + label, for figure legends)
+% ------------------------------------------------------------
+% Usage: \LegendSwatch{0,0}{radarBlue}{Radar processing}
+\newcommand{\LegendSwatch}[3]{%
+  \begin{scope}[shift={(#1)}]
+    \node[fill=#2, rounded corners=1.5pt, minimum width=10pt, minimum height=10pt, anchor=west] (sw) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=4pt of sw] {#3};
+  \end{scope}
+}
+
+% ------------------------------------------------------------
+% 8. SECTION HEADER  (poster column headers, e.g. "Contribution 1")
+% ------------------------------------------------------------
+\newcommand{\SectionHeader}[2][radarProcessing]{%
+  \node[fill=#1, text=white, rounded corners=2pt, inner sep=6pt,
+        font=\sffamily\bfseries\normalsize, minimum width=4cm] {#2};%
+}
+
+% ------------------------------------------------------------
+% 9. RESULTS TABLE  (palette-matched booktabs-style table)
+% ------------------------------------------------------------
+% Not a TikZ node -- a small LaTeX environment wrapper so results
+% tables share the same fonts/colors/weight as the figures. Needs
+% \usepackage{booktabs} and \usepackage[table]{xcolor} in the
+% poster/paper preamble.
+%
+% Usage:
+%   \begin{ResultsTable}{lcc}
+%     Method          & Supervised & Few-shot \\
+%     TCPCN           & 96.2       & 35.1     \\
+%     PCTtrans        & 99.0       & 32.0     \\
+%     \BestRow Ours + Pretrain & 94.4 & 70.0  \\
+%   \end{ResultsTable}
+\newenvironment{ResultsTable}[1]{%
+  \renewcommand{\arraystretch}{1.35}%
+  \begin{tabular}{#1}
+  \toprule
+}{%
+  \bottomrule
+  \end{tabular}%
+}
+% Header row: white bold text on the radarProcessing band. Formatting
+% resets after \midrule so it doesn't bleed into the data rows below.
+\newcommand{\HeaderRow}[1]{%
+  \rowcolor{radarProcessing}\bfseries\color{white}#1\\
+  \midrule
+  \normalfont\color{black}%
+}
+% Highlight a single data row (e.g. your best result) in results color.
+\newcommand{\BestRow}{\rowcolor{resultsColor!25}}
+
+% ------------------------------------------------------------
+% 10. LEGEND BOX (complete)
+% ------------------------------------------------------------
+% Usage: \LegendBox{x}{y}{color}{label}
+\newcommand{\LegendBox}[4]{%
+  \begin{scope}[shift={(#1,#2)}]
+    \node[fill=#3, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw) at (0,0) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw] {#4};
+  \end{scope}
+}

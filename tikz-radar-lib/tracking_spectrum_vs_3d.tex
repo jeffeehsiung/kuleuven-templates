@@ -1,0 +1,161 @@
+% Figure 2: Tracking in 3D Spatial Domain vs. Range-Doppler
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{tracking_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=1.2cm]
+
+% Title - moved up
+\node[font=\sffamily\bfseries\Large, text=radarNavy] (title) at (0,2.2)
+    {Tracking in 3D Spatial Domain vs. Range-Doppler};
+
+% ---- LEFT: DBSCAN on Range-Doppler (FAILS) ----
+\ProcessCard[card color=resultsColor, text width=4.0cm]{rangedoppler}{Range-Doppler Domain}{
+    \begin{scope}[scale=0.55]
+        % Range-Doppler grid
+        \draw[iconFaint, line width=0.3pt] (-0.55,-0.4) rectangle (0.55,0.4);
+        \foreach \x in {-0.4,-0.2,0,0.2,0.4}{
+            \draw[iconFaint, line width=0.2pt] (\x,-0.4) -- (\x,0.4);
+        }
+        \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
+            \draw[iconFaint, line width=0.2pt] (-0.55,\y) -- (0.55,\y);
+        }
+        % True target (range=0, doppler=0)
+        \fill[radarGreen] (0,0) circle (0.06);
+        \node[font=\footnotesize, text=radarGreen, anchor=south] at (0,0.06) {target};
+        % Ghosts (scattered across range-doppler) with explicit labels
+        \draw[radarOrange, line width=0.6pt] (-0.3,0.2) circle (0.05);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.3,0.2) circle (0.08);
+        \node[font=\footnotesize, text=radarOrange, anchor=south west] at (-0.3,0.28) {ghost};
+        \draw[radarOrange, line width=0.6pt] (-0.2,-0.25) circle (0.05);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.2,-0.25) circle (0.08);
+        \node[font=\footnotesize, text=radarOrange, anchor=north west] at (-0.2,-0.33) {ghost};
+        \draw[radarOrange, line width=0.6pt] (0.25,-0.15) circle (0.05);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.25,-0.15) circle (0.08);
+        \node[font=\footnotesize, text=radarOrange, anchor=north] at (0.25,-0.23) {ghost};
+        \draw[radarOrange, line width=0.6pt] (0.35,0.25) circle (0.05);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.35,0.25) circle (0.08);
+        \node[font=\footnotesize, text=radarOrange, anchor=south] at (0.35,0.33) {ghost};
+        \node[font=\footnotesize, text=radarOrange, anchor=north] at (0.0,-0.42) {ghosts overlap in RD};
+        % Labels
+        \node[font=\footnotesize, text=radarGrey, anchor=north] at (-0.55,-0.45) {Range};
+        \node[font=\footnotesize, text=radarGrey, rotate=90, anchor=south] at (-0.65,0) {Doppler};
+    \end{scope}
+}
+
+% ---- MIDDLE: DBSCAN in 3D (PARTIALLY FAILS) ----
+\ProcessCard[right=1.2cm of rangedoppler, card color=resultsColor, text width=4.0cm]{dbscan3d}{DBSCAN + 3D Spatial}{
+    \begin{scope}[scale=0.55]
+        \coordinate (o) at (-0.4,-0.3);
+        \coordinate (dx) at (0.3,0);
+        \coordinate (dy) at (0,0.35);
+        \coordinate (dz) at (0.15,0.06);
+        
+        % Floor grid
+        \draw[iconFaint, line width=0.3pt] 
+            (o) -- ($(o)+(dx)$) -- ($(o)+(dx)+(dy)$) -- ($(o)+(dy)$) -- cycle;
+        \draw[iconFaint, line width=0.2pt] 
+            ($(o)+0.5*(dx)$) -- ($(o)+0.5*(dx)+(dy)$);
+        \draw[iconFaint, line width=0.2pt] 
+            ($(o)+0.5*(dy)$) -- ($(o)+(dx)+0.5*(dy)$);
+        
+        % True target (above floor)
+        \fill[radarGreen] (0.0,0.25,0.0) circle (0.05);
+        \draw[radarGreen, line width=0.3pt, dashed] (0.0,-0.3,0.0) -- (0.0,0.25,0.0);
+        \node[font=\footnotesize, text=radarGreen, anchor=south] at (0.0,0.35,0.0) {target};
+        
+        % Ghosts (forming clusters that DBSCAN cannot separate) with labels spread
+        \draw[radarOrange, line width=0.5pt] (0.15,-0.1,0.05) circle (0.04);
+        \draw[radarOrange, line width=0.3pt, dashed] (0.15,-0.1,0.05) circle (0.07);
+        \draw[radarOrange, line width=0.5pt] (0.25,-0.15,0.08) circle (0.04);
+        \draw[radarOrange, line width=0.3pt, dashed] (0.25,-0.15,0.08) circle (0.07);
+        \draw[radarOrange, line width=0.5pt] (0.2,-0.05,0.12) circle (0.04);
+        \draw[radarOrange, line width=0.3pt, dashed] (0.2,-0.05,0.12) circle (0.07);
+        
+        % Ghost cluster label - place above cluster
+        \draw[radarOrange, line width=0.4pt, dashed] (0.15,-0.1,0.05) ellipse (0.12 and 0.1);
+        \node[font=\footnotesize, text=radarOrange, anchor=south] at (0.15,-0.1,0.05) [yshift=0.15cm] {ghost cluster};
+        
+        % Coordinate axes
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0.5,0,0)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=west] at (0.5,-0.3,0) {x};
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0,0.5,0)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=south] at (0,0.5,0) {z};
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0,0,0.4)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=south east] at (0,0,0.4) {y};
+        
+        % Bottom annotations - moved down
+        \node[font=\footnotesize, text=radarGrey, anchor=north] at (0,-0.65) {ghosts appear as separate clusters};
+        \node[font=\footnotesize, text=resultsColor, anchor=north] at (0,-0.75) {DBSCAN: \textbf{fails to distinguish}};
+    \end{scope}
+}
+
+% ---- RIGHT: EKF-JPDA in 3D (SUCCEEDS) ----
+\ProcessCard[right=1.2cm of dbscan3d, card color=geometryColor, text width=4.0cm]{ekf3d}{EKF-JPDA + 3D Spatial}{
+    \begin{scope}[scale=0.55]
+        \coordinate (o) at (-0.4,-0.3);
+        \coordinate (dx) at (0.3,0);
+        \coordinate (dy) at (0,0.35);
+        \coordinate (dz) at (0.15,0.06);
+        
+        % Floor grid
+        \draw[iconFaint, line width=0.3pt] 
+            (o) -- ($(o)+(dx)$) -- ($(o)+(dx)+(dy)$) -- ($(o)+(dy)$) -- cycle;
+        
+        % True target trajectory (smooth)
+        \draw[geometryColor, line width=1.0pt]
+            (-0.2,0.15,0.0) .. controls (-0.1,0.25,0.02) .. (0.0,0.2,0.04)
+            .. controls (0.1,0.15,0.06) .. (0.25,0.1,0.05);
+        \fill[radarGreen] (-0.2,0.15,0.0) circle (0.04);
+        \fill[radarGreen] (-0.1,0.22,0.02) circle (0.04);
+        \fill[radarGreen] (0.0,0.2,0.04) circle (0.04);
+        \fill[radarGreen] (0.1,0.18,0.05) circle (0.04);
+        \fill[radarGreen] (0.25,0.1,0.05) circle (0.04);
+        
+        % Filtered state (with covariance)
+        \fill[geometryColor] (0.25,0.1,0.05) circle (0.05);
+        \draw[geometryColor, line width=0.4pt] (0.25,0.1,0.05) ellipse (0.08 and 0.05);
+        \node[font=\footnotesize, text=geometryColor, anchor=south] at (0.25,0.15,0.05) {tracked};
+        
+        % Ghosts (rejected by JPDA, shown as faded)
+        \draw[iconFaint, line width=0.4pt] (0.15,-0.1,0.05) circle (0.03);
+        \draw[iconFaint, line width=0.3pt, dashed] (0.15,-0.1,0.05) circle (0.05);
+        \draw[iconFaint, line width=0.4pt] (0.25,-0.15,0.08) circle (0.03);
+        \draw[iconFaint, line width=0.3pt, dashed] (0.25,-0.15,0.08) circle (0.05);
+        \draw[iconFaint, line width=0.4pt] (0.2,-0.05,0.12) circle (0.03);
+        \draw[iconFaint, line width=0.3pt, dashed] (0.2,-0.05,0.12) circle (0.05);
+        \node[font=\footnotesize, text=iconFaint, anchor=north] at (0.2,-0.2,0.0) {rejected};
+        
+        % JPDA association arrows
+        \draw[iconFaint, line width=0.3pt, ->] (-0.1,0.22,0.02) -- (0.0,0.2,0.04);
+        \draw[iconFaint, line width=0.3pt, ->] (0.0,0.2,0.04) -- (0.1,0.18,0.05);
+        
+        % Coordinate axes
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0.5,0,0)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=west] at (0.5,-0.3,0) {x};
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0,0.5,0)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=south] at (0,0.5,0) {z};
+        \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (o) -- ($(o)+(0,0,0.4)$);
+        \node[font=\footnotesize, text=radarGrey, anchor=south east] at (0,0,0.4) {y};
+        
+        % Bottom annotations
+        \node[font=\footnotesize, text=radarGrey, anchor=north] at (0,-0.65) {ghosts rejected via JPDA};
+        \node[font=\footnotesize, text=geometryColor, anchor=north] at (0,-0.75) {EKF-JPDA: \textbf{clean tracking}};
+    \end{scope}
+}
+
+% ---- FLOW ARROWS BETWEEN COLUMNS ----
+\draw[flow, color=resultsColor] (rangedoppler) -- (dbscan3d);
+\draw[flow, color=geometryColor] (dbscan3d) -- (ekf3d);
+
+% ---- BOTTOM: COMPARISON RESULT ----
+\node[font=\sffamily\bfseries\normalsize, text=radarProcessing, below=1.5cm of dbscan3d] (bottom) at (0,-1.0)
+    {Why DBSCAN fails in 3D: ghost clusters mimic real objects. EKF-JPDA uses temporal consistency to reject ghosts.};
+
+\end{tikzpicture}
+\end{document}

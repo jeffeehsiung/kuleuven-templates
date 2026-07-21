@@ -1,0 +1,396 @@
+% ==============================================================
+%  nn_icons.tex  (REFACTORED & MERGED)
+%  Deep-learning icons for the Radar Night TikZ library.
+%  Color role: deepLearning (radarGreen).
+% ==============================================================
+
+% ---------------------------------------------------------------
+% \ConvBlock -- stacked feature maps
+% ---------------------------------------------------------------
+\newcommand{\ConvBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \i/\o in {0/0.12, 1/0.06, 2/0}{
+      \draw[iconStroke, fill=deepLearning!\the\numexpr30+20*\i!white, rounded corners=1pt]
+        (-0.35+\o,-0.25+\o) rectangle (0.1+\o,0.25+\o);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MLPBlock -- small fully connected network
+% ---------------------------------------------------------------
+\newcommand{\MLPBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \def\layerA{-0.35/0.25,-0.35/0,-0.35/-0.25}
+    \def\layerB{-0.02/0.28,-0.02/0.09,-0.02/-0.09,-0.02/-0.28}
+    \def\layerC{0.32/0.14,0.32/-0.14}
+    \foreach \xa/\ya in \layerA{
+      \foreach \xb/\yb in \layerB{
+        \draw[iconFaint, line width=0.15pt] (\xa,\ya) -- (\xb,\yb);
+      }
+    }
+    \foreach \xb/\yb in \layerB{
+      \foreach \xc/\yc in \layerC{
+        \draw[iconFaint, line width=0.15pt] (\xb,\yb) -- (\xc,\yc);
+      }
+    }
+    \foreach \x/\y in \layerA{ \fill[deepLearning] (\x,\y) circle (2.2pt); }
+    \foreach \x/\y in \layerB{ \fill[deepLearning] (\x,\y) circle (2.2pt); }
+    \foreach \x/\y in \layerC{ \fill[deepLearning] (\x,\y) circle (2.2pt); }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \AttentionBlock -- Q, K, V with attention map
+% ---------------------------------------------------------------
+\newcommand{\AttentionBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \node[draw=iconStroke, fill=deepLearning!25, rounded corners=1.5pt, minimum width=0.45cm, minimum height=0.14cm, font=\tiny] (q) at (-0.28,0.2)  {Q};
+    \node[draw=iconStroke, fill=deepLearning!25, rounded corners=1.5pt, minimum width=0.45cm, minimum height=0.14cm, font=\tiny] (k) at (-0.28,0)    {K};
+    \node[draw=iconStroke, fill=deepLearning!25, rounded corners=1.5pt, minimum width=0.45cm, minimum height=0.14cm, font=\tiny] (v) at (-0.28,-0.2) {V};
+    \node[draw=iconStroke, fill=deepLearning, text=white, rounded corners=1.5pt, minimum width=0.5cm, minimum height=0.5cm, font=\tiny] (a) at (0.25,0) {Attn};
+    \draw[iconStroke, line width=0.4pt] (q) -- (a);
+    \draw[iconStroke, line width=0.4pt] (k) -- (a);
+    \draw[iconStroke, line width=0.4pt] (v) -- (a);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \TransformerBlock -- Self-Attn + FFN with residual
+% ---------------------------------------------------------------
+\newcommand{\TransformerBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \node[draw=iconStroke, fill=deepLearning!30, rounded corners=2pt, minimum width=0.7cm, minimum height=0.16cm, font=\tiny] (mha) at (0,0.15) {Self-Attn};
+    \node[draw=iconStroke, fill=deepLearning, text=white, rounded corners=2pt, minimum width=0.7cm, minimum height=0.16cm, font=\tiny] (ffn) at (0,-0.15) {FFN};
+    \draw[iconStroke, line width=0.5pt] (mha) -- (ffn);
+    \draw[iconStroke, line width=0.4pt] (-0.4,0.15) .. controls (-0.5,0) .. (-0.4,-0.15);
+    \draw[iconStroke, -{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.15) -- (-0.35,-0.15);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \FPSBlock -- farthest point sampling (dense -> sparse)
+% ---------------------------------------------------------------
+\newcommand{\FPSBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.4,0.2),(-0.3,-0.1),(-0.15,0.3),(-0.1,0),(-0.35,-0.25),(-0.05,-0.2),(-0.25,0.05)}{
+      \fill[iconFaint] \p circle (0.03);
+    }
+    \draw[deepLearning, -{Latex[length=2mm]}, line width=0.7pt] (-0.02,0) -- (0.12,0);
+    \foreach \p in {(0.28,0.22),(0.4,-0.1),(0.22,-0.28)}{
+      \fill[deepLearning] \p circle (0.05);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \kNNBlock -- center point with k-nearest neighbors circled
+% ---------------------------------------------------------------
+\newcommand{\kNNBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.3,0.25),(0.05,0.3),(0.3,0.1),(0.2,-0.2),(-0.15,-0.25),(-0.35,-0.05)}{
+      \fill[iconFaint] \p circle (0.03);
+    }
+    \fill[deepLearning] (0,0) circle (0.04);
+    \draw[deepLearning, dashed, line width=0.5pt] (0,0) circle (0.32);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PCTBlock -- Point Cloud Transformer (points -> feature)
+% ---------------------------------------------------------------
+\newcommand{\PCTBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \p in {(-0.42,0.15),(-0.42,-0.15),(-0.3,0.28),(-0.3,0),(-0.3,-0.28)}{
+      \fill[iconFaint] \p circle (0.025);
+    }
+    \node[draw=iconStroke, fill=deepLearning, text=white, rounded corners=2pt,
+          minimum width=0.7cm, minimum height=0.4cm, font=\tiny\bfseries] (pct) at (0.0,0) {PCT};
+    \draw[iconStroke, line width=0.4pt] (-0.28,0.1) -- (pct.west);
+    \draw[iconStroke, line width=0.4pt] (-0.28,-0.1) -- (pct.west);
+    \draw[deepLearning, -{Latex[length=1.8mm]}, line width=0.6pt] (pct.east) -- (0.5,0);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \GeoTransformerBlock -- geometric transformer (points + edges)
+% ---------------------------------------------------------------
+\newcommand{\GeoTransformerBlock}[1][deepLearning]{%
+  \begin{scope}
+    \foreach \p in {(-0.3,0.25),(0.05,0.32),(0.32,0.08),(0.2,-0.25),(-0.2,-0.3),(-0.35,0)}{
+      \fill[#1] \p circle (0.035);
+    }
+    \draw[iconFaint, line width=0.3pt]
+      (-0.3,0.25) -- (0.05,0.32) -- (0.32,0.08) -- (0.2,-0.25) -- (-0.2,-0.3) -- (-0.35,0) -- cycle;
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \FrameWisePCT -- shared PCT applied to multiple frames
+% ---------------------------------------------------------------
+\newcommand{\FrameWisePCT}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \i/\y in {1/0.2,2/0.0,3/-0.2}{
+      \draw[iconFaint, rounded corners=1pt]
+        (-0.4,\y-0.08) rectangle (0.0,\y+0.08);
+      \node[font=\tiny, text=radarGrey] at (-0.2,\y) {$\mathcal{P}_{t+\i-1}$};
+      \draw[iconFaint, line width=0.3pt, ->] (0.02,\y) -- (0.12,\y);
+    }
+    \node[draw=deepLearning, fill=deepLearning!20, rounded corners=2pt,
+          minimum width=0.32cm, minimum height=0.8cm, font=\tiny\bfseries] at (0.28,0) {PCT};
+    \foreach \i/\y in {1/0.2,2/0.0,3/-0.2}{
+      \draw[deepLearning, line width=0.4pt, ->] (0.44,\y) -- (0.55,\y);
+      \node[font=\tiny, text=deepLearning, right] at (0.55,\y) {$\mathbf{f}_{t+\i-1}$};
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PCTEncoder -- Point Cloud Transformer block
+% ---------------------------------------------------------------
+\newcommand{\PCTEncoder}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Input points
+    \foreach \p in {(-0.35,0.2),(-0.25,-0.05),(-0.35,-0.2),(-0.15,0.15),(-0.05,-0.15)}{
+      \fill[iconFaint] \p circle (0.025);
+    }
+    % PCT box
+    \node[draw=deepLearning, fill=deepLearning!20, rounded corners=2pt,
+          minimum width=0.5cm, minimum height=0.5cm, font=\tiny\bfseries] (pct) at (0.05,0) {PCT};
+    % Arrows from points to PCT
+    \draw[iconFaint, line width=0.3pt] (-0.28,0.1) -- (pct.west);
+    \draw[iconFaint, line width=0.3pt] (-0.28,-0.1) -- (pct.west);
+    \draw[iconFaint, line width=0.3pt] (-0.08,0.05) -- (pct.west);
+    % Output feature
+    \draw[deepLearning, -{Latex[length=2mm]}, line width=0.8pt] (pct.east) -- (0.48,0);
+    \node[font=\tiny, text=deepLearning, above right=-2pt of {0.48,0}] {$\mathbf{f}_t$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \TemporalTransformer -- sequence modeling with attention
+% ---------------------------------------------------------------
+\newcommand{\TemporalTransformer}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \i/\x in {1/-0.35,2/-0.15,3/0.05,4/0.25}{
+      \draw[deepLearning, fill=deepLearning!30, rounded corners=1pt]
+        (\x,-0.15) rectangle (\x+0.08,0.15);
+      \node[font=\tiny, text=deepLearning!70] at (\x+0.04,0) {$\mathbf{f}_\i$};
+    }
+    \draw[deepLearning, line width=0.4pt, dashed, opacity=0.6]
+      (-0.35,0.2) .. controls (-0.2,0.35) .. (0.05,0.2);
+    \draw[deepLearning, line width=0.4pt, dashed, opacity=0.6]
+      (-0.15,0.2) .. controls (0.0,0.35) .. (0.25,0.2);
+    \draw[deepLearning, line width=0.4pt, dashed, opacity=0.6]
+      (0.05,0.2) .. controls (0.2,0.35) .. (0.4,0.2);
+    \node[font=\tiny, text=radarGrey] at (0,-0.32) {+PE};
+    \draw[deepLearning, -{Latex[length=1.8mm]}, line width=0.8pt] (0.48,0) -- (0.55,0);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \TemporalTransformerBlock -- sequence of frames -> temporal attention
+% ---------------------------------------------------------------
+\newcommand{\TemporalTransformerBlock}[1][deepLearning]{%
+  \begin{scope}
+    \foreach \x/\i in {-0.4/1,-0.18/2,0.04/3,0.26/4}{
+      \draw[iconStroke, fill=#1!\the\numexpr15*\i!white, rounded corners=1pt]
+        (\x,-0.22) rectangle (\x+0.16,0.22);
+    }
+    \draw[iconStroke, dashed, line width=0.4pt] (-0.32,0.3) .. controls (0,0.44) .. (0.34,0.3);
+    \node[font=\tiny, text=iconStroke] at (0,0.42) {t};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MAML -- Meta-Learning framework
+% ---------------------------------------------------------------
+\newcommand{\MAML}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Meta-parameter θ
+    \node[circle, draw=deepLearning, fill=deepLearning!80, minimum size=9pt, inner sep=0] (theta) at (0,0.05) {};
+    \node[font=\tiny\bfseries, text=white] at (0,0.05) {$\theta$};
+    % Inner loop adaptations
+    \foreach \a/\lab in {-120/1,0/2,120/3}{
+      \coordinate (t\lab) at ($(theta)+(\a:0.35)$);
+      \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.6pt] (theta) -- (t\lab);
+      \node[circle, draw=deepLearning, fill=deepLearning!30, minimum size=6pt, inner sep=0] at (t\lab) {};
+      \node[font=\tiny, text=deepLearning, below right=-2pt of t\lab] {$\theta'_\lab$};
+    }
+    % Support/Query labels
+    \node[font=\tiny, text=radarGrey] at (-0.3,0.35) {Support};
+    \node[font=\tiny, text=radarGrey] at (0.3,0.35) {Query};
+    % Outer loop arrow
+    \draw[resultsColor, line width=1.2pt, -{Latex[length=2mm]}] (0.4,-0.3) arc (0:-180:0.3);
+    \node[font=\tiny, text=resultsColor, left=-2pt of {-0.1,-0.35}] {Outer};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MAMLBlock -- meta-init radiating into task-specific adaptations
+% ---------------------------------------------------------------
+\newcommand{\MAMLBlock}[1][deepLearning]{%
+  \begin{scope}
+    \node[circle, draw=iconStroke, fill=#1, minimum size=9pt, inner sep=0] (m) at (0,0.05) {};
+    \foreach \a/\lab in {160/1,20/2,-90/3}{
+      \coordinate (t\lab) at ($(m)+(\a:0.4)$);
+      \draw[iconStroke, -{Latex[length=1.6mm]}, line width=0.5pt] (m) -- (t\lab);
+      \node[circle, draw=iconStroke, fill=#1!35, minimum size=6pt, inner sep=0] at (t\lab) {};
+    }
+    \node[font=\tiny, text=iconStroke] at (0,0.22) {$\theta$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MetaUpdateBlock -- inner-loop / outer-loop update arrows
+% ---------------------------------------------------------------
+\newcommand{\MetaUpdateBlock}[1][deepLearning]{%
+  \begin{scope}
+    \draw[#1, line width=1.1pt, -{Latex[length=1.8mm]}] (-0.18,0.16) arc (140:-140:0.2);
+    \draw[iconStroke, line width=0.9pt, -{Latex[length=1.6mm]}] (0.22,0.3) arc (140:-140:0.34);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \SupportQuerySplit -- few labeled (support) vs unlabeled (query)
+% ---------------------------------------------------------------
+\newcommand{\SupportQuerySplit}[1][deepLearning]{%
+  \begin{scope}
+    \draw[iconFaint, dashed, line width=0.4pt] (0,-0.4) -- (0,0.4);
+    \foreach \p in {(-0.32,0.2),(-0.18,-0.1),(-0.32,-0.25)}{
+      \fill[#1] \p circle (0.04);
+    }
+    \foreach \p in {(0.18,0.25),(0.32,0),(0.16,-0.25),(0.34,-0.15)}{
+      \draw[radarGrey, line width=0.5pt] \p circle (0.03);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PreTrainedMAML -- Two-phase pre-training + meta-learning
+% ---------------------------------------------------------------
+\newcommand{\PreTrainedMAML}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Phase 1
+    \draw[deepLearning, line width=0.7pt, rounded corners=2pt] (-0.45,0.15) rectangle (-0.05,0.35);
+    \node[font=\tiny\bfseries, text=deepLearning] at (-0.25,0.25) {Phase 1};
+    \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.5pt] (-0.05,0.25) -- (0.05,0.25);
+    % θ₀^PT
+    \node[circle, draw=resultsColor, fill=resultsColor!80, minimum size=8pt, inner sep=0] (pt) at (0.1,0.25) {};
+    \node[font=\tiny\bfseries, text=white] at (0.1,0.25) {$\theta_0^{PT}$};
+    % Phase 2
+    \draw[deepLearning, line width=0.7pt, rounded corners=2pt] (-0.45,-0.35) rectangle (-0.05,-0.15);
+    \node[font=\tiny\bfseries, text=deepLearning] at (-0.25,-0.25) {Phase 2};
+    \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.5pt] (-0.05,-0.25) -- (0.05,-0.25);
+    \draw[deepLearning, line width=0.5pt] (0.1,0.2) -- (0.1,-0.2);
+    \node[circle, draw=deepLearning, fill=deepLearning!80, minimum size=8pt, inner sep=0] (meta) at (0.1,-0.15) {};
+    \node[font=\tiny\bfseries, text=white] at (0.1,-0.15) {MAML};
+    \draw[resultsColor, line width=0.9pt, -{Latex[length=1.5mm]}] (0.2,0.25) -- (0.2,-0.15);
+    \node[font=\tiny, text=resultsColor] at (0.35,-0.05) {+15.6pp};
+  \end{scope}
+}
+
+% ==============================================================
+%  ml_icons_extended.tex
+%  Additional deep learning primitives
+% ==============================================================
+
+% ---------------------------------------------------------------
+% \FeatureTensor -- 3D feature tensor representation
+% ---------------------------------------------------------------
+\newcommand{\FeatureTensor}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \coordinate (o) at (-0.3,-0.3);
+    \coordinate (dx) at (0.45,0);
+    \coordinate (dy) at (0,0.45);
+    \coordinate (dz) at (0.15,0.08);
+    % Front face (feature map)
+    \draw[iconStroke, fill=deepLearning!20] (o) -- ($(o)+(dx)$) -- ($(o)+(dx)+(dy)$) -- ($(o)+(dy)$) -- cycle;
+    % Top face
+    \draw[iconStroke, fill=deepLearning!10] ($(o)+(dy)$) -- ($(o)+(dy)+(dx)$) -- ($(o)+(dy)+(dx)+(dz)$) -- ($(o)+(dy)+(dz)$) -- cycle;
+    % Side face
+    \draw[iconStroke, fill=deepLearning!5] ($(o)+(dx)$) -- ($(o)+(dx)+(dz)$) -- ($(o)+(dx)+(dz)+(dy)$) -- ($(o)+(dx)+(dy)$) -- cycle;
+    \node[font=\tiny, text=deepLearning] at (0,0) {F};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PoolingBlock -- max/average pooling symbol
+% ---------------------------------------------------------------
+\newcommand{\PoolingBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Input grid
+    \foreach \x in {-0.3,-0.15,0,0.15,0.3}{
+      \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
+        \fill[iconFaint] (\x,\y) circle (0.025);
+      }
+    }
+    % Pooling window
+    \draw[deepLearning, line width=0.8pt] (-0.15,-0.15) rectangle (0.15,0.15);
+    % Output (smaller)
+    \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.6pt] (0.0,0.35) -- (0.0,0.48);
+    \fill[deepLearning] (0.0,0.48) circle (0.035);
+    \node[font=\tiny, text=deepLearning, above] at (0.0,0.52) {pool};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \ClassificationBlock -- FC + Softmax
+% ---------------------------------------------------------------
+\newcommand{\ClassificationBlock}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Input feature
+    \fill[deepLearning] (-0.4,0) circle (0.035);
+    \draw[deepLearning, line width=0.5pt] (-0.37,0) -- (-0.25,0);
+    % FC layer
+    \node[draw=deepLearning, fill=deepLearning!20, rounded corners=1pt,
+          minimum width=0.4cm, minimum height=0.3cm, font=\tiny] (fc) at (0.0,0) {FC};
+    \draw[deepLearning, line width=0.5pt] (-0.25,0) -- (fc.west);
+    % Softmax output
+    \draw[deepLearning, line width=0.5pt] (fc.east) -- (0.25,0);
+    \foreach \i/\y in {0/0.2,1/0.0,2/-0.2}{
+      \draw[resultsColor, line width=0.4pt] (0.3,\y) -- (0.45,\y);
+    }
+    \node[font=\tiny, text=resultsColor, right] at (0.5,0) {softmax};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \DBSCAN -- DBSCAN clustering visualization
+% ---------------------------------------------------------------
+\newcommand{\DBSCAN}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Core points (filled)
+    \foreach \p in {(-0.3,0.2),(-0.2,0.0),(-0.1,0.25),(0.0,0.1),(0.1,0.3),(0.2,0.0),(0.3,0.2)}{
+      \fill[radarGreen] \p circle (0.035);
+      \draw[radarGreen, line width=0.3pt, dashed] \p circle (0.08);
+    }
+    % Border points
+    \foreach \p in {(-0.4,-0.1),(-0.2,-0.15),(0.0,-0.2),(0.2,-0.1),(0.4,-0.15)}{
+      \fill[radarGreen, opacity=0.6] \p circle (0.025);
+    }
+    % Noise points (outliers)
+    \foreach \p in {(-0.35,-0.3),(-0.1,-0.35),(0.35,-0.3)}{
+      \draw[resultsColor, line width=0.5pt] \p circle (0.025);
+    }
+    % Cluster label
+    \node[font=\tiny, text=radarGreen] at (-0.15,0.3) {cluster};
+    \node[font=\tiny, text=resultsColor] at (0.3,-0.35) {noise};
+  \end{scope}
+}

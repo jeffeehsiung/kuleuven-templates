@@ -1,0 +1,545 @@
+% ==============================================================
+%  radar_icons.tex  (REFACTORED)
+%  All icons use local [-0.55,0.55] box and semantic colors.
+% ==============================================================
+
+% ---------------------------------------------------------------
+% \FMCWChirp -- frequency vs time sawtooth
+% ---------------------------------------------------------------
+\newcommand{\FMCWChirp}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Axes
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (-0.4,0.35);
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (0.4,-0.3);
+    \node[font=\tiny, text=radarGrey, left] at (-0.45,0) {f};
+    \node[font=\tiny, text=radarGrey, below] at (0,-0.38) {t};
+    % Chirps
+    \foreach \i in {0,0.15,0.3}{
+      \draw[radarProcessing, line width=1.0pt] (-0.35+\i,-0.2) -- (-0.15+\i,0.25);
+      \draw[radarProcessing, line width=0.8pt, dashed] (-0.15+\i,0.25) -- (-0.05+\i,-0.2);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \AntennaArray -- multiple vertical antennas
+% ---------------------------------------------------------------
+\newcommand{\AntennaArray}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \x in {-0.4,-0.3,-0.2,-0.1,0.0,0.1,0.2,0.3,0.4}{
+      \draw[iconStroke, fill=radarProcessing!30, rounded corners=0.5pt] (\x,-0.3) rectangle (\x+0.04,-0.05);
+      \draw[radarProcessing, line width=0.3pt] (\x+0.02,-0.3) -- (\x+0.02,-0.05);
+    }
+    % Wavefront
+    \draw[radarOrange, line width=0.6pt, dashed] (-0.5,0.15) .. controls (-0.3,0.2) .. (0.5,0.15);
+    \node[font=\tiny, text=radarOrange, above right] at (0.5,0.18) {wavefront};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RadarWave -- propagating electromagnetic wave
+% ---------------------------------------------------------------
+\newcommand{\RadarWave}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \i in {0,1,2,3,4}{
+      \pgfmathsetmacro{\x}{-0.35 + \i*0.18}
+      \draw[radarProcessing, line width=0.6pt, decorate, decoration={snake, amplitude=2pt, segment length=3pt}]
+        (\x,-0.3) -- (\x+0.12,0.3);
+    }
+    \draw[-{Latex[length=1.5mm]}, line width=0.5pt] (0.45,0) -- (0.55,0);
+    \node[font=\tiny, text=radarGrey, right] at (0.55,0) {k};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RadarSensor -- simple radar unit with radiating beam
+% ---------------------------------------------------------------
+\newcommand{\RadarSensor}{%
+  \begin{scope}
+    \draw[iconStroke, fill=iconFaint, rounded corners=2pt] (-0.15,-0.4) rectangle (0.15,-0.15);
+    \foreach \r in {0.12,0.22,0.32}{
+      \draw[radarProcessing, line width=0.8pt] (-\r*0.85,-\r*0.5+0.05) arc (210:330:\r);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RadarADC -- raw ADC samples (grid of dots)
+% ---------------------------------------------------------------
+\newcommand{\RadarADC}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    \foreach \x in {-0.4,-0.25,-0.1,0.05,0.2,0.35}{
+      \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
+        \fill[radarGrey!50] (\x,\y) circle (0.025);
+      }
+    }
+    \draw[-{Latex[length=2mm]}, line width=0.6pt] (-0.55,0.45) -- (-0.55,0.3) node[above left, font=\tiny] {t};
+    \draw[-{Latex[length=2mm]}, line width=0.6pt] (-0.55,0.45) -- (-0.45,0.45) node[above right, font=\tiny] {ch};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RadarCube   -- isometric ADC data cube (fast-time/slow-time/ch.)
+% ---------------------------------------------------------------
+\newcommand{\RadarCube}{%
+  \begin{scope}
+    \coordinate (o)  at (-0.34,-0.32);
+    \coordinate (dx) at (0.4,0);
+    \coordinate (dy) at (0,0.5);
+    \coordinate (dz) at (0.22,0.13);
+    % front face (data face)
+    \draw[iconStroke, fill=white]
+      (o) -- ($(o)+(dx)$) -- ($(o)+(dx)+(dy)$) -- ($(o)+(dy)$) -- cycle;
+    % top face
+    \draw[iconStroke, fill=iconFaint]
+      ($(o)+(dy)$) -- ($(o)+(dy)+(dx)$) -- ($(o)+(dy)+(dx)+(dz)$) -- ($(o)+(dy)+(dz)$) -- cycle;
+    % side face (shadow side)
+    \draw[iconStroke, fill=iconFaint!150]
+      ($(o)+(dx)$) -- ($(o)+(dx)+(dz)$) -- ($(o)+(dx)+(dz)+(dy)$) -- ($(o)+(dx)+(dy)$) -- cycle;
+    % faint vertical grid lines on the front face (fast-time columns)
+    \foreach \t in {0.2,0.4,0.6,0.8}{
+      \draw[radarProcessing!60, line width=0.3pt]
+        ($(o)+\t*(dx)$) -- ($(o)+\t*(dx)+(dy)$);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RadarGrid{rows}{cols} -- flat scatter grid (range-doppler style)
+% ---------------------------------------------------------------
+\newcommand{\RadarGrid}[2]{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    \pgfmathsetmacro{\nx}{#1}
+    \pgfmathsetmacro{\ny}{#2}
+    \foreach \i in {1,...,#1}{
+      \foreach \j in {1,...,#2}{
+        \pgfmathsetmacro{\xx}{-0.4 + (\i-0.5)*0.8/\nx}
+        \pgfmathsetmacro{\yy}{-0.3 + (\j-0.5)*0.6/\ny}
+        \fill[radarProcessing] (\xx,\yy) circle (0.025);
+      }
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \FFTArrow -- simple arrow indicating FFT
+% ---------------------------------------------------------------
+\newcommand{\FFTArrow}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[radarProcessing, line width=1.2pt, -{Latex[length=3mm]}] (-0.3,0) -- (0.3,0);
+    \node[font=\tiny, text=radarProcessing, above] at (0,0.12) {FFT};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \ScatterCell -- single range-Doppler cell with intensity
+% ---------------------------------------------------------------
+\newcommand{\ScatterCell}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[iconFaint, line width=0.3pt] (-0.4,-0.3) rectangle (0.4,0.3);
+    \foreach \x in {-0.3,-0.1,0.1,0.3}{
+      \draw[iconFaint, line width=0.2pt] (\x,-0.3) -- (\x,0.3);
+    }
+    \foreach \y in {-0.2,0,0.2}{
+      \draw[iconFaint, line width=0.2pt] (-0.4,\y) -- (0.4,\y);
+    }
+    % Bright cell
+    \fill[radarOrange, opacity=0.8] (0.0,0.0) rectangle (0.2,0.2);
+    \node[font=\tiny, text=radarGrey, below] at (0,-0.35) {cell};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RangeFFT  -- arrow into a single spectral peak
+% ---------------------------------------------------------------
+\newcommand{\RangeFFT}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    \draw[iconFaint, line width=0.3pt] (-0.4,-0.25) -- (0.4,-0.25);
+    \draw[radarProcessing, line width=1pt]
+      (-0.4,-0.25) -- (-0.05,-0.25) -- (0.05,0.3) -- (0.15,-0.25) -- (0.4,-0.25);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RangeProfile -- simple 1D profile with one clear peak (post-FFT)
+% ---------------------------------------------------------------
+\newcommand{\RangeProfile}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    \draw[radarProcessing, line width=1.1pt]
+      (-0.4,-0.2) .. controls (-0.1,-0.15) and (-0.05,0.35) .. (0.0,0.35)
+      .. controls (0.05,0.35) and (0.1,-0.15) .. (0.4,-0.2);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \DopplerProfile -- Doppler spectrum with peak at velocity
+% ---------------------------------------------------------------
+\newcommand{\DopplerProfile}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Axes
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (-0.4,0.35);
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (0.4,-0.3);
+    \node[font=\tiny, text=radarGrey, left] at (-0.45,0) {S};
+    \node[font=\tiny, text=radarGrey, below] at (0,-0.38) {v};
+    % Doppler peak
+    \draw[radarProcessing, line width=1.2pt] 
+      (-0.35,-0.25) .. controls (-0.1,-0.15) and (0.0,0.3) .. (0.0,0.3)
+      .. controls (0.0,0.3) and (0.1,-0.15) .. (0.35,-0.25);
+    % Velocity label
+    \node[font=\tiny, text=radarProcessing] at (0,-0.35) {$v_D$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PhaseUnwrapping -- wrapped phase (sawtooth) vs unwrapped (linear)
+% ---------------------------------------------------------------
+\newcommand{\PhaseUnwrapping}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Axes
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (-0.4,0.35);
+    \draw[-{Latex[length=1.5mm]}, line width=0.4pt] (-0.4,-0.3) -- (0.4,-0.3);
+    \node[font=\tiny, text=radarGrey, left] at (-0.45,0) {$\phi$};
+    \node[font=\tiny, text=radarGrey, below] at (0,-0.38) {x};
+    % Wrapped (sawtooth) - dashed
+    \draw[radarOrange, line width=0.6pt, dashed]
+      (-0.35,-0.2) -- (-0.2,0.3) -- (-0.05,-0.2) -- (0.1,0.3) -- (0.25,-0.2) -- (0.4,0.3);
+    % Unwrapped (linear) - solid
+    \draw[radarProcessing, line width=1.0pt] (-0.35,-0.2) -- (0.4,0.35);
+    % Legend
+    \draw[radarProcessing, line width=1.0pt] (-0.45,0.4) -- (-0.3,0.4);
+    \node[font=\tiny, text=radarProcessing, right] at (-0.28,0.4) {unwrapped};
+    \draw[radarOrange, line width=0.6pt, dashed] (-0.45,0.32) -- (-0.3,0.32);
+    \node[font=\tiny, text=radarOrange, right] at (-0.28,0.32) {wrapped};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \RangeDoppler -- 2D heatmap with blobs
+% ---------------------------------------------------------------
+\newcommand{\RangeDoppler}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Grid
+    \foreach \x in {-0.4,-0.25,-0.1,0.05,0.2,0.35}{
+      \draw[iconFaint, line width=0.2pt] (\x,-0.35) -- (\x,0.35);
+    }
+    \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
+      \draw[iconFaint, line width=0.2pt] (-0.45,\y) -- (0.45,\y);
+    }
+    % Blobs
+    \foreach \x/\y/\s in {-0.2/0.1/0.12, 0.15/-0.15/0.1, 0.3/0.2/0.08, -0.1/-0.2/0.09}{
+      \fill[radarProcessing, opacity=0.6] (\x,\y) circle (\s);
+    }
+    \node[font=\tiny, text=radarGrey] at (-0.45,-0.43) {Range};
+    \node[font=\tiny, text=radarGrey, rotate=90] at (-0.55,0) {Doppler};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MotionCompensation -- blurred -> focused
+% ---------------------------------------------------------------
+\newcommand{\MotionCompensation}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Before (blurred)
+    \foreach \p in {(-0.35,0.1),(-0.3,-0.05),(-0.4,-0.15),(-0.25,0.2),(-0.38,0.02)}{
+      \fill[iconFaint] \p circle (0.08);
+    }
+    \draw[iconStroke, -{Latex[length=2mm]}] (-0.08,0) -- (0.08,0);
+    % After (focused)
+    \foreach \p in {(0.22,0.08),(0.3,-0.1),(0.4,0.05),(0.18,-0.12)}{
+      \fill[radarProcessing] \p circle (0.035);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \ISARImage -- focused scatterers after ISAR
+% ---------------------------------------------------------------
+\newcommand{\ISARImage}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Scatterers forming an elongated shape (human-like)
+    \foreach \p in {(-0.1,0.35),(-0.05,0.3),(0.05,0.28),(-0.08,0.22),
+                    (0.0,0.18),(0.08,0.15),(-0.05,0.1),(0.05,0.05),
+                    (-0.08,0.0),(0.0,-0.05),(0.08,-0.1),(-0.05,-0.15),
+                    (0.05,-0.2),(0.0,-0.25),(-0.05,-0.3)}{
+      \fill[radarProcessing] \p circle (0.03);
+    }
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \Interferogram -- interferometric phase image
+% ---------------------------------------------------------------
+\newcommand{\Interferogram}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Fringes (concentric rings)
+    \foreach \r in {0.1,0.2,0.3,0.4}{
+      \draw[radarProcessing, line width=0.5pt, opacity=0.5+\r*0.2] (0,0) circle (\r);
+    }
+    % Phase color wheel indicator
+    \draw[radarOrange, line width=1.5pt] (-0.5,0.45) -- (0.5,0.45);
+    \foreach \i in {0,0.1,...,1}{
+      \pgfmathsetmacro{\color}{20+80*\i}
+      \draw[radarOrange!\color!red!\the\numexpr100-\color!black, line width=0.8pt]
+        (-0.5+\i,0.4) -- (-0.5+\i,0.5);
+    }
+    \node[font=\tiny, text=radarGrey, below] at (0,0.52) {$\Delta\phi$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \Interferometry -- two antennas, phase difference
+% ---------------------------------------------------------------
+\newcommand{\Interferometry}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Top and bottom antennas
+    \draw[iconStroke, fill=iconFaint, rounded corners=1pt] (-0.4,0.2) rectangle (-0.15,0.3);
+    \draw[iconStroke, fill=iconFaint, rounded corners=1pt] (-0.4,-0.3) rectangle (-0.15,-0.2);
+    % Waves
+    \draw[iconFaint, line width=0.5pt, decorate, decoration={snake, amplitude=0.8pt, segment length=4pt}]
+      (-0.15,0.25) -- (0.35,0.05);
+    \draw[iconFaint, line width=0.5pt, decorate, decoration={snake, amplitude=0.8pt, segment length=4pt}]
+      (-0.15,-0.25) -- (0.35,0.05);
+    % Phase difference
+    \node[radarProcessing, font=\scriptsize\bfseries] at (0.1,0) {$\Delta\varphi$};
+    % Height output
+    \fill[radarOrange] (0.35,0.05) circle (0.04);
+    \node[font=\tiny, text=radarOrange, above right=-2pt of {0.35,0.05}] {$h$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \CFAR -- SOCA-CFAR segmentation (cells with threshold)
+% ---------------------------------------------------------------
+\newcommand{\CFAR}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Grid with threshold indicator
+    \foreach \x in {-0.4,-0.2,0,0.2,0.4}{
+      \draw[iconFaint, line width=0.2pt] (\x,-0.35) -- (\x,0.35);
+    }
+    \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
+      \draw[iconFaint, line width=0.2pt] (-0.45,\y) -- (0.45,\y);
+    }
+    % Detections (above threshold)
+    \foreach \p in {(-0.2,0.1),(0.0,-0.05),(0.2,0.2),(-0.1,-0.2),(0.3,0.0)}{
+      \fill[radarGreen] \p circle (0.04);
+      \draw[radarOrange, line width=0.5pt] \p circle (0.07);
+    }
+    % Threshold label
+    \draw[radarOrange, line width=0.6pt] (-0.45,0.32) -- (0.45,0.32);
+    \node[font=\tiny, text=radarOrange, right] at (0.45,0.32) {$\tau$};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \EKFJPDA -- tracking with associations
+% ---------------------------------------------------------------
+\newcommand{\EKFJPDA}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Tracks
+    \draw[radarProcessing, line width=1.2pt]
+      (-0.3,-0.25) .. controls (-0.1,0.1) and (0.1,-0.1) .. (0.3,0.2);
+    \draw[radarOrange, line width=0.8pt, dashed]
+      (-0.35,-0.15) .. controls (-0.2,0.15) and (0.0,-0.05) .. (0.25,0.25);
+    % Detections (gated)
+    \foreach \p in {(-0.2,-0.1),(0.05,0.05),(0.15,-0.05),(0.3,0.15)}{
+      \draw[radarGreen, line width=0.5pt] \p circle (0.04);
+      \fill[radarGreen] \p circle (0.025);
+    }
+    % Association arrows
+    \draw[iconFaint, line width=0.3pt, ->] (-0.2,-0.1) -- (-0.18,0.0);
+    \draw[iconFaint, line width=0.3pt, ->] (0.05,0.05) -- (0.02,0.02);
+    \draw[iconFaint, line width=0.3pt, ->] (0.15,-0.05) -- (0.12,-0.02);
+    % Ellipse (covariance)
+    \draw[radarOrange, line width=0.5pt, dashed, rotate=-20, fill=radarOrange, fill opacity=0.1] (-0.1,0.0) ellipse (0.12 and 0.06);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \TrackingFiltered -- after EKF-JPDA, clean trajectory
+% ---------------------------------------------------------------
+\newcommand{\TrackingFiltered}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Smooth trajectory with increasing opacity
+    \foreach \t in {0,0.05,...,1}{
+      \pgfmathsetmacro{\x}{-0.35 + \t*0.7}
+      \pgfmathsetmacro{\y}{-0.2 + sin(\t*360*2)*0.25}
+      \pgfmathsetmacro{\op}{0.3 + \t*0.5}
+      \fill[radarProcessing, opacity=\op] (\x,\y) circle (0.035);
+    }
+    % Predicted position (filtered)
+    \fill[radarOrange] (0.35,0.05) circle (0.05);
+    \draw[radarOrange, line width=0.8pt] (0.35,0.05) circle (0.09);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \PointCloudHuman -- sparse humanoid point cloud
+% ---------------------------------------------------------------
+\newcommand{\PointCloudHuman}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % Head
+    \foreach \p in {(0,0.38),(0.04,0.34),(-0.04,0.34),(0,0.30)}{%
+      \fill[radarProcessing] \p circle (0.025);}
+    % Torso
+    \foreach \p in {(0,0.22),(0,0.14),(0,0.06),(0.08,0.18),(-0.08,0.18),(0.08,0.08),(-0.08,0.08)}{%
+      \fill[radarProcessing] \p circle (0.025);}
+    % Arms
+    \foreach \p in {(0.18,0.18),(0.26,0.08),(-0.18,0.18),(-0.26,0.08)}{%
+      \fill[radarProcessing] \p circle (0.025);}
+    % Legs
+    \foreach \p in {(0.06,-0.06),(0.10,-0.18),(0.14,-0.28),(-0.06,-0.06),(-0.10,-0.18),(-0.14,-0.28)}{%
+      \fill[radarProcessing] \p circle (0.025);}
+  \end{scope}
+}
+
+
+% ---------------------------------------------------------------
+% \GhostCluster -- full indoor multipath scene
+% ---------------------------------------------------------------
+\newcommand{\GhostCluster}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    
+    % ---- ENVIRONMENT (walls, furniture, reflections) ----
+    
+    % Back wall
+    \draw[iconFaint, line width=0.8pt, dashed] (-0.48,-0.48) -- (0.48,-0.48);
+    \node[font=\tiny, text=radarGrey, anchor=north west] at (-0.48,-0.46) {wall};
+    
+    % Side wall (left)
+    \draw[iconFaint, line width=0.8pt, dashed] (-0.48,-0.48) -- (-0.48,0.48);
+    
+    % Furniture (table/cabinet) creating reflections
+    \draw[iconFaint, line width=0.6pt, fill=iconFaint] 
+      (0.25,-0.48) rectangle (0.48,-0.25);
+    \node[font=\tiny, text=radarGrey, anchor=south west] at (0.25,-0.25) {furniture};
+    
+    % Glass/mirror (high reflection)
+    \draw[iconFaint, line width=0.6pt, pattern=north east lines, pattern color=iconFaint] 
+      (-0.48,0.2) rectangle (-0.2,0.45);
+    \node[font=\tiny, text=radarGrey, anchor=south] at (-0.34,0.2) {glass};
+    
+    % Heater/radiator (layered structure)
+    \foreach \y in {-0.1,0.0,0.1}{
+      \draw[iconFaint, line width=0.4pt] (0.3,\y) -- (0.45,\y);
+    }
+    \node[font=\tiny, text=radarGrey, anchor=south west] at (0.3,-0.1) {heater};
+    
+    % ---- TRUE DETECTIONS (real person) ----
+    \foreach \p in {(-0.2,0.15),(-0.1,0.1),(0.0,0.2),(-0.05,0.0),(0.1,0.05),(-0.15,-0.05)}{
+      \fill[radarGreen] \p circle (0.04);
+    }
+    % Human silhouette
+    \draw[radarGreen, line width=0.5pt, dashed] (-0.15,0.25) .. controls (0.0,0.35) .. (0.15,0.25) 
+      -- (0.15,0.0) -- (-0.15,0.0) -- cycle;
+    \node[font=\tiny, text=radarGreen, anchor=south] at (0.0,0.35) {person};
+    
+    % ---- MULTIPATH GHOSTS (from wall reflection) ----
+    % Ghost from back wall
+    \draw[radarOrange, line width=0.5pt] (0.2,-0.35) circle (0.045);
+    \draw[radarOrange, line width=0.4pt, dashed] (0.2,-0.35) circle (0.08);
+    \node[font=\tiny, text=radarOrange, anchor=north] at (0.2,-0.45) {ghost};
+    
+    % Ghost from side wall reflection
+    \draw[radarOrange, line width=0.5pt] (-0.35,-0.2) circle (0.04);
+    \draw[radarOrange, line width=0.4pt, dashed] (-0.35,-0.2) circle (0.07);
+    
+    % Ghost from glass reflection
+    \draw[radarOrange, line width=0.5pt] (-0.3,0.0) circle (0.035);
+    \draw[radarOrange, line width=0.4pt, dashed] (-0.3,0.0) circle (0.06);
+    
+    % Ghost from furniture reflection
+    \draw[radarOrange, line width=0.5pt] (0.4,-0.15) circle (0.035);
+    \draw[radarOrange, line width=0.4pt, dashed] (0.4,-0.15) circle (0.06);
+    
+    % Ghost from heater (layered reflection)
+    \draw[radarOrange, line width=0.5pt] (0.45,0.05) circle (0.03);
+    \draw[radarOrange, line width=0.4pt, dashed] (0.45,0.05) circle (0.055);
+    
+    % ---- REFLECTION PATHS (show multipath propagation) ----
+    % Direct path (radar → person)
+    \draw[radarGreen, line width=0.4pt, ->, opacity=0.6] (-0.45,-0.2) -- (-0.1,0.05);
+    
+    % Wall reflection path (radar → wall → person → radar)
+    \draw[radarOrange, line width=0.3pt, ->, opacity=0.4] 
+      (-0.45,-0.2) -- (0.3,-0.48) -- (-0.1,0.05);
+    \draw[radarOrange, line width=0.3pt, <-, opacity=0.4] 
+      (-0.1,0.05) -- (0.3,-0.48) -- (-0.45,-0.2);
+    
+    % Furniture reflection
+    \draw[radarOrange, line width=0.3pt, ->, opacity=0.4] 
+      (-0.45,-0.2) -- (0.4,-0.35) -- (-0.1,0.05);
+    
+    % ---- RADAR SENSOR ----
+    \draw[iconStroke, fill=iconFaint, rounded corners=1pt] (-0.48,-0.25) rectangle (-0.35,-0.15);
+    \foreach \r in {0.06,0.10,0.14}{
+      \draw[radarProcessing, line width=0.6pt] 
+        (-0.35,-\r*0.5-0.15) arc (210:330:\r);
+    }
+    \node[font=\tiny, text=radarGrey, anchor=south] at (-0.415,-0.15) {radar};
+    
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \GhostCluster -- true detections vs ghost targets
+% ---------------------------------------------------------------
+\newcommand{\TrueAndGhostCluster}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % True detections (solid)
+    \foreach \p in {(-0.2,0.15),(0.05,0.1),(-0.1,-0.15)}{
+      \fill[radarGreen] \p circle (0.045);
+    }
+    % Ghosts (hollow)
+    \foreach \p in {(0.3,0.25),(0.35,-0.1),(-0.35,-0.2),(0.15,0.3),(0.4,0.05),(-0.3,0.3)}{
+      \draw[radarOrange, line width=0.6pt] \p circle (0.035);
+      \node[font=\tiny, text=radarOrange, above right] at (\p) {ghost};
+    }
+    % Wall indicator
+    \draw[iconFaint, line width=0.8pt, dashed] (-0.48,-0.25) -- (0.48,-0.25);
+    \node[font=\tiny, text=radarGrey] at (0.4,-0.22) {wall};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \MoCapComparison -- InISAR vs MoCap with IoU
+% ---------------------------------------------------------------
+\newcommand{\MoCapComparison}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.5,-0.4) rectangle (0.5,0.4);
+    % InISAR points (blue)
+    \foreach \p in {(-0.2,0.2),(-0.1,0.1),(0.0,0.25),(0.1,0.05),(0.2,0.15),
+                    (-0.15,-0.05),(0.05,-0.1),(0.15,-0.2),(-0.05,-0.2)}{
+      \fill[radarBlue] \p circle (0.03);
+    }
+    % MoCap points (green, slightly offset)
+    \foreach \p in {(-0.18,0.22),(-0.08,0.12),(0.02,0.27),(0.12,0.07),(0.22,0.17),
+                    (-0.13,-0.03),(0.07,-0.08),(0.17,-0.18),(-0.03,-0.18)}{
+      \fill[radarGreen, opacity=0.7] \p circle (0.025);
+    }
+    % IoU label
+    \draw[radarPurple, line width=0.5pt, rounded corners=1pt] (-0.42,-0.32) rectangle (0.42,-0.08);
+    \node[font=\scriptsize\bfseries, text=radarPurple] at (0,-0.2) {IoU = 73.8\%};
+  \end{scope}
+}

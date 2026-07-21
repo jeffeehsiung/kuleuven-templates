@@ -1,0 +1,80 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{tracking_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=1.5cm]  % increased distance
+
+% Title - moved up
+\node[font=\sffamily\bfseries\large, text=radarNavy] (title) at (0,1.8)
+    {Tracking Comparison: DBSCAN vs EKF-JPDA};
+
+% Left: DBSCAN only
+\ProcessCard[card color=resultsColor, text width=3.2cm]{dbscan}{DBSCAN Only}{
+    \begin{scope}[scale=0.7]
+        % True detections
+        \fill[radarGreen] (-0.2,0.15) circle (0.045);
+        \fill[radarGreen] (0.0,0.1) circle (0.045);
+        \fill[radarGreen] (0.2,-0.05) circle (0.045);
+        \fill[radarGreen] (0.1,0.0) circle (0.045);
+
+        % Ghosts with varied label placements to avoid overlap
+        \draw[radarOrange, line width=0.6pt] (0.3,0.25) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, above left] at (0.3,0.25) {ghost};
+
+        \draw[radarOrange, line width=0.6pt] (0.35,-0.1) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, below right] at (0.35,-0.1) {ghost};
+
+        \draw[radarOrange, line width=0.6pt] (-0.35,-0.15) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, above left] at (-0.35,-0.15) {ghost};
+
+        \draw[radarOrange, line width=0.6pt] (0.15,0.35) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, above] at (0.15,0.35) {ghost};
+
+        \draw[radarOrange, line width=0.6pt] (0.4,0.05) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, below right] at (0.4,0.05) {ghost};
+
+        \draw[radarOrange, line width=0.6pt] (-0.25,0.3) circle (0.04);
+        \node[font=\scriptsize, text=radarOrange, above left] at (-0.25,0.3) {ghost};
+
+        % Wall
+        \draw[iconFaint, line width=0.8pt, dashed] (-0.5,-0.25) -- (0.5,-0.25);
+        \node[font=\scriptsize, text=radarGrey] at (0.4,-0.22) {wall};
+    \end{scope}
+}
+
+% Right: EKF-JPDA filtered
+\ProcessCard[right=1.5cm of dbscan, card color=geometryColor, text width=3.2cm]{ekf}{EKF-JPDA Filtered}{
+    \begin{scope}[scale=0.7]
+        % Clean trajectory
+        \draw[geometryColor, line width=1.2pt]
+            (-0.3,-0.15) .. controls (-0.1,0.1) and (0.1,-0.05) .. (0.3,0.15);
+
+        % True detections
+        \fill[radarGreen] (-0.3,-0.15) circle (0.045);
+        \fill[radarGreen] (-0.15,0.05) circle (0.045);
+        \fill[radarGreen] (0.0,0.08) circle (0.045);
+        \fill[radarGreen] (0.15,-0.02) circle (0.045);
+        \fill[radarGreen] (0.3,0.15) circle (0.045);
+
+        % Filtered state
+        \fill[geometryColor] (0.3,0.15) circle (0.055);
+        \draw[geometryColor, line width=0.6pt] (0.3,0.15) circle (0.1);
+
+        % Labels
+        \node[font=\scriptsize, text=geometryColor, above right] at (0.3,0.25) {tracked};
+
+        % Wall
+        \draw[iconFaint, line width=0.8pt, dashed] (-0.5,-0.25) -- (0.5,-0.25);
+        \node[font=\scriptsize, text=radarGrey] at (0.4,-0.22) {wall};
+    \end{scope}
+}
+
+% Flow arrow
+\draw[flow, color=radarOrange] (dbscan) -- (ekf);
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+
+\usepackage{amssymb}
+\usepackage{pifont}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.8cm]
+
+% ---- TITLE ----
+\node[font=\sffamily\bfseries\large, text=radarNavy] (head) at (0,0)
+    {The Problem with Conventional Radar PID};
+
+% ---- LEFT: Why Radar? ----
+\node[anchor=north west, font=\sffamily\bfseries\normalsize, text=radarGreen] (whyhead) at (-4.2,-0.8) {Why Radar?};
+\node[anchor=north west, font=\sffamily\small, text=radarGrey, align=left, text width=3.8cm] (why) at (-4.2,-1.4)
+    {\checkmark~Privacy preserving\\[2pt]
+     \checkmark~Works in darkness\\[2pt]
+     \checkmark~Weather robust};
+
+% ---- RIGHT: Problems ----
+\node[anchor=north west, font=\sffamily\bfseries\normalsize, text=radarOrange] (probhead) at (4.2,-0.8) {Problems};
+\node[anchor=north west, font=\sffamily\small, text=radarGrey, align=left, text width=4.2cm] (prob) at (4.2,-1.4)
+    {\ding{55}~Sparse point clouds\\[2pt]
+     \ding{55}~Multipath ghosts\\[2pt]
+     \ding{55}~Needs $>$100 recordings/person};
+
+% ---- PIPELINE STRIP (using new ProcessCard) ----
+\ProcessCard[below=1.8cm of whyhead.south west, anchor=north, card color=radarProcessing]{p1}{Radar}{\RadarSensor}
+\ProcessCard[right=1.3cm of p1, card color=resultsColor]{p2}{Sparse PCD}{
+    \foreach \pt in {(-0.3,0.2),(0.1,0.3),(0.3,-0.1),(-0.15,-0.25),(0.25,0.15),(-0.3,-0.1),(0.1,-0.2)}{
+        \fill[radarOrange] \pt circle (0.035);
+    }
+}
+\ProcessCard[right=1.3cm of p2, card color=resultsColor]{p3}{Ghost Targets}{\GhostCluster}
+\ProcessCard[right=1.3cm of p3, card color=radarGrey]{p4}{Hard PID}{
+    \node[font=\Large\bfseries, text=white] {?};
+}
+
+% Flow arrows
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4}{
+    \draw[flow] (\s) -- (\t);
+}
+
+% ---- BOTTOM: Our Solution ----
+\node[font=\sffamily\bfseries\normalsize, text=radarProcessing] (solhead) at (0,-5.5)
+    {Our Solution: Tracking-Integrated InISAR + Pre-trained MAML};
+
+\end{tikzpicture}
+\end{document}

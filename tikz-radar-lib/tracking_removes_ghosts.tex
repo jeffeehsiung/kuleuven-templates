@@ -1,0 +1,129 @@
+% Figure 3: Tracking-Integrated InISAR Removes Multipath Ghosts
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=1.5cm]
+
+% Title - moved up
+\node[font=\sffamily\bfseries\Large, text=radarNavy] (title) at (0,2.0)
+    {Tracking-Integrated InISAR Removes Multipath Ghosts};
+
+% ---- LEFT: DBSCAN ONLY ----
+\ProcessCard[card color=resultsColor, text width=4.5cm]{dbscan}{DBSCAN Only (Ghosts Remain)}{
+    \begin{scope}[scale=0.65]  % CHANGED to scope
+        % True person
+        \fill[radarGreen] (-0.15,0.2) circle (0.035);
+        \fill[radarGreen] (-0.1,0.15) circle (0.035);
+        \fill[radarGreen] (0.0,0.25) circle (0.035);
+        \fill[radarGreen] (0.05,0.1) circle (0.035);
+        \fill[radarGreen] (0.1,0.2) circle (0.035);
+        \fill[radarGreen] (-0.05,0.0) circle (0.035);
+        \fill[radarGreen] (0.0,-0.05) circle (0.035);
+        \fill[radarGreen] (0.08,-0.1) circle (0.035);
+        \fill[radarGreen] (-0.08,-0.1) circle (0.035);
+        \node[font=\footnotesize, text=radarGreen, anchor=south] at (0,0.3) {person};
+        
+        % Ghosts (many) - explicit, no \foreach
+        \draw[radarOrange, line width=0.6pt] (0.25,0.25) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.25,0.25) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (0.3,-0.05) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.3,-0.05) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (-0.35,-0.15) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.35,-0.15) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (0.15,0.35) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.15,0.35) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (0.4,0.15) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.4,0.15) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (-0.25,0.3) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.25,0.3) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (-0.4,0.1) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.4,0.1) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (0.35,-0.25) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.35,-0.25) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (-0.15,-0.25) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.15,-0.25) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (0.1,-0.3) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (0.1,-0.3) circle (0.06);
+        \draw[radarOrange, line width=0.6pt] (-0.3,0.05) circle (0.035);
+        \draw[radarOrange, line width=0.4pt, dashed] (-0.3,0.05) circle (0.06);
+        % Ghost label
+        \node[font=\footnotesize, text=radarOrange, anchor=south] at (0.3,-0.3) {ghosts};
+        
+        % Wall
+        \draw[iconFaint, line width=0.8pt, dashed] (-0.5,-0.3) -- (0.5,-0.3);
+        \node[font=\footnotesize, text=radarGrey, anchor=north] at (0.4,-0.28) {wall};
+        
+        % DBSCAN label
+        \node[font=\footnotesize, text=resultsColor] at (0,-0.42) {clusters include ghosts};
+    \end{scope}  % CHANGED
+}
+
+% ---- RIGHT: EKF-JPDA ----
+\ProcessCard[right=1.5cm of dbscan, card color=geometryColor, text width=4.5cm]{ekf}{EKF-JPDA (Ghosts Removed)}{
+    \begin{scope}[scale=0.65]  % CHANGED
+        % True person
+        \fill[radarGreen] (-0.15,0.2) circle (0.035);
+        \fill[radarGreen] (-0.1,0.15) circle (0.035);
+        \fill[radarGreen] (0.0,0.25) circle (0.035);
+        \fill[radarGreen] (0.05,0.1) circle (0.035);
+        \fill[radarGreen] (0.1,0.2) circle (0.035);
+        \fill[radarGreen] (-0.05,0.0) circle (0.035);
+        \fill[radarGreen] (0.0,-0.05) circle (0.035);
+        \fill[radarGreen] (0.08,-0.1) circle (0.035);
+        \fill[radarGreen] (-0.08,-0.1) circle (0.035);
+        \node[font=\footnotesize, text=radarGreen, anchor=south] at (0,0.3) {person};
+        
+        % Ghosts REMOVED (shown as faded/crossed out) - explicit
+        \draw[iconFaint, line width=0.4pt] (0.25,0.25) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (0.21,0.21) -- (0.29,0.29);
+        \draw[iconFaint, line width=0.3pt] (0.21,0.29) -- (0.29,0.21);
+        \draw[iconFaint, line width=0.4pt] (0.3,-0.05) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (0.26,-0.09) -- (0.34,-0.01);
+        \draw[iconFaint, line width=0.3pt] (0.26,-0.01) -- (0.34,-0.09);
+        \draw[iconFaint, line width=0.4pt] (-0.35,-0.15) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (-0.39,-0.19) -- (-0.31,-0.11);
+        \draw[iconFaint, line width=0.3pt] (-0.39,-0.11) -- (-0.31,-0.19);
+        \draw[iconFaint, line width=0.4pt] (0.15,0.35) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (0.11,0.31) -- (0.19,0.39);
+        \draw[iconFaint, line width=0.3pt] (0.11,0.39) -- (0.19,0.31);
+        \draw[iconFaint, line width=0.4pt] (0.4,0.15) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (0.36,0.11) -- (0.44,0.19);
+        \draw[iconFaint, line width=0.3pt] (0.36,0.19) -- (0.44,0.11);
+        \draw[iconFaint, line width=0.4pt] (-0.25,0.3) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (-0.29,0.26) -- (-0.21,0.34);
+        \draw[iconFaint, line width=0.3pt] (-0.29,0.34) -- (-0.21,0.26);
+        \draw[iconFaint, line width=0.4pt] (-0.4,0.1) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (-0.44,0.06) -- (-0.36,0.14);
+        \draw[iconFaint, line width=0.3pt] (-0.44,0.14) -- (-0.36,0.06);
+        \draw[iconFaint, line width=0.4pt] (0.35,-0.25) circle (0.03);
+        \draw[iconFaint, line width=0.3pt] (0.31,-0.29) -- (0.39,-0.21);
+        \draw[iconFaint, line width=0.3pt] (0.31,-0.21) -- (0.39,-0.29);
+        % Rejected label
+        \node[font=\footnotesize, text=iconFaint, anchor=south] at (0.3,-0.3) {rejected};
+        
+        % Clean trajectory
+        \draw[geometryColor, line width=1.0pt, dashed, opacity=0.6]
+            (-0.2,0.0) -- (-0.1,0.15) -- (0.0,0.2) -- (0.1,0.15) -- (0.2,0.0);
+        
+        % Wall
+        \draw[iconFaint, line width=0.8pt, dashed] (-0.5,-0.3) -- (0.5,-0.3);
+        \node[font=\footnotesize, text=radarGrey, anchor=north] at (0.4,-0.28) {wall};
+        
+        % EKF-JPDA label
+        \node[font=\footnotesize, text=geometryColor] at (0,-0.42) {clean target tracking};
+    \end{scope}  % CHANGED
+}
+
+% ---- ARROW ----
+\draw[flow, color=radarProcessing] (dbscan) -- (ekf);
+
+% ---- BOTTOM: EXPLANATION ----
+\node[font=\sffamily\bfseries\small, text=radarNavy, below=1.2cm of dbscan] (bottom)
+    {Tracking in 3D spatial domain with JPDA association removes multipath ghosts};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,141 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ==============================================================
+% INPUT ALL LIBRARY FILES
+% ==============================================================
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{geometry_icons.tex}
+\input{tracking_icons.tex}
+\input{ml_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=0.9cm,
+    every node/.style={align=center}
+]
+
+% ======================================================================
+% TITLE & METRICS (Top)
+% ======================================================================
+\node[font=\sffamily\bfseries\Large, text=radarNavy] (title) at (0,3.2)
+    {Privacy-Preserving Few-Shot Radar Person Identification};
+
+% ======================================================================
+% ROW 1: RADAR SIGNAL PROCESSING CHAIN
+% ======================================================================
+\ProcessCard[card color=radarProcessing]{p1}{Raw Radar}{\RadarSensor}
+\ProcessCard[right=1.0cm of p1, card color=radarProcessing]{p2}{Range FFT}{\RangeFFT}
+\ProcessCard[right=1.0cm of p2, card color=radarProcessing]{p3}{Motion Comp.}{\MotionCompensation}
+\ProcessCard[right=1.0cm of p3, card color=radarProcessing]{p4}{ISAR}{\ISARImage}
+\ProcessCard[right=1.0cm of p4, card color=radarProcessing]{p5}{Doppler FFT}{\RangeDoppler}
+\ProcessCard[right=1.0cm of p5, card color=radarProcessing]{p6}{CFAR}{\CFAR}
+\ProcessCard[right=1.0cm of p6, card color=geometryColor]{p7}{Interferometry}{\Interferometry}
+\ProcessCard[right=1.0cm of p7, card color=geometryColor]{p8}{EKF-JPDA}{\EKFJPDA}
+\ProcessCard[right=1.0cm of p8, card color=resultsColor]{p9}{3D Point Cloud}{\PointCloudHuman}
+
+% Flow arrows (Row 1)
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4, p4/p5, p5/p6, p6/p7, p7/p8, p8/p9}{
+    \draw[flow] (\s) -- (\t);
+}
+
+% ======================================================================
+% ROW 2: DEEP LEARNING PIPELINE
+% ======================================================================
+\node[font=\sffamily\bfseries\normalsize, text=deepLearning] (dlhead) at (0,1.8)
+    {PCTtrans $+$ Pre-trained MAML};
+
+% Point Sequence (receives from 3D Point Cloud)
+\ProcessCard[below=1.8cm of p9, card color=deepLearning]{d3}{Temporal Transformer}{\TemporalTransformerBlock}
+\ProcessCard[left=1.0cm of d3, card color=deepLearning]{d2}{Frame-wise PCT}{\PCTBlock}
+\ProcessCard[left=1.0cm of d2, card color=deepLearning]{d1}{Point Sequence}{\PointCloud}
+\ProcessCard[right=1.0cm of d3, card color=deepLearning]{d4}{MAML}{\MAMLBlock}
+\ProcessCard[right=1.0cm of d4, card color=resultsColor]{d5}{Few-shot ID}{\SupportQuerySplit}
+
+% Connection: 3D Point Cloud → Point Sequence
+\draw[flow, dashed, color=deepLearning] (p9.south) -- ($(p9.south) + (0,-0.8)$) -| (d1.north);
+% Flow arrows (Row 2)
+\foreach \s/\t in {d1/d2, d2/d3, d3/d4, d4/d5}{
+    \draw[flow, color=deepLearning] (\s) -- (\t);
+}
+
+% ======================================================================
+% PRE-TRAINING BADGE
+% ======================================================================
+\node[draw=radarOrange, fill=radarOrange!15, rounded corners=3pt,
+      minimum width=1.8cm, minimum height=0.6cm, font=\sffamily\bfseries\small,
+      text=radarOrange, anchor=south] (ptbadge) at ($(d4.west)+(-0.8,0.9)$)
+    {Pre-trained};
+
+% Arrow from badge to MAML
+\draw[radarOrange, line width=1.2pt, -{Latex[length=2mm]}] (ptbadge) |- (d4.west);
+
+% ======================================================================
+% KEY EQUATIONS (Bottom)
+% ======================================================================
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=2.8cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq1) at ($(p3.west)+(-0.8,-1.2)$)
+    {$\hat{\beta},\hat{\gamma} = \arg\max\ \text{contrast}$};
+
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=2.8cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq2) at ($(p7.west)+(-0.8,-1.2)$)
+    {$h = \dfrac{\lambda \phi R}{2\pi L}$};
+
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=2.8cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=south] (eq3) at ($(d4.north)+(0,0.7)$)
+    {$\theta' = \theta - \alpha \nabla \mathcal{L}$};
+
+% Connect equations to pipeline stages
+\draw[iconFaint, line width=0.3pt] (eq1) -- (p3);
+\draw[iconFaint, line width=0.3pt] (eq2) -- (p7);
+\draw[iconFaint, line width=0.3pt] (eq3) -- (d4);
+
+
+% ---- Metrics band (anchored relative to row 2, whatever its
+%      final auto-computed position turned out to be) ----
+\coordinate (divY) at ($(d1.south)+(0,-0.7)$);
+\coordinate (divL) at ($(d1.west)+(-0.2,0)$);
+\coordinate (divR) at ($(d5.east)+(0.2,0)$);
+\draw[radarGrey!40, line width=0.6pt] (divL |- divY) -- (divR |- divY);
+\coordinate (metY) at ($(divY)+(0,-0.9)$);
+\coordinate (mid1) at ($(d1)!0.5!(d2)$);
+\coordinate (mid2) at ($(d2)!0.5!(d3)$);
+\coordinate (mid3) at ($(d3)!0.5!(d4)$);
+\coordinate (mid4) at ($(d4)!0.5!(d5)$);
+% Four metric boxes with context
+\MetricBox{m1}{mid1 |- metY}{73.8\%}{InISAR IoU}
+\MetricBox{m2}{mid2 |- metY}{<5.5 cm}{Height Error}
+\MetricBox{m3}{mid3 |- metY}{90.0\%}{Few-shot (same session)}
+\MetricBox{m4}{mid4 |- metY}{70.0\%}{Few-shot (cross-session)}
+
+% ======================================================================
+% LEGEND
+% ======================================================================
+\coordinate (legBase) at ($(metY)+(0,-1.0)$);
+\coordinate (leg1) at ($(legBase)+(0,0)$);
+\coordinate (leg2) at ($(legBase)+(3.0,0)$);
+\coordinate (leg3) at ($(legBase)+(6.0,0)$);
+\coordinate (leg4) at ($(legBase)+(9.0,0)$);
+
+\begin{scope}
+    \node[fill=radarProcessing, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw1) at (leg1) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw1] {Radar Processing};
+
+    \node[fill=geometryColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw2) at (leg2) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw2] {Geometry \& Tracking};
+
+    \node[fill=deepLearning, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw3) at ($(leg3)+(0.6,0)$) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw3] {Deep Learning};
+
+    \node[fill=resultsColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw4) at ($(leg4)+(0.6,0)$) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw4] {Results};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}

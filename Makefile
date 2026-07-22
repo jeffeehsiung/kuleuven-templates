@@ -4,7 +4,7 @@
 # Name of the main .tex file (without extension)
 MAIN = poster
 
-REFERENCE=poster-arev
+REFERENCE=poster-v1
 
 FONTSLOG = missfonts
 # Find all .mmd files

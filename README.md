@@ -12,7 +12,7 @@ The project provides two poster versions:
    - Built using `beamerposter`
 
 2. **Previous draft version**
-   - `poster-arev.tex`
+   - `poster-v1.tex`
    - Built using `tikzposter`
    - Kept for reference only
 
@@ -23,7 +23,7 @@ The project provides two poster versions:
 ```
 .
 ├── poster.tex                     # Main poster source (final version)
-├── poster-arev.tex                # Old draft poster source
+├── poster-v1.tex                # Old draft poster source
 ├── Makefile                       # Build script
 ├── definitions.tex                # KU Leuven colors and LaTeX definitions
 ├── references.bib                 # Bibliography (if needed)
@@ -207,7 +207,7 @@ will be created.
 The old draft can be compiled directly:
 
 ```bash
-pdflatex poster-arev.tex
+pdflatex poster-v1.tex
 ```
 
 or add it to Makefile as a separate target:
@@ -219,7 +219,7 @@ make draft
 which generates:
 
 ```
-poster-arev.pdf
+poster-v1.pdf
 ```
 
 ---
@@ -399,8 +399,8 @@ $(MAIN).pdf:
 
 
 draft:
-	pdflatex poster-arev.tex
-	pdflatex poster-arev.tex
+	pdflatex poster-v1.tex
+	pdflatex poster-v1.tex
 
 
 clean:

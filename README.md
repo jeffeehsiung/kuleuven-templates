@@ -44,8 +44,7 @@ The project provides two poster versions:
 │   └── result plots
 │
 ├── templates/                     # KU Leuven logos and assets
-│
-└── graphics/                      # Additional graphical assets
+
 
 ````
 

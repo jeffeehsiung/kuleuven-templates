@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  23 JUL 2026 14:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  23 JUL 2026 15:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -581,7 +581,8 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count320
-) (./tracking_spectrum_vs_3d_vertical.aux)
+)
+No file tracking_spectrum_vs_3d_vertical.aux.
 \openout1 = `tracking_spectrum_vs_3d_vertical.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -598,7 +599,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
-
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count321
@@ -667,12 +667,16 @@ Non-PDF special ignored!
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 16549 strings out of 469006
- 368111 string characters out of 5454813
- 824013 words of memory out of 5000000
- 44921 multiletter control sequences out of 15000+600000
+ 16546 strings out of 469006
+ 367988 string characters out of 5454813
+ 823881 words of memory out of 5000000
+ 44920 multiletter control sequences out of 15000+600000
  629208 words of font info for 45 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,436b,1338s stack positions out of 10000i,1000n,20000p,200000b,200000s

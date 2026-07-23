@@ -1,0 +1,87 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ==============================================================
+% INPUT ALL LIBRARY FILES
+% ==============================================================
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{geometry_icons.tex}
+\input{tracking_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=0.9cm,
+    every node/.style={align=center}
+]
+
+% ======================================================================
+% ROW 1: RADAR SIGNAL PROCESSING CHAIN
+% ======================================================================
+\ProcessCard[card color=radarProcessing]{p1}{Raw Radar}{\RadarSensor}
+\ProcessCard[right=1.0cm of p1, card color=radarProcessing]{p2}{Range FFT}{\RangeFFT}
+\ProcessCard[right=1.0cm of p2, card color=radarProcessing]{p3}{Motion Comp.}{\MotionCompensation}
+\ProcessCard[right=1.0cm of p3, card color=radarProcessing]{p4}{ISAR}{\ISARImage}
+\ProcessCard[right=1.0cm of p4, card color=radarProcessing]{p5}{Doppler FFT}{\RangeDoppler}
+\ProcessCard[right=1.0cm of p5, card color=radarProcessing]{p6}{CFAR}{\CFAR}
+\ProcessCard[right=1.0cm of p6, card color=geometryColor]{p7}{Interferometry}{\Interferometry}
+\ProcessCard[right=1.0cm of p7, card color=geometryColor]{p8}{EKF-JPDA}{\EKFJPDA}
+\ProcessCard[right=1.0cm of p8, card color=resultsColor]{p9}{3D Point Cloud}{\PointCloudHuman}
+
+% Flow arrows (Row 1)
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4, p4/p5, p5/p6, p6/p7, p7/p8, p8/p9}{
+    \draw[flow] (\s) -- (\t);
+}
+
+% ======================================================================
+% KEY EQUATIONS (Bottom)
+% ======================================================================
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=2.8cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq1) at ($(p3.west)+(-0.8,-1.2)$)
+    {$\hat{\beta},\hat{\gamma} = \arg\max\ \text{contrast}$};
+
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=2.8cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq2) at ($(p7.west)+(-0.8,-1.2)$)
+    {$h = \dfrac{\lambda \phi R}{2\pi L}$};
+
+% Connect equations to pipeline stages
+\draw[iconFaint, line width=0.3pt] (eq1) -- (p3);
+\draw[iconFaint, line width=0.3pt] (eq2) -- (p7);
+
+% ---- Metrics band (anchored relative to row 2, whatever its
+%      final auto-computed position turned out to be) ----
+\coordinate (divEQY) at ($(eq1.south)+(0,-0.7)$);
+\coordinate (divY) at ($(p1.south)+(0,-0.7)$);
+\coordinate (divL) at ($(p1.west)+(-0.2,0)$);
+\coordinate (divR) at ($(p9.east)+(0.2,0)$);
+\draw[radarGrey!40, line width=0.6pt] (divL |- divEQY) -- (divR |- divEQY);
+\coordinate (metY) at ($(divY)+(0,-0.9)$);
+\coordinate (mid1) at ($(p1)!0.5!(p3)$);
+\coordinate (mid2) at ($(p4)!0.5!(p6)$);
+\coordinate (mid3) at ($(p7)!0.5!(p9)$);
+
+% ======================================================================
+% LEGEND
+% ======================================================================
+\coordinate (legBase) at ($(metY)+(0,-1.0)$);
+\coordinate (leg1) at ($(legBase)+(mid1)$);
+\coordinate (leg2) at ($(legBase)+(mid2)$);
+\coordinate (leg3) at ($(legBase)+(mid3)$);
+
+\begin{scope}
+    \node[fill=radarProcessing, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw1) at (leg1) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw1] {Radar Processing};
+
+    \node[fill=geometryColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw2) at (leg2) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw2] {Geometry \& Tracking};
+
+    \node[fill=resultsColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw3) at (leg3) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw3] {Results};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}

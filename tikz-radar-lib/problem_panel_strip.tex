@@ -1,0 +1,30 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{pifont}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.8cm]
+
+% ---- PIPELINE STRIP (no titles or descriptions) ----
+\ProcessCard[card color=radarProcessing, at={(0,0)}]{p1}{Radar}{\RadarSensor}
+\ProcessCard[right=1.3cm of p1, card color=resultsColor]{p2}{Sparse PCD}{
+    \foreach \pt in {(-0.3,0.2),(0.1,0.3),(0.3,-0.1),(-0.15,-0.25),(0.25,0.15),(-0.3,-0.1),(0.1,-0.2)}{
+        \fill[radarOrange] \pt circle (0.035);
+    }
+}
+\ProcessCard[right=1.3cm of p2, card color=resultsColor]{p3}{Ghost Targets}{\GhostCluster}
+\ProcessCard[right=1.3cm of p3, card color=radarGrey]{p4}{Hard PID}{
+    \node[font=\Large\bfseries, text=white] {?};
+}
+
+% Flow arrows
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4}{
+    \draw[flow] (\s) -- (\t);
+}
+
+\end{tikzpicture}
+\end{document}

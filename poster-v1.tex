@@ -9,6 +9,11 @@
 
 \documentclass[a0paper,portrait]{tikzposter}
 
+% ------------------------------------------------------------
+% Font fix for ae package (warnings, not errors)
+% ------------------------------------------------------------
+\renewcommand{\bfdefault}{bx}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
@@ -19,7 +24,21 @@
 \usepackage{hyperref}
 \usepackage{qrcode}
 \usepackage{anyfontsize}
-\graphicspath{{figures/}}
+\usepackage{standalone}   % For including standalone figures
+
+\graphicspath{{figures/}{tikz-radar-lib/}{tikz-radar-lib/build/}}
+
+% ============================================================
+% LOAD YOUR TIKZ LIBRARY (FOR POSTER TIKZ ELEMENTS)
+% ============================================================
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc,arrows.meta,decorations.pathmorphing}
+
+\input{tikz-radar-lib/radar_styles.tex}
+\input{tikz-radar-lib/radar_icons.tex}
+\input{tikz-radar-lib/geometry_icons.tex}
+\input{tikz-radar-lib/tracking_icons.tex}
+\input{tikz-radar-lib/ml_icons.tex}
 
 % ------------------------------------------------------------
 % 1. COLOR PALETTE  ("Radar Night" -- matches all diagram assets)
@@ -49,8 +68,6 @@
 \usetheme{Default}
 \usecolorstyle{Default}
 
-% override afterwards
-% \colorlet{backgroundcolor}{kullight}
 % ------------------------------------------------------------
 % helper command: consistent figure block with caption strip
 % ------------------------------------------------------------
@@ -62,6 +79,7 @@
   \end{center}
 }
 
+
 % ------------------------------------------------------------
 % 3. TITLE
 % ------------------------------------------------------------
@@ -70,7 +88,7 @@
   InISAR and Pre-Trained Meta-Learning}}
 \author{
   Jeffee Hsiung$^{*}$ \quad Rengin Torun$^{*}$ \quad S.\ Hamed Javadi$^{\dagger}$ \quad Hichem Sahli$^{\dagger}$\\
-  \normalsize KU Leuven \;|\; imec \;|\; Vrije Universiteit Brussel \\
+  \normalsize KU Leuven \;|\; imec \;|\; Vrije Universiteit Brussel \quad
   \footnotesize $^{*}$Equal contribution (first authors) \quad $^{\dagger}$Equal contribution (supervisors)
 }
 \institute{}
@@ -80,71 +98,98 @@
 \maketitle
 
 \begin{columns}
-\column{0.5}
 
+% ----------------------------------------------------------------------
+% COLUMN 1: INTRODUCTION + PROBLEMS + KEY RESULTS
+% ----------------------------------------------------------------------
+\column{0.32}
 % ============================================================
 % SECTION 1 -- MOTIVATION
 % ============================================================
-\block{\textcolor{white}{\large \ding{202}\ \ Why Not Just Use a Camera?}}{
-\begin{minipage}{0.62\linewidth}
+\block{\textcolor{white}{\large \ding{202}\ \ Introduction}}{
+\begin{minipage}{\linewidth}
+\posterfig{\linewidth}{fig_motivation_cluster.png}{Vision fails; radar preserves privacy}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\textbf{Why Not Just Use a Camera?}
 Conventional vision-based person identification struggles under real conditions:
 \begin{itemize}
   \setlength\itemsep{1.62mm}
-  \item \textbf{Low-light} environments degrade recognition accuracy
-  \item \textbf{Adverse weather} (fog, rain) obscures visual features
-  \item \textbf{Occlusions} block critical body regions
+  \item \textbf{Low illumination} degraded visual features
+  \item \textbf{Adverse weather} fog and rain reduce reliability
+  \item \textbf{Occlusions} missing body information
   \item \textbf{Privacy concerns} -- facial capture raises regulatory and ethical issues
 \end{itemize}
 \vspace{1.62mm}
-mmWave radar avoids facial capture entirely while remaining robust to lighting, weather, and occlusion --
-a privacy-preserving alternative for surveillance and human-robot interaction.
+mmWave radar provides a privacy-preserving alternative for surveillance and human-robot interaction, 
+maintaining robustness without capturing identifiable imagery.
 \end{minipage}
-\hfill
-\begin{minipage}{0.35\linewidth}
-% TODO: replace with the 4-icon motivation cluster (low-light / weather / occlusion / privacy-blur)
-\posterfig{\linewidth}{fig_motivation_cluster.png}{Vision fails; radar preserves privacy}
-\end{minipage}
+
 }
 
-% ============================================================
-% SECTION 2 -- WHY RADAR (sensing theory)
-% ============================================================
-\block{\textcolor{white}{\large \ding{203}\ \ Why mmWave Radar}}{
-\begin{minipage}{0.48\linewidth}
-\posterfig{\linewidth}{fig_why_radar_mimo.png}{MIMO array senses through occlusion via reflected signals}
-\end{minipage}
-\hfill
-\begin{minipage}{0.48\linewidth}
-\posterfig{\linewidth}{fig_radar_vs_camera.png}{Radar 3D point cloud (left) vs.\ camera view (right), same scene}
-\end{minipage}
-\vspace{2.7mm}
+% % ============================================================
+% % SECTION 2 -- WHY RADAR (sensing theory)
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{203}\ \ Why mmWave Radar}}{
+% \begin{minipage}{0.48\linewidth}
+% \posterfig{\linewidth}{fig_why_radar_mimo.png}{MIMO array senses through occlusion via reflected signals}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.48\linewidth}
+% \posterfig{\linewidth}{fig_radar_vs_camera.png}{Radar 3D point cloud (left) vs.\ camera view (right), same scene}
+% \end{minipage}
+% \vspace{2.7mm}
 
-FMCW radar transmits chirps and measures round-trip time-of-flight from body-scatterers;
-range and Doppler are recovered via FFT along fast-time and slow-time. This gives 3D spatial
-+ velocity information \emph{without} capturing identifiable facial imagery.
-}
+% FMCW radar transmits chirps and measures round-trip time-of-flight from body-scatterers;
+% range and Doppler are recovered via FFT along fast-time and slow-time. This gives 3D spatial
+% + velocity information \emph{without} capturing identifiable facial imagery.
+% }
 
-% ============================================================
-% SECTION 3 -- THE TWO PROBLEMS
-% ============================================================
-\block{\textcolor{white}{\large \ding{204}\ \ Two Bottlenecks in Radar-Based PID}}{
-\begin{minipage}{0.48\linewidth}
+% % ============================================================
+% % SECTION 3 -- THE TWO PROBLEMS
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{204}\ \ Two Bottlenecks in Radar-Based PID}}{
+% \begin{minipage}{0.48\linewidth}
+% \textbf{3a. Radar Imaging Quality}\\[1.62mm]
+% Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
+% resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
+% InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
+% \emph{articulated} human targets.
+% \posterfig{0.95\linewidth}{fig_sparse_pointcloud_problem.png}{Sparsity, non-uniform density, noise -- missing body segments}
+% \posterfig{0.95\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Indoor multipath generates ghost clusters}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.48\linewidth}
+% \textbf{3b. Data Scarcity}\\[1.62mm]
+% Existing learning methods need $>$100 sequences/person (hours of recording) --
+% impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
+% geometry; PCT captures local structure but targets \emph{static} objects, not temporally
+% evolving, noisy radar sequences.
+% \posterfig{0.95\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
+% \vspace{1.62mm}
+% \textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
+% literature shows pre-trained initialization accelerates meta-learning. We extend this to
+% radar point-cloud PID.
+% \end{minipage}
+% }
+\block{\textcolor{white}{\large \ding{203}\ \ Two Challenge in Radar-Based PID}}{
+\begin{minipage}{\linewidth}
 \textbf{3a. Radar Imaging Quality}\\[1.62mm]
+\posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}
 Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
 resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
 InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
 \emph{articulated} human targets.
-\posterfig{0.95\linewidth}{fig_sparse_pointcloud_problem.png}{Sparsity, non-uniform density, noise -- missing body segments}
-\posterfig{0.95\linewidth}{fig_multipath_fan.png}{Indoor multipath generates ghost clusters}
 \end{minipage}
-\hfill
-\begin{minipage}{0.48\linewidth}
+\vspace{3mm}
+\begin{minipage}{\linewidth}
 \textbf{3b. Data Scarcity}\\[1.62mm]
+\posterfig{\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
 Existing learning methods need $>$100 sequences/person (hours of recording) --
 impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
 geometry; PCT captures local structure but targets \emph{static} objects, not temporally
 evolving, noisy radar sequences.
-\posterfig{0.95\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
 \vspace{1.62mm}
 \textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
 literature shows pre-trained initialization accelerates meta-learning. We extend this to
@@ -152,10 +197,60 @@ radar point-cloud PID.
 \end{minipage}
 }
 
-% ============================================================
-% SECTION 4 -- OUR FRAMEWORK (3-fold contribution, system level)
-% ============================================================
-\block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
+\block{\textcolor{white}{\large \ding{205}\ \ Key Results}}{
+    \begin{center}
+    \begin{tikzpicture}
+        \MetricBox{m1}{0,0}{73.8\%}{InISAR IoU}
+        \MetricBox{m2}{4.2,0}{$<$5.5 cm}{Height Error}
+        \MetricBox{m3}{8.4,0}{70.0\%}{Few-shot (cross-session)}
+    \end{tikzpicture}
+    \end{center}
+    \small
+    \textbf{Our Solution:} Unified framework combining:
+    \begin{itemize}
+        \setlength\itemsep{2pt}
+        \item \textbf{InISAR:} High-quality 3D reconstruction with multipath suppression
+        \item \textbf{PCTtrans + Pre-trained MAML:} Few-shot learning from minimal data
+    \end{itemize}
+    \vspace{3mm}
+    \textbf{Impact:} 70.0\% cross-session accuracy with just 10 examples per person
+}
+
+% % ============================================================
+% % SECTION 4 -- OUR FRAMEWORK (3-fold contribution, system level)
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
+% \posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
+
+% \vspace{2.91mm}
+% \begin{minipage}{0.31\linewidth}
+% \centering
+% \colorbox{radarBlue}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(1) Radar domain}\\[1mm]
+% \small Tracking-integrated InISAR reconstructs high-res 3D point clouds of articulated
+% human motion, validated against motion-capture ground truth.}}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.31\linewidth}
+% \centering
+% \colorbox{radarPurple}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(2) ML domain}\\[1mm]
+% \small Spatio-temporal transformer (PCTtrans) embedded in MAML; task-specific pre-trained
+% initialization substantially improves few-shot adaptation.}}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.31\linewidth}
+% \centering
+% \colorbox{radarGreen}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(3) System integration}\\[1mm]
+% \small High-quality 3D reconstruction + meta-learning together enable practical few-shot
+% radar PID, reducing dependence on large subject-specific datasets.}}
+% \end{minipage}
+% }
+
+% ----------------------------------------------------------------------
+% COLUMN 2: InISAR PIPELINE + VALIDATION
+% ----------------------------------------------------------------------
+\column{0.36}
+
+\block{\textcolor{white}{\large \ding{206}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
 \posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
 
 \vspace{2.91mm}
@@ -181,134 +276,294 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{minipage}
 }
 
-% ============================================================
-% COLUMN BREAK
-% ============================================================
-\column{0.5}
+% % ============================================================
+% % COLUMN BREAK
+% % ============================================================
+% \column{0.5}
+
+% % ============================================================
+% % SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
+%   \posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip.pdf}{Six-stage 3D reconstruction pipeline}
+% % \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
+% % \posterfig{0.95\linewidth}{fig_motion_compensation.png}{Range recovery via FFT (fast-time/slow-time) $\to$ ISAR with Motion Compensation}
+% % \posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR detection $\to$ Interferometry 3D Reconstruction $\to$ Tracking}
+% % \posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
+% }
+% % \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
+% %   \begin{minipage}{0.48\linewidth}
+% %     \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
+% %   \end{minipage}
+% %   \hfill
+% %   \begin{minipage}{0.48\linewidth}
+% %     \posterfig{\linewidth}{fig_motion_compensation.png}{Range-FFT $\to$ ISAR Motion Compensation}
+% %   \end{minipage}
+
+% %   \vspace{2.91mm}
+% %   \begin{minipage}{0.48\linewidth}
+% %     \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler-FFT $\to$ CFAR $\to$ Interferometry $\to$ Multi-Traget Tracking}
+% %   \end{minipage}
+% %   \hfill
+% %   \begin{minipage}{0.48\linewidth}
+% %     \posterfig{\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
+% %   \end{minipage}
+% % }
+
+% \block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
+% \posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
+% \posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
+% \vspace{2.91mm}
+%   \begin{minipage}{0.56\linewidth}
+%     \posterfig{\linewidth}{05_pcttrans_decomposed}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
+%   \end{minipage}
+%   \hfill
+%   \begin{minipage}{0.4\linewidth}
+%     \posterfig{\linewidth}{fig_pretrained_maml}{Pre-trained ($\theta^{PT}_0$) vs. random ($\theta^{rand}_0$) initialization: Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
+%   \end{minipage}
+% }
 
 % ============================================================
 % SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
 % ============================================================
-% \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
-% \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
-% \posterfig{0.95\linewidth}{fig_motion_compensation.png}{Range recovery via FFT (fast-time/slow-time) $\to$ ISAR with Motion Compensation}
-% \posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR detection $\to$ Interferometry 3D Reconstruction $\to$ Tracking}
-% \posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
-% }
-\block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
-  \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{fig_motion_compensation.png}{Range-FFT $\to$ ISAR Motion Compensation}
-  \end{minipage}
-
-  \vspace{2.91mm}
-  \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler-FFT $\to$ CFAR $\to$ Interferometry $\to$ Multi-Traget Tracking}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\linewidth}
-    \posterfig{\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
-  \end{minipage}
+\block{\textcolor{white}{\large \ding{207}\ \ InISAR Pipeline}}{
+\begin{minipage}{0.4\linewidth}
+\posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_vertical.pdf}{Six-stage 3D reconstruction pipeline}
+\end{minipage}
+\hfill
+\begin{minipage}{0.56\linewidth}
+  \textbf{Key Equations:}
+  \begin{align*}
+      \text{Motion Compensation: } & [\hat{\beta},\hat{\gamma}] = \arg\max\ \text{contrast} \\
+      \text{Height Estimation: } & h = \frac{\lambda \phi R}{2\pi L}
+  \end{align*}
+\end{minipage}
 }
 
-\block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
-\posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
-\posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
+\block{\textcolor{white}{\large \ding{208}\ \ Multipath Removal}}{
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{other_range_doppler_profile_0.png}
+        \small\textcolor{radarGrey}{Prior removal: noise and ghost targets}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig_radar_vs_camera_candidate0.png}
+        \small\textcolor{radarGrey}{Post removal: no multipath reflections}
+    \end{minipage}
+    \hfill
+    \vspace{3mm}
+    \small\textcolor{radarGrey}{EKF-JPDA tracking in 3D spatial domain removes ghosts.}
+}
+
+\block{\textcolor{white}{\large \ding{209}\ \ Validation: InISAR vs MoCap}}{
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{other_p4cn0_iou_frame_65.png}
+        \small\textcolor{radarGrey}{InISAR (blue) vs Motion Capture (green)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+        \small
+        \begin{tabular}{lc}
+            \toprule
+            \textbf{Scenario} & \textbf{IoU (\%)} \\
+            \midrule
+            Circular Walking & 79.82 \\
+            Hands-Up Walking & 100.0 \\
+            Kicking & 69.19 \\
+            Squatting & 59.98 \\
+            \midrule
+            \textbf{Average} & \textbf{73.78} \\
+            \bottomrule
+        \end{tabular}
+        \vspace{2mm}
+        \centering
+        \textbf{Height error:} $<$5.5 cm (median 3.87 cm)
+    \end{minipage}
+}
+
+% ----------------------------------------------------------------------
+% COLUMN 3: PCTtrans + MAML + RESULTS
+% ----------------------------------------------------------------------
+\column{0.32}
+
+\block{\textcolor{white}{\large \ding{210}\ \ PCTtrans Architecture}}{
+\posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: (Spatial) per-frame PCT encoder $\to$ position encoding $\to$ (Temporal) Transformer encoder}
 \vspace{2.91mm}
-  \begin{minipage}{0.56\linewidth}
-    \posterfig{\linewidth}{05_pcttrans_decomposed}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.4\linewidth}
-    \posterfig{\linewidth}{fig_pretrained_maml}{Pre-trained ($\theta^{PT}_0$) vs. random ($\theta^{rand}_0$) initialization: Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
-  \end{minipage}
+  \small
+  \textbf{PCTtrans Architecture:}
+  \vspace{2mm}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.6, node distance=0.4cm]
+      \node[draw, fill=deepLearning!20, rounded corners=2pt, minimum width=2.2cm, minimum height=0.6cm] (input) {$\mathcal{S} = \{\mathcal{P}_t\}_{t=1}^{10}$};
+      \node[draw, fill=deepLearning, rounded corners=2pt, minimum width=2.2cm, minimum height=0.6cm, below=0.3cm of input] (pct) {PCT Encoder};
+      \node[draw, fill=deepLearning, rounded corners=2pt, minimum width=2.2cm, minimum height=0.6cm, below=0.3cm of pct] (trans) {Temporal Transformer};
+      \node[draw, fill=resultsColor!50, rounded corners=2pt, minimum width=2.2cm, minimum height=0.6cm, below=0.3cm of trans] (fc) {FC + Softmax};
+      \draw[->, line width=0.8pt] (input) -- (pct);
+      \draw[->, line width=0.8pt] (pct) -- (trans);
+      \draw[->, line width=0.8pt] (trans) -- (fc);
+      \node[right=0.3cm of fc, font=\footnotesize] {identity};
+  \end{tikzpicture}
+  \end{center}
+  \vspace{2mm}
+  \textbf{Key Features:}
+  \begin{itemize}
+      \setlength\itemsep{1pt}
+      \item Farthest Point Sampling (FPS) + Ball Query
+      \item Offset-Attention (discrete Laplacian approximation)
+      \item 4-head multi-head self-attention
+  \end{itemize}
 }
 
-% ============================================================
-% SECTION 6 -- RESULTS
-% ============================================================
-\block{\textcolor{white}{\large \ding{207}\ \ Results}}{
-
-\begin{minipage}{0.30\linewidth}
-\centering
-\colorbox{radarNavy}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
-{\fontsize{40}{44}\selectfont\bfseries 98.99\%}\\[1mm]
-{\small supervised accuracy, sufficient data}\vspace{1mm}}}
-\end{minipage}
-\hfill
-\begin{minipage}{0.34\linewidth}
-\centering
-\colorbox{radarOrange}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
-{\fontsize{34}{38}\selectfont\bfseries 32.05\%$\to$70.0\%}\\[1mm]
-{\small few-shot cross-session accuracy}\vspace{1mm}}}
-\end{minipage}
-\hfill
-\begin{minipage}{0.30\linewidth}
-\centering
-\colorbox{radarGreen}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
-{\fontsize{40}{44}\selectfont\bfseries +15.6\,pp}\\[1mm]
-{\small gain from pre-training alone}\vspace{1mm}}}
-\end{minipage}
-
-\vspace{4.37mm}
-\begin{minipage}{0.55\linewidth}
-% TODO: replace with generated bar chart (Random vs Pre-Trained init, Q1/Q2/Q3, S2)
-\posterfig{\linewidth}{fig_results_barchart.png}{Random vs.\ pre-trained initialization across queries (S2)}
-\end{minipage}
-\hfill
-\begin{minipage}{0.42\linewidth}
-\small
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
-\midrule
-Q1 (same-session)      & 76.67 & \textbf{94.44} & +17.77 \\
-Q2 (cross-session)     & 54.44 & \textbf{70.00} & +15.56 \\
-Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
-\bottomrule
-\end{tabular}
-\vspace{2.7mm}
-
-\textbf{Highlights:}
-\begin{itemize}\small
-  \setlength\itemsep{1mm}
-  \item InISAR: 73.78\% IoU, $<$5.5\,cm height error vs.\ MoCap
-  \item PCTtrans outperforms TCPCN by +2.81pp (supervised, Q1)
-  \item Pre-training gain largest for cross-session (+15.56pp);
-        modest for cross-subject (+2.22pp) -- unseen gaits fall
-        outside pre-training distribution
-\end{itemize}
-\end{minipage}
+\block{\textcolor{white}{\large \ding{211}\ \ Pre-trained MAML}}{
+    \small
+    \textbf{Two-Phase Algorithm:}
+    \begin{enumerate}
+        \setlength\itemsep{2pt}
+        \item \textbf{Phase 1:} Supervised training on representative task (3 subjects) $\to$ $\theta_0^{PT}$
+        \item \textbf{Phase 2:} Meta-train MAML with $\theta_0^{PT}$ initialization
+    \end{enumerate}
+    \vspace{3mm}
+    \begin{align*}
+        \text{Inner Loop: } & \theta_i' = \theta - \alpha \nabla \mathcal{L}_{\mathcal{T}_i} \\
+        \text{Outer Loop: } & \theta \leftarrow \theta - \beta \nabla \sum_i \mathcal{L}_{\mathcal{T}_i}
+    \end{align*}
+    \small
+    \textbf{Key Advantage:} $\theta_0^{PT}$ is closer to optimal $\theta^*$ than $\theta_0^{rand}$,
+    reducing meta-training iterations.
 }
 
-% ============================================================
-% SECTION 7 -- QR VIDEOS
-% ============================================================
-\block{\textcolor{white}{\large \ding{208}\ \ Watch It In Action}}{
-\begin{minipage}{0.46\linewidth}
-\centering
-% TODO: replace URL below with your actual hosted video link
-\qrcode[height=4cm]{https://example.com/inisar-reconstruction-video}\\[1.62mm]
-\textbf{InISAR-Reconstructed 3D Point Cloud}\\
-\small\color{radarGrey} Full 3D reconstruction video (ffmpeg-rendered)
-\end{minipage}
-\hfill
-\begin{minipage}{0.46\linewidth}
-\centering
-% TODO: replace URL below with your actual hosted video link
-\qrcode[height=4cm]{https://example.com/dbscan-before-after-video}\\[1.62mm]
-\textbf{DBSCAN Before / After}\\
-\small\color{radarGrey} Ghost-cluster removal on non-tracking-integrated point clouds
-\end{minipage}
+% % ============================================================
+% % SECTION 6 -- RESULTS
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{207}\ \ Results}}{
+
+% \begin{minipage}{0.30\linewidth}
+% \centering
+% \colorbox{radarNavy}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+% {\fontsize{40}{44}\selectfont\bfseries 98.99\%}\\[1mm]
+% {\small supervised accuracy, sufficient data}\vspace{1mm}}}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.34\linewidth}
+% \centering
+% \colorbox{radarOrange}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+% {\fontsize{34}{38}\selectfont\bfseries 32.05\%$\to$70.0\%}\\[1mm]
+% {\small few-shot cross-session accuracy}\vspace{1mm}}}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.30\linewidth}
+% \centering
+% \colorbox{radarGreen}{\parbox{0.92\linewidth}{\centering\color{white}\vspace{1mm}
+% {\fontsize{40}{44}\selectfont\bfseries +15.6\,pp}\\[1mm]
+% {\small gain from pre-training alone}\vspace{1mm}}}
+% \end{minipage}
+
+% \vspace{4.37mm}
+% \begin{minipage}{0.55\linewidth}
+% % TODO: replace with generated bar chart (Random vs Pre-Trained init, Q1/Q2/Q3, S2)
+% \posterfig{\linewidth}{fig_results_barchart.png}{Random vs.\ pre-trained initialization across queries (S2)}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.42\linewidth}
+% \small
+% \begin{tabular}{@{}lccc@{}}
+% \toprule
+% \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
+% \midrule
+% Q1 (same-session)      & 76.67 & \textbf{94.44} & +17.77 \\
+% Q2 (cross-session)     & 54.44 & \textbf{70.00} & +15.56 \\
+% Q3 (cross-subject)     & 46.67 & \textbf{48.89} & +2.22 \\
+% \bottomrule
+% \end{tabular}
+% \vspace{2.7mm}
+
+% \textbf{Highlights:}
+% \begin{itemize}\small
+%   \setlength\itemsep{1mm}
+%   \item InISAR: 73.78\% IoU, $<$5.5\,cm height error vs.\ MoCap
+%   \item PCTtrans outperforms TCPCN by +2.81pp (supervised, Q1)
+%   \item Pre-training gain largest for cross-session (+15.56pp);
+%         modest for cross-subject (+2.22pp) -- unseen gaits fall
+%         outside pre-training distribution
+% \end{itemize}
+% \end{minipage}
+% }
+
+% % ============================================================
+% % SECTION 7 -- QR VIDEOS
+% % ============================================================
+% \block{\textcolor{white}{\large \ding{208}\ \ Watch It In Action}}{
+% \begin{minipage}{0.46\linewidth}
+% \centering
+% % TODO: replace URL below with your actual hosted video link
+% \qrcode[height=4cm]{https://example.com/inisar-reconstruction-video}\\[1.62mm]
+% \textbf{InISAR-Reconstructed 3D Point Cloud}\\
+% \small\color{radarGrey} Full 3D reconstruction video (ffmpeg-rendered)
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.46\linewidth}
+% \centering
+% % TODO: replace URL below with your actual hosted video link
+% \qrcode[height=4cm]{https://example.com/dbscan-before-after-video}\\[1.62mm]
+% \textbf{DBSCAN Before / After}\\
+% \small\color{radarGrey} Ghost-cluster removal on non-tracking-integrated point clouds
+% \end{minipage}
+% }
+
+\block{\textcolor{white}{\large \ding{212}\ \ Results}}{
+    \small
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
+        \midrule
+        Q1 (same session) & 98.99\% & 90.0\% \\
+        Q2 (cross-session) & 32.05\% & \textbf{70.0\%} \\
+        Q3 (cross-subject) & 31.67\% & 47.78\% \\
+        \bottomrule
+    \end{tabular}
+    \vspace{3mm}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Query} & \textbf{Random Init} & \textbf{Pre-Trained} & \textbf{Gain} \\
+        \midrule
+        Q1 (same session) & 76.67\% & 94.44\% & +17.77pp \\
+        Q2 (cross-session) & 54.44\% & \textbf{70.0\%} & +15.56pp \\
+        Q3 (cross-subject) & 46.67\% & 48.89\% & +2.22pp \\
+        \bottomrule
+    \end{tabular}
+    \vspace{3mm}
+    \textbf{Summary:}
+    \begin{itemize}
+        \setlength\itemsep{1pt}
+        \item PCTtrans: 98.99\% supervised (+2.81pp vs TCPCN)
+        \item Pre-trained MAML: 70.0\% cross-session (vs 32.05\% supervised)
+        \item Pre-training gain: +15.6pp over random MAML
+    \end{itemize}
+}
+
+\block{\textcolor{white}{\large \ding{213}\ \ Conclusion}}{
+    \small
+    \begin{itemize}
+        \setlength\itemsep{2pt}
+        \item \checkmark\ \textbf{InISAR:} 73.78\% IoU, $<$5.5 cm height error
+        \item \checkmark\ \textbf{PCTtrans:} 98.99\% accuracy with sufficient data
+        \item \checkmark\ \textbf{Pre-trained MAML:} 70.0\% cross-session accuracy
+        \item \checkmark\ \textbf{+15.6pp} improvement over random MAML
+    \end{itemize}
+    \vspace{3mm}
+    \centering
+    \fbox{\parbox{0.9\linewidth}{\centering\small
+    \textbf{Practical few-shot radar PID with minimal training data is now feasible.}
+    }}
 }
 
 % ============================================================
 % SECTION 8 -- INDUSTRIAL OUTLOOK / LIMITATIONS
 % ============================================================
-\block{\textcolor{white}{\large \ding{209}\ \ Toward Industrial Deployment: Open Challenges}}{
+\block{\textcolor{white}{\large \ding{213}\ \ Toward Industrial Deployment: Open Challenges}}{
 \small
 \begin{minipage}{0.19\linewidth}
 \centering
@@ -351,6 +606,8 @@ Max missing frame = 1 (not adaptive).\\[1mm]
 \end{minipage}
 }
 
+\end{columns}
+
 % ============================================================
 % FOOTER
 % ============================================================
@@ -358,7 +615,8 @@ Max missing frame = 1 (not adaptive).\\[1mm]
 \centering\small\color{radarGrey}
 jeffee.hsiung@icloud.com \quad torun10@imec.be
 \qquad EUSIPCO 2026, Bruges \qquad imec / KU Leuven / VUB
+\hfill
+\qrcode[height=1.2cm]{https://example.com/paper}
 }
 
-\end{columns}
 \end{document}

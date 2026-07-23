@@ -5,13 +5,13 @@
 # Configuration
 # ------------------------------------------------------------
 FIG_DIR = tikz-radar-lib
-FIG_NAMES = problem_panel radar_pipeline_final tracking_comparison tracking_removes_ghosts tracking_spectrum_vs_3d
+FIG_NAMES = inisar_pipeline_strip_vertical inisar_pipeline_strip_landscape problem_panel_strip problem_panel_vertical problem_panel_landscape radar_pipeline_final_vertical radar_pipeline_final_landscape tracking_comparison_vertical tracking_comparison_landscape tracking_removes_ghosts_vertical tracking_removes_ghosts_landscape tracking_spectrum_vs_3d_vertical tracking_spectrum_vs_3d_landscape
 FIG_PDFS = $(addprefix $(FIG_DIR)/, $(addsuffix .pdf, $(FIG_NAMES)))
 
 # Possible poster files (without extension)
-POSTERS = poster poster-v1 poster-v2
+POSTERS = poster-v1 poster-v2 poster-v3
 # Default target: build poster
-MAIN = poster
+MAIN = poster-v1
 
 # ------------------------------------------------------------
 # Default target
@@ -35,12 +35,12 @@ rebuild-figs:
 # Build posters
 # ------------------------------------------------------------
 # Generic rule: any poster PDF depends on its .tex and the figure PDFs
-poster.pdf: poster.tex $(FIG_PDFS)
-	@echo "Building poster.tex"
-	pdflatex -shell-escape -interaction=nonstopmode poster.tex
-	-if [ -f poster.aux ] && grep -q "bibdata" poster.aux; then bibtex poster; fi
-	pdflatex -shell-escape -interaction=nonstopmode poster.tex
-	pdflatex -shell-escape -interaction=nonstopmode poster.tex
+poster-v3.pdf: poster.tex $(FIG_PDFS)
+	@echo "Building poster-v3.tex"
+	pdflatex -shell-escape -interaction=nonstopmode poster-v3.tex
+	-if [ -f poster-v3.aux ] && grep -q "bibdata" poster-v3.aux; then bibtex poster-v3; fi
+	pdflatex -shell-escape -interaction=nonstopmode poster-v3.tex
+	pdflatex -shell-escape -interaction=nonstopmode poster-v3.tex
 
 poster-v1.pdf: poster-v1.tex $(FIG_PDFS)
 	@echo "Building poster-v1.tex"
@@ -62,14 +62,14 @@ poster-v2.pdf: poster-v2.tex $(FIG_PDFS)
 view: $(MAIN).pdf
 	open $(MAIN).pdf
 
-view-poster: poster.pdf
-	open poster.pdf
-
 view-v1: poster-v1.pdf
 	open poster-v1.pdf
 
 view-v2: poster-v2.pdf
 	open poster-v2.pdf
+
+view-v3: poster-v3.pdf
+	open poster-v3.pdf
 
 # ------------------------------------------------------------
 # Clean
@@ -77,9 +77,9 @@ view-v2: poster-v2.pdf
 clean:
 	@echo "Removing generated files..."
 	# Remove auxiliary files for all posters
-	rm -f poster.aux poster.log poster.nav poster.out poster.snm poster.toc poster.vrb poster.bbl poster.blg poster.run.xml poster-blx.bib poster.pdf
 	rm -f poster-v1.aux poster-v1.log poster-v1.nav poster-v1.out poster-v1.snm poster-v1.toc poster-v1.vrb poster-v1.bbl poster-v1.blg poster-v1.run.xml poster-v1-blx.bib poster-v1.pdf
 	rm -f poster-v2.aux poster-v2.log poster-v2.nav poster-v2.out poster-v2.snm poster-v2.toc poster-v2.vrb poster-v2.bbl poster-v2.blg poster-v2.run.xml poster-v2-blx.bib poster-v2.pdf
+	rm -f poster-v3.aux poster-v3.log poster-v3.nav poster-v3.out poster-v3.snm poster-v3.toc poster-v3.vrb poster-v3.bbl poster-v3.blg poster-v3.run.xml poster-v3-blx.bib poster-v3.pdf
 	# Remove figure auxiliary and PDFs
 	cd $(FIG_DIR) && rm -f $(addsuffix .aux, $(FIG_NAMES)) \
 	                        $(addsuffix .log, $(FIG_NAMES)) \
@@ -100,7 +100,7 @@ cleanfigs:
 # ------------------------------------------------------------
 distclean: clean
 	@echo "Removing all generated files including figures and build directories..."
-	rm -f poster.pdf poster-v1.pdf poster-v2.pdf
+	rm -f poster-v1.pdf poster-v2.pdf poster-v3.pdf
 	cd $(FIG_DIR) && rm -f *.pdf *.aux *.log *.out *.toc *.nav *.snm
 	rm -rf tikz-radar-lib/build
 
@@ -109,11 +109,11 @@ distclean: clean
 # ------------------------------------------------------------
 help:
 	@echo "Available targets:"
-	@echo "  all          : Build the main poster (poster-v2, default)"
-	@echo "  view         : Open the main poster (poster-v2)"
-	@echo "  view-poster  : Open poster.tex"
+	@echo "  all          : Build the main poster (poster-v1, default)"
+	@echo "  view         : Open the main poster (poster-v1)"
 	@echo "  view-v1      : Open poster-v1.tex"
 	@echo "  view-v2      : Open poster-v2.tex"
+	@echo "  view-v3	  : Open poster-v3.tex"
 	@echo "  clean        : Remove auxiliary files (keep PDFs)"
 	@echo "  cleanfigs    : Remove only the TikZ figure PDFs"
 	@echo "  distclean    : Remove everything (including PDFs)"

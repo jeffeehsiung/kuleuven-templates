@@ -1,0 +1,84 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+
+\input{./radar_styles.tex}
+\input{./radar_icons.tex}
+\input{./geometry_icons.tex}
+\input{./tracking_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=0.55cm,
+    every node/.style={align=center}
+]
+
+% =========================================================================
+% LEFT COLUMN: RADAR SIGNAL PROCESSING (x = -3.2)
+% =========================================================================
+\ProcessCard[card color=radarProcessing, text width=2.8cm]{p1}{Raw Radar}{\RadarSensor}
+\ProcessCard[below=0.55cm of p1, card color=radarProcessing, text width=2.8cm]{p2}{Range FFT}{\RangeFFT}
+\ProcessCard[below=0.55cm of p2, card color=radarProcessing, text width=2.8cm]{p3}{Motion Comp.}{\MotionCompensation}
+\ProcessCard[below=0.55cm of p3, card color=radarProcessing, text width=2.8cm]{p4}{ISAR}{\ISARImage}
+\ProcessCard[below=0.55cm of p4, card color=radarProcessing, text width=2.8cm]{p5}{Doppler FFT}{\RangeDoppler}
+\ProcessCard[below=0.55cm of p5, card color=radarProcessing, text width=2.8cm]{p6}{CFAR}{\CFAR}
+\ProcessCard[below=0.55cm of p6, card color=geometryColor, text width=2.8cm]{p7}{Interferometry}{\Interferometry}
+\ProcessCard[below=0.55cm of p7, card color=geometryColor, text width=2.8cm]{p8}{EKF-JPDA}{\EKFJPDA}
+\ProcessCard[below=0.55cm of p8, card color=resultsColor, text width=2.8cm]{p9}{3D Point Cloud}{\PointCloudHuman}
+
+% Flow arrows (left column)
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4, p4/p5, p5/p6, p6/p7, p7/p8, p8/p9}{
+    \draw[flow] (\s.south) -- (\t.north);
+}
+
+% =========================================================================
+% KEY EQUATIONS (below the two columns, with connecting arrows)
+% =========================================================================
+% Equation 1: Motion Compensation (under p3)
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=3.2cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq1) at ($(p3.south west)+(-1.0,-0.5)$)
+    {$\hat{\beta},\hat{\gamma} = \arg\max\ \text{contrast}$};
+
+% Equation 2: Height Estimation (under p7)
+\node[draw=iconStroke, fill=iconFaint, rounded corners=2pt,
+      minimum width=3.2cm, minimum height=0.9cm, font=\scriptsize,
+      text=radarNavy, align=center, anchor=north] (eq2) at ($(p7.south west)+(-1.0,-0.5)$)
+    {$h = \dfrac{\lambda \phi R}{2\pi L}$};
+
+
+% Connect equations to their corresponding blocks
+\draw[iconFaint, line width=0.3pt] (p3.south) -- (eq1.north);
+\draw[iconFaint, line width=0.3pt] (p7.south) -- (eq2.north);
+
+% =========================================================================
+% METRICS BAND (below the equations, spanning both columns)
+% =========================================================================
+\coordinate (divY) at ($(p9.south)+(0,-0.6)$);
+\coordinate (divL) at ($(p9.west)+(-0.5,0)$);
+\coordinate (divR) at ($(p9.east)+(0.5,0)$);
+\draw[radarGrey!40, line width=0.6pt] (divL |- divY) -- (divR |- divY);
+
+\coordinate (metY) at ($(divY)+(0,-0.8)$);
+% =========================================================================
+% LEGEND (below metrics band)
+% =========================================================================
+\coordinate (legBase) at ($(metY)+(0,-0.6)$);
+\coordinate (leg1) at ($(legBase)+(-2.5,0)$);
+\coordinate (leg2) at ($(legBase)+(0,0)$);
+\coordinate (leg3) at ($(legBase)+(3.0,0)$);
+
+\begin{scope}
+    \node[fill=radarProcessing, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw1) at (leg1) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw1] {Radar Proc.};
+
+    \node[fill=geometryColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw2) at (leg2) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw2] {Geom. \& Track.};
+
+    \node[fill=resultsColor, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw3) at (leg3) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw3] {Results};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}

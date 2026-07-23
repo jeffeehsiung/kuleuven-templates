@@ -1,0 +1,51 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{pifont}
+\renewcommand{\familydefault}{\sfdefault}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.6cm]
+
+% ---- TITLE ----
+\node[font=\sffamily\bfseries\large, text=radarNavy] (head) at (0,0)
+    {The Problem with Conventional Radar PID};
+
+% ---- TOP: Why Radar? (left) vs Problems (right) ----
+\node[anchor=north west, font=\sffamily\bfseries\normalsize, text=radarGreen] (whyhead) at (-3.8,-0.8) {Why Radar?};
+\node[anchor=north west, font=\sffamily\small, text=radarGrey, align=left, text width=3.2cm] (why) at (-3.8,-1.3)
+    {\checkmark~Privacy preserving\\[2pt]
+     \checkmark~Works in darkness\\[2pt]
+     \checkmark~Weather robust};
+
+\node[anchor=north west, font=\sffamily\bfseries\normalsize, text=radarOrange] (probhead) at (1.2,-0.8) {Problems};
+\node[anchor=north west, font=\sffamily\small, text=radarGrey, align=left, text width=3.8cm] (prob) at (1.2,-1.3)
+    {\ding{55}~Sparse point clouds\\[2pt]
+     \ding{55}~Multipath ghosts\\[2pt]
+     \ding{55}~Needs $>$100 recordings/person};
+
+% ---- PIPELINE STRIP (vertical stack) ----
+\ProcessCard[below=1.8cm of whyhead.south west, anchor=north, card color=radarProcessing, text width=2.8cm]{p1}{Radar}{\RadarSensor}
+\ProcessCard[below=0.6cm of p1, card color=resultsColor, text width=2.8cm]{p2}{Sparse PCD}{
+    \foreach \pt in {(-0.3,0.2),(0.1,0.3),(0.3,-0.1),(-0.15,-0.25),(0.25,0.15),(-0.3,-0.1),(0.1,-0.2)}{
+        \fill[radarOrange] \pt circle (0.035);
+    }
+}
+\ProcessCard[below=0.6cm of p2, card color=resultsColor, text width=2.8cm]{p3}{Ghost Targets}{\GhostCluster}
+\ProcessCard[below=0.6cm of p3, card color=radarGrey, text width=2.8cm]{p4}{Hard PID}{
+    \node[font=\Large\bfseries, text=white] {?};
+}
+
+% Flow arrows (vertical)
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4}{
+    \draw[flow] (\s.south) -- (\t.north);
+}
+
+% ---- BOTTOM: Our Solution ----
+\node[font=\sffamily\bfseries\normalsize, text=radarProcessing, below=0.8cm of p4] (solhead)
+    {Our Solution: Tracking-Integrated InISAR + Pre-trained MAML};
+
+\end{tikzpicture}
+\end{document}

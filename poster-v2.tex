@@ -74,7 +74,7 @@
   InISAR and Pre-Trained Meta-Learning}}
 \author{
   Jeffee Hsiung$^{*}$ \quad Rengin Torun$^{*}$ \quad S.\ Hamed Javadi$^{\dagger}$ \quad Hichem Sahli$^{\dagger}$\\
-  \normalsize $^{*}$KU Leuven \;|\; $^{\dagger}$imec
+  \normalsize KU Leuven \;|\; imec \;|\; Vrije Universiteit Brussel \quad
   \vspace{2mm}
   \footnotesize $^{*}$Equal contribution (first authors) \quad $^{\dagger}$Equal contribution (supervisors)
 }
@@ -125,7 +125,7 @@
 \block{\textcolor{white}{\large \ding{204}\ \ The Problem}}{
     \centering
     % FIGURE 1: Problem panel – compiled separately as PDF
-    \includestandalone[mode=build]{tikz-radar-lib/problem_panel}
+    \includestandalone[mode=build]{tikz-radar-lib/problem_panel_strip}
     \vspace{3mm}
     \small\textcolor{radarGrey}{DBSCAN alone fails to distinguish ghosts from real targets.}
 }
@@ -138,7 +138,7 @@
 \block{\textcolor{white}{\large \ding{205}\ \ 3D Point Cloud Generation}}{
     \centering
     % FIGURE 2: Radar pipeline – compiled separately as PDF
-    \includestandalone[mode=build]{tikz-radar-lib/radar_pipeline_final}
+    \includestandalone[mode=build]{tikz-radar-lib/radar_pipeline_final_vertical}
     
     \vspace{3mm}
     \small
@@ -152,7 +152,7 @@
 \block{\textcolor{white}{\large \ding{206}\ \ Multipath Removal}}{
     \centering
     % FIGURE 3: Multipath removal – compiled separately as PDF
-    \includestandalone[mode=build]{tikz-radar-lib/tracking_removes_ghosts}
+    \includestandalone[mode=build]{tikz-radar-lib/tracking_removes_ghosts_landscape}
     \vspace{3mm}
     \small\textcolor{radarGrey}{EKF-JPDA tracking in 3D spatial domain removes ghosts.}
 }

@@ -102,7 +102,7 @@
 % ----------------------------------------------------------------------
 % COLUMN 1: INTRODUCTION + PROBLEMS + KEY RESULTS
 % ----------------------------------------------------------------------
-\column{0.32}
+\column{0.28}
 % ============================================================
 % SECTION 1 -- MOTIVATION
 % ============================================================
@@ -161,8 +161,7 @@ Existing deep learning methods need $>$100 sequences/person (hours of recording)
 \begin{minipage}{\linewidth}
 \centering
 \colorbox{radarOrange!15}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
-No existing work combines (a) multipath suppressed InISAR reconstruction for articulated humans with (b) few-shot learning that generalizes to new subjects. 
-We bridge this gap with tracking-integrated InISAR and pre-trained meta-learning.}}
+We bridge these gap with tracking-integrated InISAR and pre-trained few-shot meta-learning.}}
 \end{minipage}
 }
 
@@ -179,7 +178,7 @@ We bridge this gap with tracking-integrated InISAR and pre-trained meta-learning
 % ----------------------------------------------------------------------
 % COLUMN 2: UNIFIED SYSTEM + InISAR PIPELINE + VALIDATION
 % ----------------------------------------------------------------------
-\column{0.36}
+\column{0.40}
 
 % ============================================================
 % SECTION 3 -- UNIFIED SYSTEM
@@ -211,65 +210,169 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 }
 
 % ============================================================
-% SECTION 4 -- InISAR PIPELINE + VALIDATION
+% SECTION 4 -- InISAR PIPELINE: 3D RECONSTRUCTION
 % ============================================================
-\block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline}}{
-\begin{minipage}{0.4\linewidth}
-\posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_vertical.pdf}{}
+\block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
+\small
+
+% ---- Pipeline Figure ----
+\posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_landscape.pdf}{Six-stage 3D reconstruction pipeline}
+
+\vspace{3mm}
+
+% ---- Detailed Explanation in 2-Column Format ----
+\begin{minipage}{0.48\linewidth}
+\vspace{0mm}
+\textbf{Step 1: Range Processing}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item FMCW radar transmits linear frequency-modulated chirps:
+\end{itemize}
+\begin{align*}
+    \Delta r = \frac{c}{2B} \quad \text{(range resolution)}
+\end{align*}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item Output: Range-compressed signal $S_{R,m}(f,t)$.
+\end{itemize}
+\vspace{1mm}
+\textbf{Step 2: ISAR Motion Compensation (ICBA)}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item Target motion during CPI smears energy across cells, defocusing the image.
+    \item Translational motion model:
+\end{itemize}
+\begin{align*}
+    R_0(t) = r_0 + \beta t + \gamma t^2
+\end{align*}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item ICBA maximizes image contrast to estimate $[\hat{\beta}, \hat{\gamma}]$:
+\end{itemize}
+\begin{align*}
+    [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
+\end{align*}
+\vspace{1mm}
+\textbf{Step 3: Doppler Processing}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item Output: Range-Doppler map with focused target signatures.
+\end{itemize}
 \end{minipage}
 \hfill
-\begin{minipage}{0.56\linewidth}
-  \textbf{Six-stage 3D reconstruction pipeline:}
-  \begin{align*}
-      \text{Motion Compensation: } & [\hat{\beta},\hat{\gamma}] = \arg\max\ \text{contrast} \\
-      \text{Height Estimation: } & h = \frac{\lambda \phi R}{2\pi L}
-  \end{align*}
+\begin{minipage}{0.48\linewidth}
+\vspace{0mm}
+\textbf{Step 4: CFAR Segmentation}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item SOCA-CFAR ($N_T=6$, $P_{FA}=10^{-10}$) segments the target cells from noise/clutter.
+\end{itemize}
+\vspace{1mm}
+\textbf{Step 5: Interferometry}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item Uses phase difference between top and bottom antennas:
+\end{itemize}
+\begin{align*}
+    I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right)
+\end{align*}
+\begin{align*}
+    \phi = \frac{2\pi}{\lambda} L\frac{h}{R}, \quad h = \frac{\lambda \phi R}{2\pi L}
+\end{align*}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item 3D coordinates:
+\end{itemize}
+\begin{align*}
+    x = R\cos\theta_{el}\sin\theta_{az}
+\end{align*}
+\begin{align*}
+    \quad y = R\cos\theta_{el}\cos\theta_{az}
+\end{align*}
+\begin{align*}
+    z = R\sin\theta_{el}
+\end{align*}
+\vspace{1mm}
+\textbf{Step 6: EKF-JPDA Tracking}
+\begin{itemize}
+    \setlength\itemsep{0.5mm}
+    \item Tracks scatterers in 3D spatial domain (not Range-Doppler).
+    \item \textbf{Why 3D?} Ghosts overlap in RD but separate in spatial domain.
+    \item JPDA handles data association; EKF filters state with covariance.
+    \item Output: Clean 3D point cloud with ghosts removed.
+\end{itemize}
 \end{minipage}
+
+\vspace{2mm}
+
+\begin{minipage}{0.48\linewidth}
+\centering
+\includegraphics[width=\linewidth]{fig_radar_vs_camera_p3_0053.png}
+\small\textcolor{radarGrey}{(a) Before removal: ghost targets remain}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+\includegraphics[width=\linewidth]{fig_radar_vs_camera_p5_0065.png}
+\small\textcolor{radarGrey}{(b) After removal: ghosts rejected}
+\end{minipage}
+
+% ---- Key Takeaway ----
+\vspace{2mm}
+\centering
+\colorbox{radarOrange!15}{\parbox{0.95\linewidth}{\centering
+\textbf{Key Insight:} Tracking in 3D spatial domain (not Range-Doppler) is the key to rejecting multipath ghosts — ghosts overlap in RD but form separable trajectories in 3D.
+}}
 }
 
-\block{\textcolor{white}{\large \ding{207}\ \ Multipath Removal}}{
+% ============================================================
+% SECTION 5 -- VALIDATION: InISAR vs MOTION CAPTURE
+% ============================================================
+\block{\textcolor{white}{\large \ding{207}\ \ Validation: InISAR vs Motion Capture}}{
     \begin{minipage}{0.48\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig_radar_vs_camera_p3_0053.png}
-        \small\textcolor{radarGrey}{Prior removal: noise and ghost targets}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig_radar_vs_camera_p5_0065.png}
-        \small\textcolor{radarGrey}{Post removal: no multipath reflections}
-    \end{minipage}
-    \hfill
-    \vspace{3mm}
-    \small\textcolor{radarGrey}{EKF-JPDA tracking in 3D spatial domain removes ghosts.}
-}
-
-\block{\textcolor{white}{\large \ding{208}\ \ Validation: InISAR vs MoCap}}{
-    \begin{minipage}{0.48\linewidth}
+        \textbf{Setup:}
+        \begin{itemize}
+            \setlength\itemsep{1mm}
+            \item 5 subjects (164--185 cm)
+            \item 60 GHz radar, $B=3.3$ GHz ($\Delta r = 4.55$ cm)
+            \item 5 movement patterns
+        \end{itemize}
+        \vspace{2mm}
         \centering
         \includegraphics[width=\linewidth]{other_p4cn0_iou_frame_65.png}
-        \includegraphics[width=0.95\linewidth]{other_p4cn0_frame29.png}
+        \begin{minipage}{0.48\linewidth}
+            \includegraphics[width=0.95\linewidth]{other_p4cn0_frame29.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\linewidth}
         \includegraphics[width=0.95\linewidth]{other_p4cn2_frame328.png}
+        \end{minipage}
         \small\textcolor{radarGrey}{InISAR (blue) vs Motion Capture (green)}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\linewidth}
-        \small
-        \begin{tabular}{lc}
-            \toprule
-            \textbf{Scenario} & \textbf{IoU (\%)} \\
-            \midrule
-            Circular Walking & 79.82 \\
-            Hands-Up Walking & 100.0 \\
-            Kicking & 69.19 \\
-            Squatting & 59.98 \\
-            \midrule
-            \textbf{Average} & \textbf{73.78} \\
-            \bottomrule
-        \end{tabular}
-        \vspace{2mm}
-        \centering
-        \textbf{Height error:} $<$5.5 cm (median 3.87 cm)
+    % ---------- TABLE WITH SMALLER FONT ----------
+    \small  % <-- Add this line
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Scenario} & \textbf{IoU (\%)} \\
+        \midrule
+        Circular Walking (Cap 0) & 79.82 \\
+        Hands-Up Walking (Cap 1) & 100.0 \\
+        Kicking (Cap 2) & 69.19 \\
+        Hands-Up + Kicking (Cap 3) & 59.93 \\
+        Squatting (Cap 4) & 59.98 \\
+        \midrule
+        \textbf{Average} & \textbf{73.78} \\
+        \bottomrule
+    \end{tabular}
+    % --------------------------------------------
+    \vspace{2mm}
+    \centering
+    \colorbox{resultsColor!15}{\parbox{0.95\linewidth}{\centering
+    \textbf{Height Error:} $<$5.5 cm (median 3.87 cm) --- approaching $\Delta r = 4.55$ cm resolution limit
+    }}
+    \vspace{2mm}
+    \textbf{Key Insight:} Lower IoU for kicking/squatting indicates need for adaptive tracking during high-acceleration movements.
     \end{minipage}
 }
 

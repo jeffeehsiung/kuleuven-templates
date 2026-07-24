@@ -28,11 +28,13 @@
     \foreach \i in {0,1,2}{
       \foreach \j in {0,1}{
         \pgfmathsetmacro{\shade}{30+20*\i}
+        \pgfmathsetmacro{\ip}{\i+1}
+        \pgfmathsetmacro{\jp}{\j+1}
         \draw[iconStroke, line width=0.4pt, fill=geometryColor!\shade!white, fill opacity=0.6]
           ($(-0.4,-0.35)+\i*(dx)+\j*(dy)$) --
-          ($(-0.4,-0.35)+(\i+1)*(dx)+\j*(dy)$) --
-          ($(-0.4,-0.35)+(\i+1)*(dx)+(\j+1)*(dy)$) --
-          ($(-0.4,-0.35)+\i*(dx)+(\j+1)*(dy)$) -- cycle;
+          ($(-0.4,-0.35)+\ip*(dx)+\j*(dy)$) --
+          ($(-0.4,-0.35)+\ip*(dx)+\jp*(dy)$) --
+          ($(-0.4,-0.35)+\i*(dx)+\jp*(dy)$) -- cycle;
       }
     }
     \draw[iconStroke, line width=0.6pt] (-0.4,-0.35) -- ($(-0.4,-0.35)+(dz)$);

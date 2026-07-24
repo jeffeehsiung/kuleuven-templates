@@ -2,8 +2,8 @@ This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded forma
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tracking_comparison_landscape.tex
-(./tracking_comparison_landscape.tex
+**full_icons_test.tex
+(./full_icons_test.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/standalone/standalone.cls
@@ -507,29 +507,30 @@ File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (/usr/local/texlive/2026basic/texmf-dist/tex/generic/pgf/frontendlayer/tikz/lib
 raries/tikzlibrary3d.code.tex
 File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)) (./radar_icons.tex) (./tracking_icons.tex)
+)) (./radar_icons.tex) (./ml_icons.tex)
+(./geometry_icons.tex) (./tracking_icons.tex)
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count308
-) (./tracking_comparison_landscape.aux)
-\openout1 = `tracking_comparison_landscape.aux'.
+)
+No file full_icons_test.aux.
+\openout1 = `full_icons_test.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count309
@@ -553,13 +554,40 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-)) [1
+))
+Overfull \hbox (9.4137pt too wide) in paragraph at lines 12--12
+ [][][] 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 15.
+
+Overfull \hbox (2.40314pt too wide) in paragraph at lines 16--16
+ [][][] 
+ []
+
+
+Overfull \hbox (8.9884pt too wide) in paragraph at lines 23--23
+ [][][] 
+ []
+
+
+Overfull \hbox (16.39748pt too wide) in paragraph at lines 25--25
+ [][][] 
+ []
+
+
+Overfull \hbox (1.68703pt too wide) in paragraph at lines 32--32
+ [][][] 
+ []
+
+[1
 
 
 Non-PDF special ignored!
-<special> papersize=347.9292pt,115.39046pt
+<special> papersize=748.15857pt,548.60638pt
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./tracking_comparison_landscape.aux)
+(./full_icons_test.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -570,20 +598,23 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 15259 strings out of 469006
- 347537 string characters out of 5454813
- 774225 words of memory out of 5000000
- 43675 multiletter control sequences out of 15000+600000
- 629208 words of font info for 45 fonts, out of 8000000 for 9000
+ 16163 strings out of 469006
+ 363838 string characters out of 5454813
+ 1182889 words of memory out of 5000000
+ 44574 multiletter control sequences out of 15000+600000
+ 629233 words of font info for 45 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 117i,12n,121p,433b,1267s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8
+ 117i,12n,121p,419b,1406s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5
 .pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ssbx10.pfb>
-Output written on tracking_comparison_landscape.pdf (1 page, 28128 bytes).
+bx7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmssbx10.pfb>
+Output written on full_icons_test.pdf (1 page, 105335 bytes).
 PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
- 21 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 30 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 109 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

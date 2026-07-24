@@ -5,7 +5,7 @@
 # Configuration
 # ------------------------------------------------------------
 FIG_DIR = tikz-radar-lib
-FIG_NAMES = inisar_pipeline_strip_vertical inisar_pipeline_strip_landscape problem_panel_strip problem_panel_vertical problem_panel_landscape radar_pipeline_final_vertical radar_pipeline_final_landscape tracking_comparison_vertical tracking_comparison_landscape tracking_removes_ghosts_vertical tracking_removes_ghosts_landscape tracking_spectrum_vs_3d_vertical tracking_spectrum_vs_3d_landscape
+FIG_NAMES = full_icons_test inisar_pipeline_strip_vertical inisar_pipeline_strip_landscape problem_panel_strip problem_panel_vertical problem_panel_landscape radar_pipeline_final_vertical radar_pipeline_final_landscape tracking_comparison_vertical tracking_comparison_landscape tracking_removes_ghosts_vertical tracking_removes_ghosts_landscape tracking_spectrum_vs_3d_vertical tracking_spectrum_vs_3d_landscape
 FIG_PDFS = $(addprefix $(FIG_DIR)/, $(addsuffix .pdf, $(FIG_NAMES)))
 
 # Possible poster files (without extension)

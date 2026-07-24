@@ -293,8 +293,8 @@
     % Phase color wheel indicator
     \draw[radarOrange, line width=1.5pt] (-0.5,0.45) -- (0.5,0.45);
     \foreach \i in {0,0.1,...,1}{
-      \pgfmathsetmacro{\color}{20+80*\i}
-      \draw[radarOrange!\color!red!\the\numexpr100-\color!black, line width=0.8pt]
+      \pgfmathsetmacro{\colorpct}{20+80*\i}
+      \draw[radarOrange!\colorpct!red, line width=0.8pt]
         (-0.5+\i,0.4) -- (-0.5+\i,0.5);
     }
     \node[font=\tiny, text=radarGrey, below] at (0,0.52) {$\Delta\phi$};
@@ -497,7 +497,6 @@
         (-0.35,-\r*0.5-0.15) arc (210:330:\r);
     }
     \node[font=\tiny, text=radarGrey, anchor=south] at (-0.415,-0.15) {radar};
-    
   \end{scope}
 }
 
@@ -514,7 +513,7 @@
     % Ghosts (hollow)
     \foreach \p in {(0.3,0.25),(0.35,-0.1),(-0.35,-0.2),(0.15,0.3),(0.4,0.05),(-0.3,0.3)}{
       \draw[radarOrange, line width=0.6pt] \p circle (0.035);
-      \node[font=\tiny, text=radarOrange, above right] at (\p) {ghost};
+      \node[font=\tiny, text=radarOrange, above right] at \p {ghost};
     }
     % Wall indicator
     \draw[iconFaint, line width=0.8pt, dashed] (-0.48,-0.25) -- (0.48,-0.25);

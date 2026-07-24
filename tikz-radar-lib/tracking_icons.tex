@@ -12,7 +12,6 @@
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
     \fill[radarGreen] (0,0) circle (0.045);
     \draw[radarGreen, line width=0.5pt, dashed] (0,0) circle (0.12);
-    \node[font=\tiny, text=radarGrey, below right] at (0.2,-0.05) {det};
   \end{scope}
 }
 
@@ -27,7 +26,6 @@
     \foreach \p in {(-0.35,-0.2),(-0.2,0.0),(-0.05,0.08),(0.1,-0.05),(0.35,0.2)}{
       \fill[radarGreen] \p circle (0.04);
     }
-    \node[font=\tiny, text=geometryColor, below] at (0,-0.3) {track};
   \end{scope}
 }
 
@@ -39,7 +37,6 @@
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
     \draw[radarOrange, line width=0.6pt] (0,0) circle (0.1);
     \draw[radarOrange, line width=0.4pt, dashed] (0,0) circle (0.16);
-    \node[font=\tiny, text=radarOrange, above right] at (0.1,0.15) {ghost};
   \end{scope}
 }
 
@@ -52,7 +49,6 @@
     % Tracks
     \foreach \x/\y/\c in {-0.35/0.2/1, -0.3/-0.15/2}{
       \fill[geometryColor] (\x,\y) circle (0.04);
-      \node[font=\tiny, text=geometryColor, left] at (\x-0.1,\y) {T\c};
     }
     % Detections
     \foreach \x/\y in {-0.1/0.15, -0.05/-0.1, 0.05/0.0, 0.2/0.1}{
@@ -64,8 +60,6 @@
     \draw[iconFaint, line width=0.3pt, ->] (-0.3,-0.15) -- (-0.05,-0.1);
     \draw[iconFaint, line width=0.3pt, ->] (-0.3,-0.15) -- (0.05,0.0);
     \draw[iconFaint, line width=0.3pt, ->] (-0.3,-0.15) -- (0.2,0.1);
-    % JPDA label
-    \node[font=\tiny, text=resultsColor] at (0.35,0) {JPDA};
   \end{scope}
 }
 
@@ -83,11 +77,9 @@
     \fill[geometryColor] (0.0,0.1) circle (0.04);
     % Covariance ellipse
     \draw[resultsColor, line width=0.6pt, dashed, rotate=30] (0.0,0.1) ellipse (0.12 and 0.06);
-    \node[font=\tiny, text=resultsColor, right] at (0.25,0.15) {P};
     % Measurement
     \draw[radarOrange, line width=0.5pt] (0.2,-0.15) circle (0.04);
     \fill[radarOrange] (0.2,-0.15) circle (0.025);
-    \node[font=\tiny, text=radarGrey, right] at (0.35,-0.15) {z};
   \end{scope}
 }
 
@@ -97,12 +89,11 @@
 \newcommand{\Trajectory}{%
   \begin{scope}
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
-    \foreach \i/\t in {0/1,1/2,2/3,3/4}{
+    \foreach \i in {0,1,2,3}{
       \pgfmathsetmacro{\x}{-0.35 + \i*0.2}
       \pgfmathsetmacro{\y}{-0.1 + sin(\i*60)*0.2}
-      \draw[geometryColor, line width=0.6pt, opacity=0.5+\i*0.1] (-0.35+\i*0.15,\y-0.05) -- (-0.35+\i*0.15,\y+0.05);
-      \fill[geometryColor, opacity=0.5+\i*0.1] (\x,\y) circle (0.035);
-      \node[font=\tiny, text=radarGrey, below] at (\x,\y-0.12) {t\i};
+      \pgfmathsetmacro{\op}{0.5+\i*0.1}
+      \fill[geometryColor, opacity=\op] (\x,\y) circle (0.035);
     }
   \end{scope}
 }
@@ -121,16 +112,12 @@
     \draw[iconFaint, line width=0.8pt, dashed] (-0.48,-0.48) -- (-0.48,0.48);
     \draw[iconFaint, line width=0.8pt, dashed] (0.48,-0.48) -- (0.48,0.48);
     
-    % Floor line
-    \draw[iconFaint, line width=0.6pt] (-0.48,-0.48) -- (0.48,-0.48);
-    
     % ---- REAL PERSON (target) ----
     \foreach \p in {(-0.05,0.32),(0.0,0.28),(0.05,0.24),(0.0,0.2),(0.04,0.16),
                     (-0.04,0.16),(0.0,0.12),(0.06,0.08),(-0.06,0.08),(0.0,0.04),
                     (0.05,-0.02),(-0.05,-0.02),(0.03,-0.08),(-0.03,-0.08)}{
       \fill[radarGreen] \p circle (0.025);
     }
-    \node[font=\tiny, text=radarGreen, anchor=south] at (0.0,0.36) {real target};
     
     % ---- RADAR ----
     \draw[iconStroke, fill=iconFaint, rounded corners=1pt] (-0.48,-0.1) rectangle (-0.35,0.0);
@@ -138,14 +125,12 @@
       \draw[radarProcessing, line width=0.6pt] 
         (-0.35,-\r*0.5-0.05) arc (210:330:\r);
     }
-    \node[font=\tiny, text=radarGrey, anchor=south] at (-0.415,-0.1) {radar};
     
     % ---- GHOST TARGETS (from reflections) ----
     \foreach \p in {(0.25,-0.3),(-0.2,0.2),(0.4,0.0)}{
       \draw[radarOrange, line width=0.6pt] \p circle (0.035);
       \draw[radarOrange, line width=0.4pt, dashed] \p circle (0.065);
     }
-    \node[font=\tiny, text=radarOrange, anchor=north] at (0.25,-0.38) {ghosts};
     
     % ---- REFLECTION PATHS ----
     % Direct path (solid green)
@@ -159,10 +144,6 @@
     % Furniture reflection (dotted orange)
     \draw[radarOrange, line width=0.4pt, dotted, ->, opacity=0.4] 
       (-0.38,-0.05) -- (0.4,-0.3) -- (0.0,0.1);
-    
-    % ---- MULTIPATH EXPLANATION ----
-    \node[font=\tiny, text=radarOrange, anchor=north west, align=left] at (-0.48,-0.55)
-      {Multipath ghosts from walls, furniture, glass};
     
   \end{scope}
 }

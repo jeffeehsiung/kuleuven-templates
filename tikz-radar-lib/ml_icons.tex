@@ -141,14 +141,12 @@
     \foreach \i/\y in {1/0.2,2/0.0,3/-0.2}{
       \draw[iconFaint, rounded corners=1pt]
         (-0.4,\y-0.08) rectangle (0.0,\y+0.08);
-      \node[font=\tiny, text=radarGrey] at (-0.2,\y) {$\mathcal{P}_{t+\i-1}$};
       \draw[iconFaint, line width=0.3pt, ->] (0.02,\y) -- (0.12,\y);
     }
     \node[draw=deepLearning, fill=deepLearning!20, rounded corners=2pt,
           minimum width=0.32cm, minimum height=0.8cm, font=\tiny\bfseries] at (0.28,0) {PCT};
     \foreach \i/\y in {1/0.2,2/0.0,3/-0.2}{
       \draw[deepLearning, line width=0.4pt, ->] (0.44,\y) -- (0.55,\y);
-      \node[font=\tiny, text=deepLearning, right] at (0.55,\y) {$\mathbf{f}_{t+\i-1}$};
     }
   \end{scope}
 }
@@ -172,7 +170,6 @@
     \draw[iconFaint, line width=0.3pt] (-0.08,0.05) -- (pct.west);
     % Output feature
     \draw[deepLearning, -{Latex[length=2mm]}, line width=0.8pt] (pct.east) -- (0.48,0);
-    \node[font=\tiny, text=deepLearning, above right=-2pt of {0.48,0}] {$\mathbf{f}_t$};
   \end{scope}
 }
 
@@ -185,7 +182,6 @@
     \foreach \i/\x in {1/-0.35,2/-0.15,3/0.05,4/0.25}{
       \draw[deepLearning, fill=deepLearning!30, rounded corners=1pt]
         (\x,-0.15) rectangle (\x+0.08,0.15);
-      \node[font=\tiny, text=deepLearning!70] at (\x+0.04,0) {$\mathbf{f}_\i$};
     }
     \draw[deepLearning, line width=0.4pt, dashed, opacity=0.6]
       (-0.35,0.2) .. controls (-0.2,0.35) .. (0.05,0.2);
@@ -226,14 +222,12 @@
       \coordinate (t\lab) at ($(theta)+(\a:0.35)$);
       \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.6pt] (theta) -- (t\lab);
       \node[circle, draw=deepLearning, fill=deepLearning!30, minimum size=6pt, inner sep=0] at (t\lab) {};
-      \node[font=\tiny, text=deepLearning, below right=-2pt of t\lab] {$\theta'_\lab$};
     }
     % Support/Query labels
     \node[font=\tiny, text=radarGrey] at (-0.3,0.35) {Support};
     \node[font=\tiny, text=radarGrey] at (0.3,0.35) {Query};
     % Outer loop arrow
     \draw[resultsColor, line width=1.2pt, -{Latex[length=2mm]}] (0.4,-0.3) arc (0:-180:0.3);
-    \node[font=\tiny, text=resultsColor, left=-2pt of {-0.1,-0.35}] {Outer};
   \end{scope}
 }
 
@@ -283,29 +277,19 @@
 \newcommand{\PreTrainedMAML}{%
   \begin{scope}
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
-    % Phase 1
     \draw[deepLearning, line width=0.7pt, rounded corners=2pt] (-0.45,0.15) rectangle (-0.05,0.35);
     \node[font=\tiny\bfseries, text=deepLearning] at (-0.25,0.25) {Phase 1};
     \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.5pt] (-0.05,0.25) -- (0.05,0.25);
-    % θ₀^PT
     \node[circle, draw=resultsColor, fill=resultsColor!80, minimum size=8pt, inner sep=0] (pt) at (0.1,0.25) {};
-    \node[font=\tiny\bfseries, text=white] at (0.1,0.25) {$\theta_0^{PT}$};
-    % Phase 2
     \draw[deepLearning, line width=0.7pt, rounded corners=2pt] (-0.45,-0.35) rectangle (-0.05,-0.15);
     \node[font=\tiny\bfseries, text=deepLearning] at (-0.25,-0.25) {Phase 2};
     \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.5pt] (-0.05,-0.25) -- (0.05,-0.25);
     \draw[deepLearning, line width=0.5pt] (0.1,0.2) -- (0.1,-0.2);
     \node[circle, draw=deepLearning, fill=deepLearning!80, minimum size=8pt, inner sep=0] (meta) at (0.1,-0.15) {};
-    \node[font=\tiny\bfseries, text=white] at (0.1,-0.15) {MAML};
     \draw[resultsColor, line width=0.9pt, -{Latex[length=1.5mm]}] (0.2,0.25) -- (0.2,-0.15);
-    \node[font=\tiny, text=resultsColor] at (0.35,-0.05) {+15.6pp};
+    \node[font=\tiny, text=resultsColor] at (0.37,-0.05) {+15.6pp};
   \end{scope}
 }
-
-% ==============================================================
-%  ml_icons_extended.tex
-%  Additional deep learning primitives
-% ==============================================================
 
 % ---------------------------------------------------------------
 % \FeatureTensor -- 3D feature tensor representation
@@ -317,11 +301,8 @@
     \coordinate (dx) at (0.45,0);
     \coordinate (dy) at (0,0.45);
     \coordinate (dz) at (0.15,0.08);
-    % Front face (feature map)
     \draw[iconStroke, fill=deepLearning!20] (o) -- ($(o)+(dx)$) -- ($(o)+(dx)+(dy)$) -- ($(o)+(dy)$) -- cycle;
-    % Top face
     \draw[iconStroke, fill=deepLearning!10] ($(o)+(dy)$) -- ($(o)+(dy)+(dx)$) -- ($(o)+(dy)+(dx)+(dz)$) -- ($(o)+(dy)+(dz)$) -- cycle;
-    % Side face
     \draw[iconStroke, fill=deepLearning!5] ($(o)+(dx)$) -- ($(o)+(dx)+(dz)$) -- ($(o)+(dx)+(dz)+(dy)$) -- ($(o)+(dx)+(dy)$) -- cycle;
     \node[font=\tiny, text=deepLearning] at (0,0) {F};
   \end{scope}
@@ -333,18 +314,14 @@
 \newcommand{\PoolingBlock}{%
   \begin{scope}
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
-    % Input grid
     \foreach \x in {-0.3,-0.15,0,0.15,0.3}{
       \foreach \y in {-0.3,-0.15,0,0.15,0.3}{
         \fill[iconFaint] (\x,\y) circle (0.025);
       }
     }
-    % Pooling window
     \draw[deepLearning, line width=0.8pt] (-0.15,-0.15) rectangle (0.15,0.15);
-    % Output (smaller)
     \draw[deepLearning, -{Latex[length=1.5mm]}, line width=0.6pt] (0.0,0.35) -- (0.0,0.48);
     \fill[deepLearning] (0.0,0.48) circle (0.035);
-    \node[font=\tiny, text=deepLearning, above] at (0.0,0.52) {pool};
   \end{scope}
 }
 
@@ -354,43 +331,33 @@
 \newcommand{\ClassificationBlock}{%
   \begin{scope}
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
-    % Input feature
     \fill[deepLearning] (-0.4,0) circle (0.035);
     \draw[deepLearning, line width=0.5pt] (-0.37,0) -- (-0.25,0);
-    % FC layer
     \node[draw=deepLearning, fill=deepLearning!20, rounded corners=1pt,
           minimum width=0.4cm, minimum height=0.3cm, font=\tiny] (fc) at (0.0,0) {FC};
     \draw[deepLearning, line width=0.5pt] (-0.25,0) -- (fc.west);
-    % Softmax output
     \draw[deepLearning, line width=0.5pt] (fc.east) -- (0.25,0);
     \foreach \i/\y in {0/0.2,1/0.0,2/-0.2}{
       \draw[resultsColor, line width=0.4pt] (0.3,\y) -- (0.45,\y);
     }
-    \node[font=\tiny, text=resultsColor, right] at (0.5,0) {softmax};
   \end{scope}
 }
 
 % ---------------------------------------------------------------
 % \DBSCAN -- DBSCAN clustering visualization
 % ---------------------------------------------------------------
-\newcommand{\DBSCAN}{%
+\newcommand{\DBSCANIcon}{%
   \begin{scope}
     \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
-    % Core points (filled)
     \foreach \p in {(-0.3,0.2),(-0.2,0.0),(-0.1,0.25),(0.0,0.1),(0.1,0.3),(0.2,0.0),(0.3,0.2)}{
       \fill[radarGreen] \p circle (0.035);
       \draw[radarGreen, line width=0.3pt, dashed] \p circle (0.08);
     }
-    % Border points
     \foreach \p in {(-0.4,-0.1),(-0.2,-0.15),(0.0,-0.2),(0.2,-0.1),(0.4,-0.15)}{
       \fill[radarGreen, opacity=0.6] \p circle (0.025);
     }
-    % Noise points (outliers)
     \foreach \p in {(-0.35,-0.3),(-0.1,-0.35),(0.35,-0.3)}{
       \draw[resultsColor, line width=0.5pt] \p circle (0.025);
     }
-    % Cluster label
-    \node[font=\tiny, text=radarGreen] at (-0.15,0.3) {cluster};
-    \node[font=\tiny, text=resultsColor] at (0.3,-0.35) {noise};
   \end{scope}
 }

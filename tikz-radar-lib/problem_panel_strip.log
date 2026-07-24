@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  23 JUL 2026 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  24 JUL 2026 10:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -539,8 +539,7 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count308
-)
-No file problem_panel_strip.aux.
+) (./problem_panel_strip.aux)
 \openout1 = `problem_panel_strip.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -557,6 +556,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
+
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count309
@@ -584,7 +584,7 @@ e
 
 
 Non-PDF special ignored!
-<special> papersize=413.16972pt,100.31221pt
+<special> papersize=412.7697pt,100.01219pt
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./problem_panel_strip.aux)
  ***********
@@ -597,17 +597,17 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 15922 strings out of 469006
- 356505 string characters out of 5454813
- 789073 words of memory out of 5000000
- 44323 multiletter control sequences out of 15000+600000
+ 15940 strings out of 469006
+ 356943 string characters out of 5454813
+ 790227 words of memory out of 5000000
+ 44339 multiletter control sequences out of 15000+600000
  630205 words of font info for 48 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,423b,1357s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8
 .pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ssbx10.pfb>
-Output written on problem_panel_strip.pdf (1 page, 29521 bytes).
+Output written on problem_panel_strip.pdf (1 page, 29563 bytes).
 PDF statistics:
  46 PDF objects out of 1000 (max. 8388607)
  21 compressed objects within 1 object stream

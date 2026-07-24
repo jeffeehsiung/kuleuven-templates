@@ -1,0 +1,52 @@
+\documentclass[tikz, border=8pt]{standalone}
+\usepackage{xcolor}
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{ml_icons.tex}
+\input{geometry_icons.tex}
+\input{tracking_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.9cm]
+  \ProcessCard{a1}{FMCW}{\FMCWChirp}
+  \ProcessCard[right=1.4cm of a1]{a2}{Antenna}{\AntennaArray}
+  \ProcessCard[right=1.4cm of a2]{a3}{Wave}{\RadarWave}
+  \ProcessCard[right=1.4cm of a3]{a4}{ADC}{\RadarADC}
+  \ProcessCard[right=1.4cm of a4]{a5}{Doppler}{\DopplerProfile}
+  \ProcessCard[right=1.4cm of a5]{a6}{Phase Unwrap}{\PhaseUnwrapping}
+  \ProcessCard[right=1.4cm of a6]{a7}{Range-Doppler}{\RangeDoppler}
+
+  \ProcessCard[below=1.9cm of a1]{b1}{Interferogram}{\Interferogram}
+  \ProcessCard[right=1.4cm of b1]{b2}{CFAR}{\CFAR}
+  \ProcessCard[right=1.4cm of b2]{b3}{EKF-JPDA}{\EKFJPDA}
+  \ProcessCard[right=1.4cm of b3]{b4}{Filtered Track}{\TrackingFiltered}
+  \ProcessCard[right=1.4cm of b4]{b5}{Ghost Cluster}{\GhostCluster}
+  \ProcessCard[right=1.4cm of b5]{b6}{True/Ghost}{\TrueAndGhostCluster}
+  \ProcessCard[right=1.4cm of b6]{b7}{MoCap Comp.}{\MoCapComparison}
+
+  \ProcessCard[below=1.9cm of b1, card color=deepLearning]{c1}{Conv}{\ConvBlock}
+  \ProcessCard[right=1.4cm of c1, card color=deepLearning]{c2}{FrameWise PCT}{\FrameWisePCT}
+  \ProcessCard[right=1.4cm of c2, card color=deepLearning]{c3}{PCT Encoder}{\PCTEncoder}
+  \ProcessCard[right=1.4cm of c3, card color=deepLearning]{c4}{Temporal Trans.}{\TemporalTransformer}
+  \ProcessCard[right=1.4cm of c4, card color=deepLearning]{c5}{MAML}{\MAML}
+  \ProcessCard[right=1.4cm of c5, card color=deepLearning]{c6}{Pre-trained MAML}{\PreTrainedMAML}
+  \ProcessCard[right=1.4cm of c6, card color=deepLearning]{c7}{Feature Tensor}{\FeatureTensor}
+
+  \ProcessCard[below=1.9cm of c1, card color=deepLearning]{d1}{Pooling}{\PoolingBlock}
+  \ProcessCard[right=1.4cm of d1, card color=deepLearning]{d2}{Classification}{\ClassificationBlock}
+  \ProcessCard[right=1.4cm of d2, card color=deepLearning]{d3}{DBSCAN}{\DBSCANIcon}
+  \ProcessCard[right=1.4cm of d3, card color=geometryColor]{d4}{Human Silhouette}{\HumanSilhouette}
+  \ProcessCard[right=1.4cm of d4, card color=geometryColor]{d5}{Sparse PCD}{\SparsePointCloud}
+  \ProcessCard[right=1.4cm of d5, card color=geometryColor]{d6}{Dense PCD}{\DensePointCloud}
+  \ProcessCard[right=1.4cm of d6, card color=geometryColor]{d7}{Rigid Transform}{\RigidTransform}
+
+  \ProcessCard[below=1.9cm of d1, card color=geometryColor]{e1}{Detection}{\Detection}
+  \ProcessCard[right=1.4cm of e1, card color=geometryColor]{e2}{Track}{\Track}
+  \ProcessCard[right=1.4cm of e2, card color=resultsColor]{e3}{Ghost Det.}{\GhostDetection}
+  \ProcessCard[right=1.4cm of e3, card color=geometryColor]{e4}{JPDA Assoc.}{\JPDAAssociation}
+  \ProcessCard[right=1.4cm of e4, card color=geometryColor]{e5}{EKF Pred.}{\EKFPrediction}
+  \ProcessCard[right=1.4cm of e5, card color=geometryColor]{e6}{Trajectory}{\Trajectory}
+  \ProcessCard[right=1.4cm of e6, card color=resultsColor]{e7}{Multipath}{\MultipathScene}
+
+\end{tikzpicture}
+\end{document}

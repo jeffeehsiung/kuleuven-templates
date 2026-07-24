@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  23 JUL 2026 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  24 JUL 2026 10:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -512,8 +512,7 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count308
-)
-No file tracking_removes_ghosts_landscape.aux.
+) (./tracking_removes_ghosts_landscape.aux)
 \openout1 = `tracking_removes_ghosts_landscape.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -530,6 +529,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
+
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count309
@@ -557,7 +557,7 @@ e
 
 
 Non-PDF special ignored!
-<special> papersize=457.2869pt,171.74423pt
+<special> papersize=457.13689pt,171.59422pt
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./tracking_removes_ghosts_landscape.aux)
  ***********
@@ -570,17 +570,17 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 15253 strings out of 469006
- 347353 string characters out of 5454813
- 787076 words of memory out of 5000000
- 43674 multiletter control sequences out of 15000+600000
+ 15270 strings out of 469006
+ 347798 string characters out of 5454813
+ 788081 words of memory out of 5000000
+ 43689 multiletter control sequences out of 15000+600000
  629502 words of font info for 46 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,437b,1263s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8
 .pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ssbx10.pfb>
-Output written on tracking_removes_ghosts_landscape.pdf (1 page, 31879 bytes).
+Output written on tracking_removes_ghosts_landscape.pdf (1 page, 31880 bytes).
 PDF statistics:
  45 PDF objects out of 1000 (max. 8388607)
  21 compressed objects within 1 object stream

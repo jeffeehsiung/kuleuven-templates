@@ -112,8 +112,7 @@
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-\textbf{Why Not Just Use a Camera?}
-Conventional vision-based person identification struggles under real conditions:
+Vision-based person identification struggles under real conditions:
 \begin{itemize}
   \setlength\itemsep{1.62mm}
   \item \textbf{Low illumination} degraded visual features
@@ -128,76 +127,46 @@ maintaining robustness without capturing identifiable imagery.
 
 }
 
-% % ============================================================
-% % SECTION 2 -- WHY RADAR (sensing theory)
-% % ============================================================
-% \block{\textcolor{white}{\large \ding{203}\ \ Why mmWave Radar}}{
-% \begin{minipage}{0.48\linewidth}
-% \posterfig{\linewidth}{fig_why_radar_mimo.png}{MIMO array senses through occlusion via reflected signals}
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.48\linewidth}
-% \posterfig{\linewidth}{fig_radar_vs_camera.png}{Radar 3D point cloud (left) vs.\ camera view (right), same scene}
-% \end{minipage}
-% \vspace{2.7mm}
-
-% FMCW radar transmits chirps and measures round-trip time-of-flight from body-scatterers;
-% range and Doppler are recovered via FFT along fast-time and slow-time. This gives 3D spatial
-% + velocity information \emph{without} capturing identifiable facial imagery.
-% }
-
-% % ============================================================
-% % SECTION 3 -- THE TWO PROBLEMS
-% % ============================================================
-% \block{\textcolor{white}{\large \ding{204}\ \ Two Bottlenecks in Radar-Based PID}}{
-% \begin{minipage}{0.48\linewidth}
-% \textbf{3a. Radar Imaging Quality}\\[1.62mm]
-% Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
-% resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
-% InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
-% \emph{articulated} human targets.
-% \posterfig{0.95\linewidth}{fig_sparse_pointcloud_problem.png}{Sparsity, non-uniform density, noise -- missing body segments}
-% \posterfig{0.95\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Indoor multipath generates ghost clusters}
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.48\linewidth}
-% \textbf{3b. Data Scarcity}\\[1.62mm]
-% Existing learning methods need $>$100 sequences/person (hours of recording) --
-% impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
-% geometry; PCT captures local structure but targets \emph{static} objects, not temporally
-% evolving, noisy radar sequences.
-% \posterfig{0.95\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
-% \vspace{1.62mm}
-% \textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
-% literature shows pre-trained initialization accelerates meta-learning. We extend this to
-% radar point-cloud PID.
-% \end{minipage}
-% }
-\block{\textcolor{white}{\large \ding{203}\ \ Two Challenge in Radar-Based PID}}{
+% ============================================================
+% SECTION 2 -- CHALLENGES IN RADAR-BASED PID
+% ============================================================
+\block{\textcolor{white}{\large \ding{203}\ \ Challenges in Radar-Based PID}}{
 \begin{minipage}{\linewidth}
-\textbf{3a. Radar Imaging Quality}\\[1.62mm]
-\posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}
-Conventional angle-of-arrival processing yields sparse, noisy point clouds: limited angular
-resolution, motion-induced defocusing, multipath ghost artifacts (especially indoors).
-InISAR has been validated on large \emph{rigid} targets (ships, aircraft) but not on small,
-\emph{articulated} human targets.
+\small
+\posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Radar point clouds are sparse, noisy, and contaminated by multipath ghosts}
+Radar-based person identification offers privacy and robustness, but faces four interconnected challenges:
+\end{minipage}
+\vspace{3mm}
+\begin{minipage}{0.48\linewidth}
+\textbf{Challenge 1: Poor Point Cloud Quality}\\[1mm]
+Conventional angle-of-arrival processing yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts — especially in indoor environments with furniture, walls, and glass.
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+\textbf{Challenge 2: Rigid-Target Bias in InISAR}\\[1mm]
+\vspace{1mm}
+While Interferometric ISAR improves angular resolution, existing works validate it only on large \emph{rigid} targets (ships, aircraft) — \textbf{not} on small, \emph{articulated} human targets with low-RCS body segments.
+\end{minipage}
+\vspace{3mm}
+\begin{minipage}{0.48\linewidth}
+\textbf{Challenge 3: Multipath Cannot Be Ignored}\\[1mm]
+DBSCAN alone cannot distinguish true targets from multipath ghosts. Ghosts overlap in range-Doppler and form clusters in 3D that mimic real objects — requiring temporal consistency for rejection.
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+\textbf{Challenge 4: Data Scarcity}\\[1mm]
+Existing deep learning methods need $>$100 sequences/person (hours of recording). PointNet ignores local geometry; PCT handles spatial structure but targets \emph{static} objects, not temporally evolving radar sequences.
 \end{minipage}
 \vspace{3mm}
 \begin{minipage}{\linewidth}
-\textbf{3b. Data Scarcity}\\[1.62mm]
-\posterfig{\linewidth}{fig_few_shot_motivation.png}{A model trained on Task 1 subjects performs near-random on unseen Task 2 subjects}
-Existing learning methods need $>$100 sequences/person (hours of recording) --
-impractical for adapting to new individuals. PointNet is permutation-invariant but ignores local
-geometry; PCT captures local structure but targets \emph{static} objects, not temporally
-evolving, noisy radar sequences.
-\vspace{1.62mm}
-\textbf{Gap:} prior radar-PID + MAML work initializes meta-learning \emph{randomly}; NLP
-literature shows pre-trained initialization accelerates meta-learning. We extend this to
-radar point-cloud PID.
+\centering
+\colorbox{radarOrange!15}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
+No existing work combines (a) multipath suppressed InISAR reconstruction for articulated humans with (b) few-shot learning that generalizes to new subjects. 
+We bridge this gap with tracking-integrated InISAR and pre-trained meta-learning.}}
 \end{minipage}
 }
 
-\block{\textcolor{white}{\large \ding{205}\ \ Key Results}}{
+\block{\textcolor{white}{\large \ding{204}\ \ Key Results}}{
     \begin{center}
     \begin{tikzpicture}
         \MetricBox{m1}{0,0}{73.8\%}{InISAR IoU}
@@ -205,54 +174,19 @@ radar point-cloud PID.
         \MetricBox{m3}{8.4,0}{70.0\%}{Few-shot (cross-session)}
     \end{tikzpicture}
     \end{center}
-    \small
-    \textbf{Our Solution:} Unified framework combining:
-    \begin{itemize}
-        \setlength\itemsep{2pt}
-        \item \textbf{InISAR:} High-quality 3D reconstruction with multipath suppression
-        \item \textbf{PCTtrans + Pre-trained MAML:} Few-shot learning from minimal data
-    \end{itemize}
-    \vspace{3mm}
-    \textbf{Impact:} 70.0\% cross-session accuracy with just 10 examples per person
 }
 
-% % ============================================================
-% % SECTION 4 -- OUR FRAMEWORK (3-fold contribution, system level)
-% % ============================================================
-% \block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
-% \posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
-
-% \vspace{2.91mm}
-% \begin{minipage}{0.31\linewidth}
-% \centering
-% \colorbox{radarBlue}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(1) Radar domain}\\[1mm]
-% \small Tracking-integrated InISAR reconstructs high-res 3D point clouds of articulated
-% human motion, validated against motion-capture ground truth.}}
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.31\linewidth}
-% \centering
-% \colorbox{radarPurple}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(2) ML domain}\\[1mm]
-% \small Spatio-temporal transformer (PCTtrans) embedded in MAML; task-specific pre-trained
-% initialization substantially improves few-shot adaptation.}}
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.31\linewidth}
-% \centering
-% \colorbox{radarGreen}{\parbox{0.9\linewidth}{\centering\color{white}\textbf{(3) System integration}\\[1mm]
-% \small High-quality 3D reconstruction + meta-learning together enable practical few-shot
-% radar PID, reducing dependence on large subject-specific datasets.}}
-% \end{minipage}
-% }
-
 % ----------------------------------------------------------------------
-% COLUMN 2: InISAR PIPELINE + VALIDATION
+% COLUMN 2: UNIFIED SYSTEM + InISAR PIPELINE + VALIDATION
 % ----------------------------------------------------------------------
 \column{0.36}
 
-\block{\textcolor{white}{\large \ding{206}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
-\posterfig{0.92\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
+% ============================================================
+% SECTION 3 -- UNIFIED SYSTEM
+% ============================================================
 
+\block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
+\posterfig{\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
 \vspace{2.91mm}
 \begin{minipage}{0.31\linewidth}
 \centering
@@ -276,63 +210,16 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{minipage}
 }
 
-% % ============================================================
-% % COLUMN BREAK
-% % ============================================================
-% \column{0.5}
-
-% % ============================================================
-% % SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
-% % ============================================================
-% \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
-%   \posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip.pdf}{Six-stage 3D reconstruction pipeline}
-% % \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
-% % \posterfig{0.95\linewidth}{fig_motion_compensation.png}{Range recovery via FFT (fast-time/slow-time) $\to$ ISAR with Motion Compensation}
-% % \posterfig{0.95\linewidth}{fig_cfar_pipeline.png}{Doppler=FFT $\to$ CFAR detection $\to$ Interferometry 3D Reconstruction $\to$ Tracking}
-% % \posterfig{0.9\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
-% }
-% % \block{\textcolor{white}{\large \ding{206}a\ \ Deep Dive: InISAR Pipeline}}{
-% %   \begin{minipage}{0.48\linewidth}
-% %     \posterfig{\linewidth}{02_inisar_pipeline.png}{Six-stage 3D reconstruction pipeline}
-% %   \end{minipage}
-% %   \hfill
-% %   \begin{minipage}{0.48\linewidth}
-% %     \posterfig{\linewidth}{fig_motion_compensation.png}{Range-FFT $\to$ ISAR Motion Compensation}
-% %   \end{minipage}
-
-% %   \vspace{2.91mm}
-% %   \begin{minipage}{0.48\linewidth}
-% %     \posterfig{\linewidth}{fig_cfar_pipeline.png}{Doppler-FFT $\to$ CFAR $\to$ Interferometry $\to$ Multi-Traget Tracking}
-% %   \end{minipage}
-% %   \hfill
-% %   \begin{minipage}{0.48\linewidth}
-% %     \posterfig{\linewidth}{fig_dbscan_before_after.png}{Point-cloud preprocessing: DBSCAN $\to$ near-field filter $\to$ normalize $\to$ pad}
-% %   \end{minipage}
-% % }
-
-% \block{\textcolor{white}{\large \ding{206}b\ \ Deep Dive: PCTtrans + Pre-Trained MAML}}{
-% \posterfig{\linewidth}{04_pcttrans_highlevel.png}{High-level: spatial (per-frame) $\to$ temporal (sequence) $\to$ ID}
-% \posterfig{\linewidth}{fig_pcttrans_architecture.png}{PCTtrans architecture: per-frame PCT encoder $\to$ position encoding $\to$ Transformer encoder}
-% \vspace{2.91mm}
-%   \begin{minipage}{0.56\linewidth}
-%     \posterfig{\linewidth}{05_pcttrans_decomposed}{Layer decomposition: Point/Neighbor Embedding $\to$ Offset-Attention $\to$ MA-Pool $\to$ Transformer}
-%   \end{minipage}
-%   \hfill
-%   \begin{minipage}{0.4\linewidth}
-%     \posterfig{\linewidth}{fig_pretrained_maml}{Pre-trained ($\theta^{PT}_0$) vs. random ($\theta^{rand}_0$) initialization: Two-phase algorithm: supervised pre-training $\to$ MAML meta-training}
-%   \end{minipage}
-% }
-
 % ============================================================
-% SECTION 5 -- DEEP DIVE (two sub-columns: InISAR | Learning)
+% SECTION 4 -- InISAR PIPELINE + VALIDATION
 % ============================================================
-\block{\textcolor{white}{\large \ding{207}\ \ InISAR Pipeline}}{
+\block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline}}{
 \begin{minipage}{0.4\linewidth}
 \posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_vertical.pdf}{}
 \end{minipage}
 \hfill
 \begin{minipage}{0.56\linewidth}
-  \textbf{Key Equations:}
+  \textbf{Six-stage 3D reconstruction pipeline:}
   \begin{align*}
       \text{Motion Compensation: } & [\hat{\beta},\hat{\gamma}] = \arg\max\ \text{contrast} \\
       \text{Height Estimation: } & h = \frac{\lambda \phi R}{2\pi L}
@@ -340,7 +227,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{minipage}
 }
 
-\block{\textcolor{white}{\large \ding{208}\ \ Multipath Removal}}{
+\block{\textcolor{white}{\large \ding{207}\ \ Multipath Removal}}{
     \begin{minipage}{0.48\linewidth}
         \centering
         \includegraphics[width=\linewidth]{fig_radar_vs_camera_p3_0053.png}
@@ -357,7 +244,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \small\textcolor{radarGrey}{EKF-JPDA tracking in 3D spatial domain removes ghosts.}
 }
 
-\block{\textcolor{white}{\large \ding{209}\ \ Validation: InISAR vs MoCap}}{
+\block{\textcolor{white}{\large \ding{208}\ \ Validation: InISAR vs MoCap}}{
     \begin{minipage}{0.48\linewidth}
         \centering
         \includegraphics[width=\linewidth]{other_p4cn0_iou_frame_65.png}

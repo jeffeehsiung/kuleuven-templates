@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  23 JUL 2026 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  24 JUL 2026 10:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -582,8 +582,7 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count320
-)
-No file radar_pipeline_final_vertical.aux.
+) (./radar_pipeline_final_vertical.aux)
 \openout1 = `radar_pipeline_final_vertical.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -600,6 +599,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
+
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count321
@@ -656,7 +656,7 @@ e
 
 
 Non-PDF special ignored!
-<special> papersize=414.41832pt,649.10306pt
+<special> papersize=414.36832pt,646.5529pt
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./radar_pipeline_final_vertical.aux)
  ***********
@@ -669,10 +669,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 17059 strings out of 469006
- 376716 string characters out of 5454813
- 956366 words of memory out of 5000000
- 45426 multiletter control sequences out of 15000+600000
+ 17082 strings out of 469006
+ 377273 string characters out of 5454813
+ 957180 words of memory out of 5000000
+ 45447 multiletter control sequences out of 15000+600000
  631144 words of font info for 52 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,433b,1415s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -685,7 +685,7 @@ ts/cm/cmss8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmssbx10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy7.pfb>
-Output written on radar_pipeline_final_vertical.pdf (1 page, 101276 bytes).
+Output written on radar_pipeline_final_vertical.pdf (1 page, 101324 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream

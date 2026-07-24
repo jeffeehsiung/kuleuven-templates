@@ -61,6 +61,29 @@
 \colorlet{cardBG}{white}
 
 % ------------------------------------------------------------
+% 1b. LIGHT PALETTE  (pastel tints, for content diagrams --
+%     process cards, icon panels, legends -- to sit visually
+%     alongside lighter figures like the PCTtrans architecture
+%     diagram, rather than reading as a heavier, separate style.
+%     The bold saturated colors above stay in use for structural
+%     UI like poster block headers via \SectionHeader.)
+% ------------------------------------------------------------
+% Fill tint for a card/shape body (very light, ~14% color on white)
+\newcommand{\lightFill}[1]{#1!16!white}
+% Fill tint for a title bar / accent band (~32% color on white --
+% enough to read as "that module's color" without going saturated)
+\newcommand{\midFill}[1]{#1!32!white}
+% Text on a light/mid fill always stays dark navy, never white,
+% since white-on-pastel has poor contrast.
+\colorlet{cardTitleText}{radarNavy}
+
+\colorlet{radarBlueLight}{radarBlue!32!white}
+\colorlet{radarGreenLight}{radarGreen!32!white}
+\colorlet{radarOrangeLight}{radarOrange!32!white}
+\colorlet{radarPurpleLight}{radarPurple!32!white}
+\colorlet{radarGreyLight}{radarGrey!20!white}
+
+% ------------------------------------------------------------
 % 2. GLOBAL PGFKEYS  (per-module color role, size, etc.)
 % ------------------------------------------------------------
 % Every icon/card macro in this library accepts a `color=` key
@@ -142,19 +165,26 @@
     rectangle split parts=2,
     rectangle split part align={center, center},
     draw=cardBorder,
-    line width=0.8pt,
+    line width=0.7pt,
     rounded corners=4pt,
     text width=2.1cm,
     align=center,
     inner sep=5pt,
-    drop shadow={shadow xshift=0.6pt, shadow yshift=-0.6pt, opacity=0.25},
-    rectangle split part fill={cardBG, radarProcessing},
+    drop shadow={shadow xshift=0.5pt, shadow yshift=-0.5pt, opacity=0.15},
+    rectangle split part fill={white, radarProcessing!32!white},
   },
-  % Safe way to recolor a single card's title bar, e.g.:
+  % Safe way to recolor a single card, e.g.:
   %   \ProcessCard[card color=deepLearning]{b}{Range FFT}{...}
+  % Produces a light pastel tint of the given color for the title
+  % band (~32%) rather than a fully saturated fill, and keeps the
+  % icon panel white (icons already paint their own white/bordered
+  % background, so tinting nodepart-one would be invisible anyway).
   % (Do not set `fill=` directly on a process card -- it conflicts
   % with `rectangle split part fill` and blanks the node.)
-  card color/.style = {rectangle split part fill={cardBG, #1}},
+  card color/.style = {rectangle split part fill={white, #1!32!white}},
+  % Opt back into the old fully-saturated banner + white text look
+  % for a single card, e.g. \ProcessCard[card color bold=deepLearning]{...}
+  card color bold/.style = {rectangle split part fill={white, #1}},
 }
 
 \newcommand{\ProcessCard}[4][]{%
@@ -164,7 +194,7 @@
         #4
       \end{tikzpicture}
     \nodepart{two}
-      \textcolor{blocktitlefgcolor}{\sffamily\bfseries\footnotesize #3}
+      \textcolor{cardTitleText}{\sffamily\bfseries\footnotesize #3}
   };%
 }
 
@@ -183,10 +213,21 @@
 % 7. LEGEND BOX  (small colored swatch + label, for figure legends)
 % ------------------------------------------------------------
 % Usage: \LegendSwatch{0,0}{radarBlue}{Radar processing}
+% Swatch is a light tint of the given color with a thin dark
+% border, matching the process-card title bands.
 \newcommand{\LegendSwatch}[3]{%
   \begin{scope}[shift={(#1)}]
-    \node[fill=#2, rounded corners=1.5pt, minimum width=10pt, minimum height=10pt, anchor=west] (sw) {};
+    \node[draw=iconStroke, line width=0.5pt, fill=#2!32!white, rounded corners=1.5pt,
+          minimum width=10pt, minimum height=10pt, anchor=west] (sw) {};
     \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=4pt of sw] {#3};
+  \end{scope}
+}
+% Usage: \LegendBox{x}{y}{color}{label}  (explicit x,y instead of a coordinate tuple)
+\newcommand{\LegendBox}[4]{%
+  \begin{scope}[shift={(#1,#2)}]
+    \node[draw=iconStroke, line width=0.5pt, fill=#3!32!white, rounded corners=1.5pt,
+          minimum width=8pt, minimum height=8pt, anchor=west] (sw) at (0,0) {};
+    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw] {#4};
   \end{scope}
 }
 
@@ -221,23 +262,13 @@
   \bottomrule
   \end{tabular}%
 }
-% Header row: white bold text on the radarProcessing band. Formatting
-% resets after \midrule so it doesn't bleed into the data rows below.
+% Header row: dark navy bold text on a light radarProcessing tint
+% band. Formatting resets after \midrule so it doesn't bleed into
+% the data rows below.
 \newcommand{\HeaderRow}[1]{%
-  \rowcolor{radarProcessing}\bfseries\color{white}#1\\
+  \rowcolor{radarProcessing!32!white}\bfseries\color{radarNavy}#1\\
   \midrule
   \normalfont\color{black}%
 }
 % Highlight a single data row (e.g. your best result) in results color.
 \newcommand{\BestRow}{\rowcolor{resultsColor!25}}
-
-% ------------------------------------------------------------
-% 10. LEGEND BOX (complete)
-% ------------------------------------------------------------
-% Usage: \LegendBox{x}{y}{color}{label}
-\newcommand{\LegendBox}[4]{%
-  \begin{scope}[shift={(#1,#2)}]
-    \node[fill=#3, rounded corners=1.5pt, minimum width=8pt, minimum height=8pt, anchor=west] (sw) at (0,0) {};
-    \node[anchor=west, font=\sffamily\footnotesize, text=radarGrey, right=6pt of sw] {#4};
-  \end{scope}
-}

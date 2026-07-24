@@ -35,7 +35,7 @@ rebuild-figs:
 # Build posters
 # ------------------------------------------------------------
 # Generic rule: any poster PDF depends on its .tex and the figure PDFs
-poster-v3.pdf: poster.tex $(FIG_PDFS)
+poster-v3.pdf: poster-v3.tex $(FIG_PDFS)
 	@echo "Building poster-v3.tex"
 	pdflatex -shell-escape -interaction=nonstopmode poster-v3.tex
 	-if [ -f poster-v3.aux ] && grep -q "bibdata" poster-v3.aux; then bibtex poster-v3; fi

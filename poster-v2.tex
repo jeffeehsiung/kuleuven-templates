@@ -332,7 +332,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \block{\textcolor{white}{\large \ding{208}\ \ Few-Shot Person Identification with PCTtrans}}{
     \small
     \posterfig{0.95\linewidth}{fig_pcttrans_architecture.png}{PCTtrans: frame-wise PCT $+$ Temporal Transformer}
-    \begin{minipage}{0.48\linewidth}
+    \begin{minipage}{\linewidth}
     \textbf{Preprocessing:}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
@@ -349,9 +349,6 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \item Offset-Attention: $F_{\text{out}} = \text{LBR}(F_{\text{in}} - F_{\text{sa}}) + F_{\text{in}}$
         \item Output: $\mathbf{f}_t \in \mathbb{R}^{192}$
     \end{itemize}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\linewidth}
     \textbf{Temporal (Transformer):}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
@@ -387,25 +384,31 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     }
     \block{\textcolor{white}{\large \ding{210}\ \ Results}}{
     \small
-    \begin{tabular}{lcc}
-        \toprule
-        \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
-        \midrule
-        Q1 (same session) & 98.99\% & 90.0\% \\
-        Q2 (cross-session) & 32.05\% & \textbf{56.67\%} \\
-        Q3 (cross-subject) & 31.67\% & 47.78\% \\
-        \bottomrule
-    \end{tabular}
-    \vspace{3mm}
-    \begin{tabular}{lccc}
-        \toprule
-        \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
-        \midrule
-        Q1 & 76.67\% & 94.44\% & +17.77pp \\
-        Q2 & 54.44\% & \textbf{70.0\%} & +15.56pp \\
-        Q3 & 46.67\% & 48.89\% & +2.22pp \\
-        \bottomrule
-    \end{tabular}
+    \begin{minipage}{0.48\linewidth}
+        \footnotesize
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
+            \midrule
+            Q1 (same session) & 98.99\% & 90.0\% \\
+            Q2 (cross-session) & 32.05\% & \textbf{56.67\%} \\
+            Q3 (cross-subject) & 31.67\% & 47.78\% \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+        \footnotesize
+        \begin{tabular}{lccc}
+            \toprule
+            \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
+            \midrule
+            Q1 & 76.67\% & 94.44\% & +17.77pp \\
+            Q2 & 54.44\% & \textbf{70.0\%} & +15.56pp \\
+            Q3 & 46.67\% & 48.89\% & +2.22pp \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}
     \vspace{2mm}
     \centering
     \colorbox{deepLearning!15}{\parbox{0.95\linewidth}{\centering

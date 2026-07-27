@@ -61,10 +61,10 @@
 % CUSTOM TITLE STYLE -- full poster width, compact height
 % ------------------------------------------------------------
 \definetitlestyle{compactFullWidth}{
-  width=0.9\linewidth,
-  roundedcorners=50,
+  width=0.95\linewidth,
+  roundedcorners=60,
   linewidth=12pt,
-  innersep=6mm,
+  innersep=10mm,
   titletotopverticalspace=10mm,
   titletoblockverticalspace=10mm,
 }{
@@ -123,30 +123,31 @@ maintaining robustness without capturing identifiable imagery.
 % ============================================================
 \block{\textcolor{white}{\large \ding{203}\ \ Challenges in Radar-Based PID}}{
 \begin{minipage}{\linewidth}
-\small
-\posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Radar point clouds are sparse, noisy, and contaminated by multipath ghosts}
-Radar-based person identification offers privacy and robustness, but faces four interconnected challenges:
+    \small
+    \posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Radar point clouds are sparse, noisy, and contaminated by multipath ghosts}
 \end{minipage}
-\vspace{3mm}
-\textbf{Challenge 1: Poor Point Cloud Quality}\\[1mm]
-Conventional angle-of-arrival processing yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts.
-\vspace{2mm}
- 
-\textbf{Challenge 2: Rigid-Target Bias in InISAR}\\[1mm]
-InISAR improves angular resolution but existing works validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
-\vspace{2mm}
- 
-\textbf{Challenge 3: Multipath Cannot Be Ignored}\\[1mm]
-DBSCAN alone cannot distinguish true targets from multipath ghosts, which overlap in range-Doppler and mimic real 3D clusters.
-\vspace{2mm}
- 
-\textbf{Challenge 4: Data Scarcity}\\[1mm]
-Existing methods need $>$100 sequences/person. PCT handles spatial structure but targets \emph{static} objects, not evolving radar sequences.
-\vspace{3mm}
 \begin{minipage}{\linewidth}
-\centering
-\colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
-We bridge these gaps with tracking-integrated InISAR and pre-trained few-shot meta-learning.}}
+    \vspace{2mm}
+    \textbf{Challenge 1: Poor Point Cloud Quality}\\[1mm]
+    Conventional angle-of-arrival processing yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts.
+    \vspace{2mm}
+    
+    \textbf{Challenge 2: Rigid-Target Bias in InISAR}\\[1mm]
+    InISAR improves angular resolution but existing works validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
+    \vspace{2mm}
+    
+    \textbf{Challenge 3: Multipath Cannot Be Ignored}\\[1mm]
+    DBSCAN alone cannot distinguish true targets from multipath ghosts, which overlap in range-Doppler and mimic real 3D clusters.
+    \vspace{2mm}
+    
+    \textbf{Challenge 4: Data Scarcity}\\[1mm]
+    Existing methods need $>$100 sequences/person. PCT handles spatial structure but targets \emph{static} objects, not evolving radar sequences.
+    \vspace{3mm}
+\end{minipage}
+\begin{minipage}{\linewidth}
+    \centering
+    \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
+    We bridge these gaps with tracking-integrated InISAR and pre-trained few-shot meta-learning.}}
 \end{minipage}
 }
 
@@ -292,7 +293,6 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item Tracks scatterers in 3D spatial domain (not Range-Doppler).
-        \item \textbf{Why 3D?} Ghosts overlap in RD but separate in spatial domain.
         \item JPDA handles data association; EKF filters state with covariance.
         \item Output: Clean 3D point cloud with ghosts removed.
     \end{itemize}

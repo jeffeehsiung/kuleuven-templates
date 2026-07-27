@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  24 JUL 2026 10:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  27 JUL 2026 22:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -663,16 +663,12 @@ Non-PDF special ignored!
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 17068 strings out of 469006
- 377007 string characters out of 5454813
- 956231 words of memory out of 5000000
- 45433 multiletter control sequences out of 15000+600000
+ 17070 strings out of 469006
+ 377043 string characters out of 5454813
+ 956235 words of memory out of 5000000
+ 45435 multiletter control sequences out of 15000+600000
  631144 words of font info for 52 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,434b,1415s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -685,7 +681,7 @@ ts/cm/cmss8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmssbx10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy7.pfb>
-Output written on radar_pipeline_final_landscape.pdf (1 page, 101717 bytes).
+Output written on radar_pipeline_final_landscape.pdf (1 page, 101727 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream

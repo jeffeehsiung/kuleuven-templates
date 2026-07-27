@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  24 JUL 2026 10:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  27 JUL 2026 22:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -564,15 +564,11 @@ Non-PDF special ignored!
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  15263 strings out of 469006
  347611 string characters out of 5454813
- 774993 words of memory out of 5000000
+ 774977 words of memory out of 5000000
  43679 multiletter control sequences out of 15000+600000
  629208 words of font info for 45 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
@@ -580,7 +576,7 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8
 .pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ssbx10.pfb>
-Output written on tracking_comparison_vertical.pdf (1 page, 28094 bytes).
+Output written on tracking_comparison_vertical.pdf (1 page, 28062 bytes).
 PDF statistics:
  45 PDF objects out of 1000 (max. 8388607)
  21 compressed objects within 1 object stream

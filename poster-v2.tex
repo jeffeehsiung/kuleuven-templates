@@ -62,14 +62,14 @@
 % ------------------------------------------------------------
 \definetitlestyle{compactFullWidth}{
   width=0.9\linewidth,
-  roundedcorners=6,
-  linewidth=2pt,
-  innersep=10mm,
-  titletotopverticalspace=4mm,
-  titletoblockverticalspace=6mm,
+  roundedcorners=50,
+  linewidth=12pt,
+  innersep=6mm,
+  titletotopverticalspace=10mm,
+  titletoblockverticalspace=10mm,
 }{
   \begin{scope}[line width=\titlelinewidth, rounded corners=\titleroundedcorners]
-    \draw[fill=blocktitlebgcolor!8, draw=framecolor]
+    \draw[fill=blocktitlefgcolor!8, draw=blocktitlebgcolor]
       (\titleposleft,\titlepostop) rectangle (\titleposright,\titleposbottom);
   \end{scope}
 }
@@ -145,7 +145,7 @@ Existing methods need $>$100 sequences/person. PCT handles spatial structure but
 \vspace{3mm}
 \begin{minipage}{\linewidth}
 \centering
-\colorbox{radarOrange!15}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
+\colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering\textbf{Gap:}
 We bridge these gaps with tracking-integrated InISAR and pre-trained few-shot meta-learning.}}
 \end{minipage}
 }
@@ -220,7 +220,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 % ============================================================
 \begin{subcolumns}
 
-\subcolumn{0.485}
+\subcolumn{0.5}
     \block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
     \small
     \begin{minipage}{\linewidth}
@@ -311,18 +311,16 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     % ============================================================
     \block{\textcolor{white}{\large \ding{207}\ \ Validation: InISAR vs Motion Capture}}{
     \small
-    \begin{minipage}{\linewidth}
-    \vspace{0mm}
-    \textbf{Setup:} 5 subjects (164--185 cm), 60 GHz radar, $B=3.3$ GHz ($\Delta r = 4.55$ cm), 5 movement patterns.
-    \end{minipage}
-    \begin{minipage}{0.48\linewidth}
+    \begin{minipage}{0.52\linewidth}
         \centering
         \posterfig{\linewidth}{other_p4cn0_iou_frame_65.png}{}
         \centering
         \posterfig{\linewidth}{other_p4cn0_iou_frame_71.png}{InISAR (blue) vs MoCap (green)}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\linewidth}
+    \begin{minipage}{0.46\linewidth}
+    \vspace{2mm}
+    \small
     \begin{tabular}{lc}
         \toprule
         \textbf{Scenario} & \textbf{IoU (\%)} \\
@@ -335,9 +333,10 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \textbf{Average} & \textbf{73.78} \\
         \bottomrule
     \end{tabular}
+    \textbf{Setup:} 5 subjects (164--185 cm), 60 GHz radar, $B=3.3$ GHz ($\Delta r = 4.55$ cm), 5 movement patterns.
     \end{minipage}
-    \vspace{2mm}
-    \colorbox{resultsColor!15}{\parbox{0.95\linewidth}{\centering
+    \vspace{3mm}
+    \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
     \textbf{Height Error:} $<$5.5 cm (median 3.87 cm)
     }}
     }
@@ -345,7 +344,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 % ----------------------------------------------------------------------
 % COLUMN 3: PCTtrans + MAML + RESULTS
 % ----------------------------------------------------------------------
-\subcolumn{0.485}
+\subcolumn{0.5}
     \block{\textcolor{white}{\large \ding{208}\ \ Few-Shot PID with PCTtrans}}{
     \small
     \posterfig{0.95\linewidth}{fig_pcttrans_architecture.png}{PCTtrans: frame-wise PCT $+$ Temporal Transformer}
@@ -388,14 +387,14 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \small
     \textbf{Two-Phase Algorithm:}
     \vspace{1mm}
-    \colorbox{deepLearning!15}{\parbox{0.95\linewidth}{\textbf{Phase 1:} Supervised training on 3 subjects $\to \theta_0^{PT}$}}
+    \colorbox{deepLearning!12}{\parbox{0.95\linewidth}{\textbf{Phase 1:} Supervised training on 3 subjects $\to \theta_0^{PT}$}}
     \vspace{1mm}
-    \colorbox{deepLearning!15}{\parbox{0.95\linewidth}{\textbf{Phase 2:} MAML meta-training with $\theta_0^{PT}$}}
+    \colorbox{deepLearning!12}{\parbox{0.95\linewidth}{\textbf{Phase 2:} MAML meta-training with $\theta_0^{PT}$}}
     \vspace{2mm}
     Inner loop: $\theta_i' = \theta - \alpha\nabla\mathcal{L}$ ($\alpha{=}0.1$). Outer loop: $\theta \leftarrow \theta - \beta\nabla\sum_i\mathcal{L}$ ($\beta{=}0.001$).
     \vspace{2mm}
     \centering
-    \colorbox{resultsColor!15}{\parbox{0.95\linewidth}{\centering
+    \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
     \textbf{Gain:} +15.6pp over random MAML
     }}
     }
@@ -428,7 +427,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{minipage}
     \vspace{2mm}
     \centering
-    \colorbox{deepLearning!15}{\parbox{0.95\linewidth}{\centering
+    \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
     {\large 98.99\% supervised} \quad {\large 70.0\% cross-session} \quad {\large +15.6pp gain}
     }}
     }

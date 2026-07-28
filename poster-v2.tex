@@ -45,7 +45,6 @@
 % ------------------------------------------------------------
 \usetheme{Default}
 \usecolorstyle{Default}
-
 % ------------------------------------------------------------
 % helper command: consistent figure block with caption strip
 % ------------------------------------------------------------
@@ -64,9 +63,9 @@
   width=0.95\linewidth,
   roundedcorners=60,
   linewidth=12pt,
-  innersep=10mm,
-  titletotopverticalspace=10mm,
-  titletoblockverticalspace=10mm,
+  innersep=8mm,
+  titletotopverticalspace=8.5mm,
+  titletoblockverticalspace=8.5mm,
 }{
   \begin{scope}[line width=\titlelinewidth, rounded corners=\titleroundedcorners]
     \draw[fill=blocktitlefgcolor!8, draw=blocktitlebgcolor]
@@ -178,7 +177,8 @@ maintaining robustness without capturing identifiable imagery.
     \centering
     \includegraphics[width=\linewidth]{other_p4cn2_frame328.png}
     \end{minipage}
-
+    \centering
+    \qrcode[height=1.2cm]{https://example.com/paper}
 }
 
 % ----------------------------------------------------------------------
@@ -192,7 +192,7 @@ maintaining robustness without capturing identifiable imagery.
 \column{0.72}
  
 \block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
-\posterfig{\linewidth}{01_system_architecture_colored.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
+\posterfig{\linewidth}{01_system_architecture_colored.pdf}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
 \vspace{2.91mm}
 \begin{minipage}{0.31\linewidth}
 \centering
@@ -379,7 +379,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \setlength\itemsep{0.5mm}
         \item FPS + Ball Query handles non-uniform density.
         \item Offset-Attention emphasizes local structure.
-        \item 4-head attention captures gait dynamics.
+        \item Temporal transformer models gait dynamics.
     \end{itemize}
     \end{minipage}
     }
@@ -400,49 +400,75 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     }
     \block{\textcolor{white}{\large \ding{210}\ \ Results}}{
     \small
-    \begin{minipage}{0.48\linewidth}
-        \footnotesize
-        \begin{tabular}{lcc}
-            \toprule
-            \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
-            \midrule
-            Q1 (same session) & 98.99\% & 90.0\% \\
-            Q2 (cross-session) & 32.05\% & \textbf{56.67\%} \\
-            Q3 (cross-subject) & 31.67\% & 47.78\% \\
-            \bottomrule
-        \end{tabular}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\linewidth}
-        \footnotesize
-        \begin{tabular}{lccc}
-            \toprule
-            \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
-            \midrule
-            Q1 & 76.67\% & 94.44\% & +17.77pp \\
-            Q2 & 54.44\% & \textbf{70.0\%} & +15.56pp \\
-            Q3 & 46.67\% & 48.89\% & +2.22pp \\
-            \bottomrule
-        \end{tabular}
-    \end{minipage}
-    \vspace{2mm}
+    % \begin{minipage}{0.48\linewidth}
+    %     \footnotesize
+    %     \begin{tabular}{lcc}
+    %         \toprule
+    %         \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
+    %         \midrule
+    %         Q1 (same session) & 98.99\% & 90.0\% \\
+    %         Q2 (cross-session) & 32.05\% & \textbf{56.67\%} \\
+    %         Q3 (cross-subject) & 31.67\% & 47.78\% \\
+    %         \bottomrule
+    %     \end{tabular}
+    % \end{minipage}
+    % \hfill
+    % \begin{minipage}{0.48\linewidth}
+    %     \footnotesize
+    %     \begin{tabular}{lccc}
+    %         \toprule
+    %         \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
+    %         \midrule
+    %         Q1 & 76.67\% & 94.44\% & +17.77pp \\
+    %         Q2 & 54.44\% & \textbf{70.0\%} & +15.56pp \\
+    %         Q3 & 46.67\% & 48.89\% & +2.22pp \\
+    %         \bottomrule
+    %     \end{tabular}
+    % \end{minipage}
+    % \vspace{2mm}
+    % \centering
+    % \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
+    % {\large 98.99\% supervised} \quad {\large 70.0\% cross-session} \quad {\large +15.6pp gain}
+    % }}
+    % ---- Combined Table ----
+    \footnotesize
+    \setlength{\tabcolsep}{2.5pt}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Query} & \textbf{TCPCN} & \textbf{PCTtrans (sup.)} & \textbf{MAML (rand.)} & \textbf{MAML (pre-train)} \\
+        \midrule
+        Q1 (same session) & 96.18 & \textbf{98.99} & 76.67 & 94.44 \\
+        Q2 (cross-session) & 35.10 & 32.05 & 54.44 & \textbf{70.00} \\
+        Q3 (cross-subject) & 57.81 & 40.09 & 46.67 & 48.89 \\
+        \bottomrule
+    \end{tabular}
+    \vspace{1.5mm}
+    \small
+    \begin{itemize}
+        \setlength\itemsep{0.5mm}
+        \item \textbf{Supervised:} PCTtrans outperforms TCPCN on Q1 by +2.81pp.
+        \item \textbf{Few-shot:} MAML (rand.) improves cross-session over supervised by +22.39pp.
+        \item \textbf{Pre-training:} +15.56pp gain over random MAML on cross-session; \textbf{70.0\%} overall.
+    \end{itemize}
+    \vspace{1mm}
     \centering
     \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
     {\large 98.99\% supervised} \quad {\large 70.0\% cross-session} \quad {\large +15.6pp gain}
-    }}
+    }}\\
+    \footnotesize
+    \textit{On mmGait (20 subjects), PCTtrans outperforms TCPCN by up to 11.5pp (fixed trajectory).}
     }
-    \block{\textcolor{white}{\large \ding{213}\ \ Conclusion}}{
+    \block{\textcolor{white}{\large \ding{211}\ \ Conclusion}}{
     \small
     \begin{itemize}
         \setlength\itemsep{1mm}
         \item \checkmark\ \textbf{InISAR:} 73.78\% IoU, $<$5.5 cm height error
         \item \checkmark\ \textbf{PCTtrans:} 98.99\% supervised accuracy
-        \item \checkmark\ \textbf{Pre-trained MAML:} 70.0\% cross-session
-        \item \checkmark\ \textbf{+15.6pp} over random MAML
+        \item \checkmark\ \textbf{Pre-trained MAML:} 70.0\% cross-session \textbf{+15.6pp} over random MAML
     \end{itemize}
     \centering
     \fbox{\parbox{0.9\linewidth}{\centering\small
-    \textbf{Practical few-shot radar PID with minimal training data is now feasible.}
+    \textbf{Deployable few-shot radar PID with minimal training data.}
     }}\\
     \vspace{1mm}
     \small\textcolor{radarGrey}{Next: larger populations, adaptive tracking for high-acceleration scenarios}
@@ -454,12 +480,11 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 % ============================================================
 % FOOTER
 % ============================================================
+\vspace{1mm}
 \block[titlewidthscale=0, bodyoffsety=0cm, roundedcorners=0]{}{
 \centering\small\color{radarGrey}
 jeffee.hsiung@icloud.com \quad torun10@imec.be
 \qquad EUSIPCO 2026, Bruges \qquad imec / KU Leuven / VUB
-\hfill
-\qrcode[height=1.2cm]{https://example.com/paper}
 }
 
 \end{document}

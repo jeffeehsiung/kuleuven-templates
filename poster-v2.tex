@@ -21,6 +21,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{pifont}          % for \ding{} circled numbers
+\usepackage{url}
 \usepackage{hyperref}
 \usepackage{qrcode}
 \usepackage{anyfontsize}
@@ -31,6 +32,9 @@
 % ============================================================
 % LOAD YOUR TIKZ LIBRARY (FOR POSTER TIKZ ELEMENTS)
 % ============================================================
+% ============================================================
+% LOAD YOUR TIKZ LIBRARY
+% ============================================================
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,arrows.meta,decorations.pathmorphing}
 
@@ -40,11 +44,19 @@
 \input{tikz-radar-lib/tracking_icons.tex}
 \input{tikz-radar-lib/ml_icons.tex}
 
+% Suppress bibliography output (but keep \bibitem processing)
+\makeatletter
+\newcounter{listctr}          % create the counter used by thebibliography
+\def\@listctr{listctr}        % \@listctr must be the counter name as a string
+\makeatother
+
+
 % ------------------------------------------------------------
 % 2. THEME / BLOCK STYLE
 % ------------------------------------------------------------
 \usetheme{Default}
 \usecolorstyle{Default}
+
 % ------------------------------------------------------------
 % helper command: consistent figure block with caption strip
 % ------------------------------------------------------------
@@ -154,8 +166,8 @@ maintaining robustness without capturing identifiable imagery~\cite{Javadi_hpe}.
 \begin{center}
 \begin{tikzpicture}
     \MetricBox{m1}{0,0}{73.8\%}{InISAR IoU}
-    \MetricBox{m2}{0,-2.8}{$<$5.5 cm}{Height Error}
-    \MetricBox{m3}{0,-5.6}{70.0\%}{Few-shot (cross-session)}
+    \MetricBox{m2}{5,0}{$<$5.5 cm}{Height Error}
+    \MetricBox{m3}{3,-3}{70.0\%}{Few-shot (cross-session)}
 \end{tikzpicture}
 \end{center}
 }
@@ -400,37 +412,6 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     }
     \block{\textcolor{white}{\large \ding{210}\ \ Results}}{
     \small
-    % \begin{minipage}{0.48\linewidth}
-    %     \footnotesize
-    %     \begin{tabular}{lcc}
-    %         \toprule
-    %         \textbf{Query} & \textbf{Supervised} & \textbf{MAML} \\
-    %         \midrule
-    %         Q1 (same session) & 98.99\% & 90.0\% \\
-    %         Q2 (cross-session) & 32.05\% & \textbf{56.67\%} \\
-    %         Q3 (cross-subject) & 31.67\% & 47.78\% \\
-    %         \bottomrule
-    %     \end{tabular}
-    % \end{minipage}
-    % \hfill
-    % \begin{minipage}{0.48\linewidth}
-    %     \footnotesize
-    %     \begin{tabular}{lccc}
-    %         \toprule
-    %         \textbf{Query} & \textbf{Random} & \textbf{Pre-Trained} & \textbf{Gain} \\
-    %         \midrule
-    %         Q1 & 76.67\% & 94.44\% & +17.77pp \\
-    %         Q2 & 54.44\% & \textbf{70.0\%} & +15.56pp \\
-    %         Q3 & 46.67\% & 48.89\% & +2.22pp \\
-    %         \bottomrule
-    %     \end{tabular}
-    % \end{minipage}
-    % \vspace{2mm}
-    % \centering
-    % \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
-    % {\large 98.99\% supervised} \quad {\large 70.0\% cross-session} \quad {\large +15.6pp gain}
-    % }}
-    % ---- Combined Table ----
     \footnotesize
     \setlength{\tabcolsep}{2.5pt}
     \begin{tabular}{lcccc}
@@ -478,24 +459,26 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{columns}
 
 % ============================================================
-% REFERENCES
+% FOOTER (with hidden bibliography)
 % ============================================================
-\bibliographystyle{IEEEtran}
-\bibliography{references}
 \block[titlewidthscale=0, bodyoffsety=0cm, roundedcorners=0]{}{
-    \centering\fontsize{6}{8}\selectfont\color{radarGrey}
-    \textbf{References:} 
-    \cite{Pegoraro21, Guo20, finn17, ZhangMUSIC2010, QunZhangInISAR2004, Martorella2DISARto3D2013, SalvettiMartorellaMultistaticMultiTemporal2016, Meng20, Puri20, RuoyuMultipath, Javadi_ISAR, Javadi_hpe}
-}
+    \begin{minipage}{0.95\linewidth}
+        \centering\small\color{radarGrey}
+        jeffee.hsiung@icloud.com $\cdot$ torun10@imec.be
+        $\cdot$ EUSIPCO 2026, Bruges
+        $\cdot$ imec / KU Leuven / VUB
+        \hfill
+        \qrcode[height=1.2cm]{https://yourcloudlink.com}
+        \quad \textit{Full references: scan QR}
 
-% ============================================================
-% FOOTER
-% ============================================================
-\vspace{1mm}
-\block[titlewidthscale=0, bodyoffsety=0cm, roundedcorners=0]{}{
-\centering\small\color{radarGrey}
-jeffee.hsiung@icloud.com \quad torun10@imec.be
-\qquad EUSIPCO 2026, Bruges \qquad imec / KU Leuven / VUB
+        \vspace{2mm}
+        % ---- Hidden bibliography: processes .bbl but discards output ----
+        \setbox0=\vbox{
+            \fontsize{0.1pt}{0.2pt}\selectfont
+            \bibliographystyle{IEEEtran}
+            \bibliography{references}
+        }% the box is never used, so its content is invisible
+    \end{minipage}
 }
 
 \end{document}

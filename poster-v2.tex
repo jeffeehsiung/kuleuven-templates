@@ -112,7 +112,7 @@ Vision-based person identification struggles under real conditions:
 \end{itemize}
 \vspace{1.62mm}
 mmWave radar provides a privacy-preserving alternative for surveillance and human-robot interaction, 
-maintaining robustness without capturing identifiable imagery.
+maintaining robustness without capturing identifiable imagery~\cite{Javadi_hpe}.
 \end{minipage}
 
 }
@@ -128,19 +128,19 @@ maintaining robustness without capturing identifiable imagery.
 \begin{minipage}{\linewidth}
     \vspace{2mm}
     \textbf{Challenge 1: Poor Point Cloud Quality}\\[1mm]
-    Conventional angle-of-arrival processing yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts.
+    Conventional angle-of-arrival processing~\cite{ZhangMUSIC2010} yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts.
     \vspace{2mm}
     
     \textbf{Challenge 2: Rigid-Target Bias in InISAR}\\[1mm]
-    InISAR improves angular resolution but existing works validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
+    InISAR improves angular resolution but existing works \cite{QunZhangInISAR2004, Martorella2DISARto3D2013, SalvettiMartorellaMultistaticMultiTemporal2016} validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
     \vspace{2mm}
     
     \textbf{Challenge 3: Multipath Cannot Be Ignored}\\[1mm]
-    DBSCAN alone cannot distinguish true targets from multipath ghosts, which overlap in range-Doppler and mimic real 3D clusters.
+    DBSCAN alone cannot distinguish true targets from multipath ghosts~\cite{RuoyuMultipath}, which overlap in range-Doppler and mimic real 3D clusters.
     \vspace{2mm}
     
     \textbf{Challenge 4: Data Scarcity}\\[1mm]
-    Existing methods need $>$100 sequences/person. PCT handles spatial structure but targets \emph{static} objects, not evolving radar sequences.
+    Existing methods~\cite{Pegoraro21} need $>$100 sequences/person. PCT~\cite{Guo20} handles spatial structure but targets \emph{static} objects, not evolving radar sequences.
     \vspace{3mm}
 \end{minipage}
 \begin{minipage}{\linewidth}
@@ -244,7 +244,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \textbf{Step 2: ISAR Motion Compensation (ICBA)}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Target motion during CPI smears energy across cells, defocusing the image.
+        \item Target motion during CPI smears energy across cells, defocusing the image ~\cite{Javadi_ISAR}.
         \item Translational motion model:
     \end{itemize}
     \begin{align*}
@@ -389,7 +389,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \vspace{1mm}
     \colorbox{deepLearning!12}{\parbox{0.95\linewidth}{\textbf{Phase 1:} Supervised training on 3 subjects $\to \theta_0^{PT}$}}
     \vspace{1mm}
-    \colorbox{deepLearning!12}{\parbox{0.95\linewidth}{\textbf{Phase 2:} MAML meta-training with $\theta_0^{PT}$}}
+    \colorbox{deepLearning!12}{\parbox{0.95\linewidth}{\textbf{Phase 2:} MAML~\cite{finn17, Puri20} meta-training with $\theta_0^{PT}$}}
     \vspace{2mm}
     Inner loop: $\theta_i' = \theta - \alpha\nabla\mathcal{L}$ ($\alpha{=}0.1$). Outer loop: $\theta \leftarrow \theta - \beta\nabla\sum_i\mathcal{L}$ ($\beta{=}0.001$).
     \vspace{2mm}
@@ -446,7 +446,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \small
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item \textbf{Supervised:} PCTtrans outperforms TCPCN on Q1 by +2.81pp.
+        \item \textbf{Supervised:} PCTtrans outperforms TCPCN~\cite{Pegoraro21} on Q1 by +2.81pp.
         \item \textbf{Few-shot:} MAML (rand.) improves cross-session over supervised by +22.39pp.
         \item \textbf{Pre-training:} +15.56pp gain over random MAML on cross-session; \textbf{70.0\%} overall.
     \end{itemize}
@@ -456,7 +456,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     {\large 98.99\% supervised} \quad {\large 70.0\% cross-session} \quad {\large +15.6pp gain}
     }}\\
     \footnotesize
-    \textit{On mmGait (20 subjects), PCTtrans outperforms TCPCN by up to 11.5pp (fixed trajectory).}
+    \textit{On mmGait~\cite{Meng20} (20 subjects), PCTtrans outperforms TCPCN by up to 11.5pp (fixed trajectory).}
     }
     \block{\textcolor{white}{\large \ding{211}\ \ Conclusion}}{
     \small
@@ -476,6 +476,17 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{subcolumns}
 
 \end{columns}
+
+% ============================================================
+% REFERENCES
+% ============================================================
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\block[titlewidthscale=0, bodyoffsety=0cm, roundedcorners=0]{}{
+    \centering\fontsize{6}{8}\selectfont\color{radarGrey}
+    \textbf{References:} 
+    \cite{Pegoraro21, Guo20, finn17, ZhangMUSIC2010, QunZhangInISAR2004, Martorella2DISARto3D2013, SalvettiMartorellaMultistaticMultiTemporal2016, Meng20, Puri20, RuoyuMultipath, Javadi_ISAR, Javadi_hpe}
+}
 
 % ============================================================
 % FOOTER

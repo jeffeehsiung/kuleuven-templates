@@ -192,7 +192,7 @@ maintaining robustness without capturing identifiable imagery.
 \column{0.72}
  
 \block{\textcolor{white}{\large \ding{205}\ \ Our Framework: Unified Sensing + Meta-Learning}}{
-\posterfig{\linewidth}{01_system_architecture.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
+\posterfig{\linewidth}{01_system_architecture_colored.png}{End-to-end system: radar signal $\to$ InISAR 3D reconstruction $\to$ spatio-temporal learning $\to$ identity}
 \vspace{2.91mm}
 \begin{minipage}{0.31\linewidth}
 \centering
@@ -228,7 +228,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \vspace{0mm}
     \posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_landscape.pdf}{Six-stage 3D reconstruction pipeline}
     \vspace{2mm}
-    \textbf{Step 1: Range Processing}
+    \textbf{Step 1: Range FFT}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item FMCW radar transmits linear frequency-modulated chirps:
@@ -258,7 +258,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
     \end{align*}
     \vspace{1mm}
-    \textbf{Step 3: Doppler Processing}
+    \textbf{Step 3: Doppler FFT}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item Output: Range-Doppler map with focused target signatures.
@@ -443,7 +443,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \centering
     \fbox{\parbox{0.9\linewidth}{\centering\small
     \textbf{Practical few-shot radar PID with minimal training data is now feasible.}
-    }}
+    }}\\
     \vspace{1mm}
     \small\textcolor{radarGrey}{Next: larger populations, adaptive tracking for high-acceleration scenarios}
     }

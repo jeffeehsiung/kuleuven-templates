@@ -239,7 +239,6 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \begin{minipage}{\linewidth}
     \vspace{0mm}
     \posterfig{\linewidth}{tikz-radar-lib/inisar_pipeline_strip_landscape.pdf}{Six-stage 3D reconstruction pipeline}
-    \vspace{2mm}
     \textbf{Step 1: Range FFT}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
@@ -250,10 +249,10 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{align*}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Output: Range-compressed signal $S_{R,m}(f,t)$.
+        \item Output: Range-compressed signal $S_{R,m}(f,t)$ per $m$-th virtual antenna.
     \end{itemize}
     \vspace{1mm}
-    \textbf{Step 2: ISAR Motion Compensation (ICBA)}
+    \textbf{Step 2: Motion Compensation (ICBA)}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item Target motion during CPI smears energy across cells, defocusing the image ~\cite{Javadi_ISAR}.
@@ -264,16 +263,20 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{align*}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item ICBA maximizes image contrast to estimate $[\hat{\beta}, \hat{\gamma}]$:
+        \item ICBA~\cite{Martorella2DISARto3D2013} maximizes image contrast to estimate $[\hat{\beta}, \hat{\gamma}]$:
     \end{itemize}
     \begin{align*}
         [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
     \end{align*}
-    \vspace{1mm}
-    \textbf{Step 3: Doppler FFT}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Output: Range-Doppler map with focused target signatures.
+        \item Output: Motion-compensated range profile $S_{C,m}(f,t)$.
+    \end{itemize}
+    \vspace{1mm}
+    \textbf{Step 3: Doppler FFT (ISAR Image)}
+    \begin{itemize}
+        \setlength\itemsep{0.5mm}
+        \item Output: Slow-time FFT produces the 2D ISAR image (range × Doppler) with focused target signatures.
     \end{itemize}
     \vspace{1mm}
     \textbf{Step 4: CFAR Segmentation}
@@ -304,13 +307,12 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \textbf{Step 6: EKF-JPDA Tracking}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Tracks scatterers in 3D spatial domain (not Range-Doppler).
-        \item JPDA handles data association; EKF filters state with covariance.
+        \item Spatial domain: JPDA handles data association; EKF filters state with covariance.
         \item Output: Clean 3D point cloud with ghosts removed.
     \end{itemize}
     \begin{minipage}{0.48\linewidth}
     \centering
-    \posterfig{\linewidth}{fig_radar_vs_camera_p3_0053.png}{(a) Before removal: ghost targets remain}
+    \posterfig{\linewidth}{fig_radar_vs_camera_p3_0053.png}{(a) Before removal: ghost remain}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\linewidth}
@@ -345,9 +347,9 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \textbf{Average} & \textbf{73.78} \\
         \bottomrule
     \end{tabular}
+    \vspace{2mm}
     \textbf{Setup:} 5 subjects (164--185 cm), 60 GHz radar, $B=3.3$ GHz ($\Delta r = 4.55$ cm), 5 movement patterns.
     \end{minipage}
-    \vspace{3mm}
     \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
     \textbf{Height Error:} $<$5.5 cm (median 3.87 cm)
     }}

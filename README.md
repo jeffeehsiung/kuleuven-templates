@@ -1,5 +1,7 @@
+Here's the updated `README.md` that reflects the current state of your project:
 
-# EUSIPCO 2026 Poster  
+```markdown
+# EUSIPCO 2026 Poster
 ## Few-Shot Radar Person Identification via Tracking-Integrated InISAR and Pre-Trained Meta-Learning
 
 This repository contains the LaTeX source files for the EUSIPCO 2026 conference poster.
@@ -7,9 +9,9 @@ This repository contains the LaTeX source files for the EUSIPCO 2026 conference 
 The project provides two poster versions:
 
 1. **Current poster (recommended)**
-   - `poster.tex`
-   - KU Leuven corporate design
-   - Built using `beamerposter`
+   - `poster-v2.tex`
+   - Built using `tikzposter` with custom Radar Night color palette
+   - Includes full TikZ library for radar processing diagrams
 
 2. **Previous draft version**
    - `poster-v1.tex`
@@ -18,399 +20,286 @@ The project provides two poster versions:
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```
 .
-├── poster.tex                     # Main poster source (final version)
-├── poster-v1.tex                # Old draft poster source
-├── Makefile                       # Build script
-├── definitions.tex                # KU Leuven colors and LaTeX definitions
-├── references.bib                 # Bibliography (if needed)
+├── poster-v2.tex                 # Main poster source (final version)
+├── poster-v1.tex                 # Old draft poster source
+├── poster-v3.tex                 # Alternative draft
+├── Makefile                      # Build script (compiles figures + poster)
+├── references.bib                # Bibliography database
+├── references.tex                # Generate standalone references PDF
 │
-├── blocks/                        # Poster content blocks
-│   ├── 01_BeyondVision.tex
-│   ├── 02_RadarSensing.tex
-│   ├── 03_Challenges.tex
-│   ├── 04_Framework.tex
-│   ├── 05_DeepDive.tex
-│   ├── 06_Results.tex
-│   └── 07_Contributions.tex
+├── tikz-radar-lib/               # TikZ library for all figures
+│   ├── radar_styles.tex          # Colors, fonts, process cards, arrows
+│   ├── radar_icons.tex           # Radar processing icons (FFT, ISAR, etc.)
+│   ├── geometry_icons.tex        # 3D geometry icons (point clouds, ICP)
+│   ├── tracking_icons.tex        # Tracking icons (EKF, JPDA, ghosts)
+│   └── ml_icons.tex              # Deep learning icons (PCT, MAML, Transformer)
 │
-├── figures/                       # All poster figures
-│   ├── system diagrams
+├── figures/                      # All PNG/PDF figures
+│   ├── system architecture diagrams
 │   ├── radar illustrations
 │   ├── PCT/MAML diagrams
-│   └── result plots
+│   └── result plots (IoU, MoCap comparison)
 │
-├── templates/                     # KU Leuven logos and assets
-
-
-````
-
----
-
-# Requirements
-
-The project requires a LaTeX environment capable of compiling:
-
-- `beamerposter`
-- `tikzposter` (only required for the old draft)
-- common LaTeX packages
-
+├── blocks/                       # Poster content blocks (optional, for beamerposter)
+├── templates/                    # KU Leuven logos and assets
+└── definitions.tex               # KU Leuven colors and LaTeX definitions
+```
 
 ---
 
-# Installation
+## Requirements
 
-## macOS
+The project requires a LaTeX environment with:
 
-### 1. Install Homebrew
+- `tikzposter`
+- `tikz`
+- `amsmath`, `amssymb`
+- `graphicx`
+- `booktabs`
+- `array`
+- `pifont`
+- `hyperref`
+- `qrcode`
+- `anyfontsize`
+- `standalone`
+- `multicol`
+- `xcolor`
 
-If Homebrew is not installed:
+---
 
-https://brew.sh/
+## Installation
 
+### macOS
 
-### 2. Install TeX Live
-
-Install MacTeX:
+Install MacTeX via Homebrew:
 
 ```bash
 brew install --cask mactex
-````
+```
 
-After installation, restart the terminal.
-
-Check:
+After installation, restart the terminal and verify:
 
 ```bash
 pdflatex --version
 ```
 
----
-
-## Linux (Ubuntu)
-
-Install TeX Live:
+### Linux (Ubuntu)
 
 ```bash
 sudo apt update
-
-sudo apt install \
-texlive-full \
-make
+sudo apt install texlive-full make
 ```
 
-Check:
+### Windows
 
-```bash
-pdflatex --version
-make --version
-```
+Install MiKTeX from [https://miktex.org/download](https://miktex.org/download) and enable "Install missing packages on-the-fly".
 
 ---
 
-## Windows
+## Building the Poster
 
-Recommended:
-
-Install MiKTeX:
-
-[https://miktex.org/download](https://miktex.org/download)
-
-During installation:
-
-* Enable "Install missing packages on-the-fly"
-* Install Make (for example through MSYS2)
-
-Alternative:
-
-Install TeX Live:
-
-[https://tug.org/texlive/](https://tug.org/texlive/)
-
----
-z
-# Required LaTeX Packages
-
-The following packages are required.
-
-For the final poster:
-
-```
-beamer
-beamerposter
-graphicx
-xcolor
-booktabs
-multirow
-tabularx
-csquotes
-hyperref
-changepage
-siunitx
-lmodern
-type1cm
-```
-
-For the old draft:
-
-```
-tikzposter
-tikz
-qrcode
-pifont
-array
-booktabs
-anyfontsize
-```
-
-**Install using ocmmand e.g. (macos):**
-```bash
-sudo tlmgr install tikzposter qrcode pifont booktabs array
-```
-
-If using TeX Live full installation, all packages are already included.
-
----
-
-# Building the Poster
-
-## Build final poster
+### Build Everything (Figures + Poster)
 
 From the repository root:
-
-```bash
-make
-```
-
-or:
 
 ```bash
 make all
 ```
 
-The generated file:
+This will:
+1. Build all TikZ figures in `tikz-radar-lib/`
+2. Build `poster-v2.pdf`
 
-```
-poster.pdf
-```
-
-will be created.
-
----
-
-## Build old draft poster
-
-The old draft can be compiled directly:
+### Build Only the Poster (If Figures Are Already Built)
 
 ```bash
-pdflatex poster-v1.tex
+make poster-v2.pdf
 ```
 
-or add it to Makefile as a separate target:
+### Build Standalone References PDF
 
 ```bash
-make draft
+make references.pdf
 ```
 
-which generates:
-
-```
-poster-v1.pdf
-```
-
----
-
-# Makefile Commands
-
-## Compile
+### Force Rebuild of All Figures
 
 ```bash
-make
-```
-
-Builds the final poster.
-
----
-
-## Clean generated files
-
-```bash
-make clean
-```
-
-Removes:
-
-```
-*.aux
-*.log
-*.nav
-*.out
-*.snm
-*.toc
-*.pdf
+make rebuild-figs
 ```
 
 ---
 
-## Open PDF (macOS)
+## Makefile Commands
 
-```bash
-make view
-```
-
----
-
-# Editing Content
-
-The final poster content is separated into blocks.
-
-Modify:
-
-```
-blocks/
-```
-
-instead of editing `poster.tex`.
-
-For example:
-
-```
-blocks/01_BeyondVision.tex
-```
-
-contains the motivation section.
-
-```
-blocks/06_Results.tex
-```
-
-contains the experiment results.
-
-After editing:
-
-```bash
-make
-```
-
-to regenerate the poster.
+| Command | Action |
+|---------|--------|
+| `make all` | Builds the main poster (`poster-v2.pdf`) and references PDF |
+| `make poster-v1.pdf` | Builds the old draft |
+| `make poster-v2.pdf` | Builds the main poster |
+| `make poster-v3.pdf` | Builds alternative draft |
+| `make references.pdf` | Builds standalone bibliography PDF |
+| `make view` | Opens the main poster (macOS) |
+| `make view-v1` | Opens the old draft |
+| `make view-v2` | Opens the main poster |
+| `make view-refs` | Opens the references PDF |
+| `make rebuild-figs` | Force rebuild all TikZ figures |
+| `make clean` | Removes auxiliary files (keeps PDFs) |
+| `make cleanfigs` | Removes only figure PDFs |
+| `make distclean` | Removes everything (including PDFs) |
 
 ---
 
-# Troubleshooting
+## Key Files Explained
 
-## Missing LaTeX package
+### `poster-v2.tex`
+The main poster file. It uses:
+- `tikzposter` class
+- Custom "Radar Night" color palette
+- Manual bibliography via `\begin{thebibliography}` (no BibTeX required)
 
-If LaTeX reports:
+### `tikz-radar-lib/`
+A reusable TikZ graphics library:
+- `radar_styles.tex`: Defines colors, fonts, process cards, flow arrows
+- `radar_icons.tex`: Radar sensor, FFT, ISAR, interferometry, CFAR, EKF-JPDA
+- `geometry_icons.tex`: 3D point clouds, coordinate frames, bounding boxes
+- `tracking_icons.tex`: DBSCAN, EKF-JPDA, ghost targets, trajectories
+- `ml_icons.tex`: PCT, Transformer, MAML, offset-attention, neighbor embedding
 
-```
-File xxx.sty not found
-```
+### `references.bib`
+All citation entries in BibTeX format. Used to generate `references.pdf` for the QR code.
 
-Install the missing package.
-
-For TeX Live:
-
-```bash
-tlmgr install <package-name>
-```
-
-For MiKTeX:
-
-```
-MiKTeX Console → Packages → Install
-```
+### `references.tex`
+Generates a standalone bibliography PDF (`references.pdf`), which is linked via QR code on the poster.
 
 ---
 
-## Undefined color errors
+## Overleaf Setup
 
-Make sure:
+### Import from GitHub (Recommended)
 
-```
-definitions.tex
-```
+1. Go to [Overleaf](https://www.overleaf.com)
+2. **New Project** → **Import from GitHub**
+3. Authorize Overleaf
+4. Select `jeffeehsiung/kuleuven-templates`
+5. Set **Main File** to `poster-v2.tex`
+6. Click **Recompile**
 
-exists in the project root.
+### Manual Upload (Alternative)
+
+1. Download a ZIP of this repository
+2. Upload to a new Overleaf project
+3. Set `poster-v2.tex` as the main file
+4. Recompile
+
+### Overleaf Notes
+
+- Overleaf includes `tikzposter` and all required packages
+- The bibliography is embedded in the poster (no BibTeX needed)
+- Font warnings (`T1/aer/bx/sc undefined`) are harmless — ignore them
 
 ---
 
-## Figure not found
+## Editing Content
 
+### Main Poster Content
+
+Edit `poster-v2.tex` directly to change:
+- Text in blocks
+- Tables and figures
+- Sections and layout
+
+### TikZ Figures
+
+To modify diagrams:
+1. Edit the corresponding `.tex` file in `tikz-radar-lib/`
+2. Rebuild figures:
+   ```bash
+   make rebuild-figs
+   make poster-v2.pdf
+   ```
+
+### Bibliography
+
+To update references:
+1. Edit `references.bib`
+2. Build the references PDF:
+   ```bash
+   make references.pdf
+   ```
+
+---
+
+## Troubleshooting
+
+### "File `IEEEtran.sty' not found"
+You don't need it for the poster. Only `IEEEtran.bst` is required for `references.tex`. If you get this error, comment out `\usepackage{IEEEtran}` in `references.tex`.
+
+### "T1/aer/bx/sc undefined"
+This is a harmless font warning from the `ae` package. The poster compiles correctly with fallback fonts.
+
+### Figure not found
 Check that:
+1. The figure exists in `figures/` or `tikz-radar-lib/`
+2. The filename matches exactly (Linux is case-sensitive)
+3. The path in `\includegraphics{}` is correct
 
-1. The figure exists inside:
-
-```
-figures/
-```
-
-2. The filename matches exactly.
-
-Linux is case-sensitive:
-
-```
-figure.png
-Figure.png
-```
-
-are different files.
+### QR code URL not working
+Update the URL in the `\qrcode{}` command in `poster-v2.tex` to point to your GitHub Pages or hosted content.
 
 ---
 
-# Authors
+## Supplementary Materials (QR Code)
 
-Jeffee Hsiung
-Rengin Torun
-S. Hamed Javadi
-Hichem Sahli
+The poster QR code links to a GitHub Pages page containing:
+- **Videos**: DBSCAN vs EKF-JPDA tracking comparison
+- **GIFs**: Preprocessing pipeline visualization
+- **PDFs**: Full paper, poster, and references
 
-EUSIPCO 2026
+The source for this page is in a separate repository or folder with `index.html`.
+
+---
+
+## Authors
+
+| Name | Affiliation |
+|------|-------------|
+| Jeffee Hsiung* | KU Leuven |
+| Rengin Torun* | KU Leuven |
+| S. Hamed Javadi† | imec |
+| Hichem Sahli† | imec / Vrije Universiteit Brussel |
+
+*Equal contribution (first authors)
+†Equal contribution (supervisors)
+
+---
+
+**EUSIPCO 2026**  
 Bruges, Belgium
 
-````
-
 ---
 
-## For your Makefile, I would also simplify it
+## Contact
 
-Your current Makefile has Mermaid support:
-
-```make
-MMD_SRC = $(wildcard *.mmd)
-````
-
-but your repository **does not contain any `.mmd` files anymore**. So remove Mermaid completely.
-
-Use:
-
-```make
-MAIN = poster
-
-all: $(MAIN).pdf
-
-$(MAIN).pdf:
-	pdflatex -interaction=nonstopmode $(MAIN).tex
-	pdflatex -interaction=nonstopmode $(MAIN).tex
-	pdflatex -interaction=nonstopmode $(MAIN).tex
-
-
-draft:
-	pdflatex poster-v1.tex
-	pdflatex poster-v1.tex
-
-
-clean:
-	rm -f *.aux *.log *.nav *.out *.snm *.toc *.pdf
-
-
-view:
-	open $(MAIN).pdf
-
-
-.PHONY: all draft clean view
+- Jeffee Hsiung: [jeffee.hsiung@icloud.com](mailto:jeffee.hsiung@icloud.com)
+- Rengin Torun: [torun10@imec.be](mailto:torun10@imec.be)
 ```
 
 ---
+
+## Summary of Changes
+
+| Section | Update |
+|---------|--------|
+| **Structure** | Updated to reflect `poster-v2.tex` as main, added `tikz-radar-lib/` details |
+| **Requirements** | Added all required packages (`tikzposter`, `standalone`, `multicol`, etc.) |
+| **Makefile commands** | Added `references.pdf`, `view-refs`, `rebuild-figs` |
+| **Overleaf Setup** | Added detailed import instructions |
+| **Key Files** | Explained `tikz-radar-lib/` components |
+| **Troubleshooting** | Added common issues and fixes |
+| **Supplementary** | Explained QR code content |
+| **Contact** | Added email addresses |

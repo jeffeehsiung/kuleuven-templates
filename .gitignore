@@ -24,7 +24,7 @@
 /*-r-example.markdown
 /*-example-filtered.markdown
 /parsed-references.bib
-/figures/*-eps-converted-to.pdf
+# /figures/*-eps-converted-to.pdf
 /windows-installer/*.msi
 /windows-installer/*.exe
 /windows-installer/*.zip

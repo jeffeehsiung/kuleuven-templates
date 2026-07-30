@@ -3,12 +3,12 @@
 /.travis.key
 /.build
 /Makefile.local
-/*.pdf
-/*.aux
-/*.bbl
-/*.blg
-/*.log
-/*.out
+# /*.pdf
+# /*.aux
+# /*.bbl
+# /*.blg
+# /*.log
+# /*.out
 /*.synctex.gz
 /*.toc
 /*.nav

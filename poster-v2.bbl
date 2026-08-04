@@ -21,11 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Javadi_hpe}
-S.~H. Javadi, A.~Bourdoux, N.~Deligiannis, and H.~Sahli, ``Human pose
-  estimation based on {ISAR} and deep learning,'' \emph{IEEE Sensors Journal},
-  vol.~24, no.~17, pp. 28\,324--28\,337, 2024.
-
 \bibitem{ZhangMUSIC2010}
 X.~Zhang, L.~Xu, L.~Xu, and D.~Xu, ``Direction of departure ({DOD}) and
   direction of arrival ({DOA}) estimation in {MIMO} radar with
@@ -79,14 +74,5 @@ C.~Finn, P.~Abbeel, and S.~Levine, ``Model-agnostic meta-learning for fast
 R.~Puri, A.~Zakhor, and R.~Puri, ``Few shot learning for point cloud data using
   model agnostic meta learning,'' in \emph{2020 IEEE International Conference
   on Image Processing (ICIP)}, 2020, pp. 1906--1910.
-
-\bibitem{Meng20}
-\BIBentryALTinterwordspacing
-Z.~Meng, S.~Fu, J.~Yan, H.~Liang, A.~Zhou, S.~Zhu, H.~Ma, J.~Liu, and N.~Yang,
-  ``Gait recognition for co-existing multiple people using millimeter wave
-  sensing,'' \emph{Proceedings of the {AAAI} Conference on Artificial
-  Intelligence}, vol.~34, no.~01, pp. 849--856, 4 2020. [Online]. Available:
-  \url{https://ojs.aaai.org/index.php/AAAI/article/view/5430}
-\BIBentrySTDinterwordspacing
 
 \end{thebibliography}

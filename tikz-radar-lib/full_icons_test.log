@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  30 JUL 2026 18:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  4 AUG 2026 21:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -555,29 +555,29 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Overfull \hbox (9.4137pt too wide) in paragraph at lines 12--12
+Overfull \hbox (9.4137pt too wide) in paragraph at lines 13--13
  [][][] 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 15.
+(Font)              <5> on input line 16.
 
-Overfull \hbox (2.40314pt too wide) in paragraph at lines 16--16
+Overfull \hbox (2.40314pt too wide) in paragraph at lines 17--17
  [][][] 
  []
 
 
-Overfull \hbox (8.9884pt too wide) in paragraph at lines 23--23
+Overfull \hbox (8.9884pt too wide) in paragraph at lines 25--25
  [][][] 
  []
 
 
-Overfull \hbox (16.39748pt too wide) in paragraph at lines 25--25
+Overfull \hbox (16.39748pt too wide) in paragraph at lines 27--27
  [][][] 
  []
 
 
-Overfull \hbox (1.68703pt too wide) in paragraph at lines 32--32
+Overfull \hbox (1.68703pt too wide) in paragraph at lines 35--35
  [][][] 
  []
 
@@ -585,7 +585,7 @@ Overfull \hbox (1.68703pt too wide) in paragraph at lines 32--32
 
 
 Non-PDF special ignored!
-<special> papersize=748.15857pt,543.91188pt
+<special> papersize=748.15857pt,658.10341pt
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./full_icons_test.aux)
  ***********
@@ -598,10 +598,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 16163 strings out of 469006
- 363819 string characters out of 5454813
- 1182721 words of memory out of 5000000
- 44574 multiletter control sequences out of 15000+600000
+ 16259 strings out of 469006
+ 365411 string characters out of 5454813
+ 1218269 words of memory out of 5000000
+ 44670 multiletter control sequences out of 15000+600000
  629233 words of font info for 45 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,12n,121p,419b,1406s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -611,7 +611,7 @@ bx7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmmi5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmssbx10.pfb>
-Output written on full_icons_test.pdf (1 page, 105250 bytes).
+Output written on full_icons_test.pdf (1 page, 108694 bytes).
 PDF statistics:
  61 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream

@@ -542,3 +542,132 @@
     \node[font=\scriptsize\bfseries, text=radarPurple] at (0,-0.2) {IoU = 73.8\%};
   \end{scope}
 }
+
+% ---------------------------------------------------------------
+% \RadarIcon - wrapper for consistent sizing
+% ---------------------------------------------------------------
+\newcommand{\RadarIcon}[1]{%
+  \begin{scope}[scale=0.6, transform shape]
+    #1
+  \end{scope}
+}
+
+% ===============================================================
+% REFINED INTRO ICONS: "Human-in-Context" (Poster Visual Language)
+% ===============================================================
+
+% Helper: Reusable Minimal Stick Figure (local origin at center)
+\newcommand{\TikZHuman}[2][1.0]{% #1 = opacity/scale, #2 = color
+  \begin{scope}[opacity=#1]
+    % Head
+    \fill[#2] (0,0.22) circle (0.07);
+    % Torso
+    \draw[#2, line width=1.0pt, cap=round] (0,0.15) -- (0,-0.08);
+    % Arms
+    \draw[#2, line width=0.8pt, cap=round] (-0.12,0.08) -- (0,0.12) -- (0.12,0.08);
+    % Legs
+    \draw[#2, line width=0.9pt, cap=round] (0,-0.08) -- (-0.09,-0.32);
+    \draw[#2, line width=0.9pt, cap=round] (0,-0.08) -- (0.09,-0.32);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% 1. \LightBulb (Low Illumination / Darkness)
+% ---------------------------------------------------------------
+\newcommand{\LightBulb}{%
+  \begin{scope}
+    % Background card matching poster style
+    \draw[iconStroke, fill=white, rounded corners=3pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    
+    % Night Sky / Dark Atmosphere
+    \fill[radarNavy!15, rounded corners=2pt] (-0.48,-0.48) rectangle (0.48,0.48);
+    
+    % Crescent Moon
+    \begin{scope}[shift={(0.22,0.22)}]
+      \fill[radarOrange!90] (0,0) circle (0.14);
+      \fill[radarNavy!15] (-0.05,0.04) circle (0.12);
+    \end{scope}
+    
+    % Stars
+    \fill[radarOrange] (-0.25,0.32) circle (0.02);
+    \fill[radarOrange] (-0.1,0.22) circle (0.015);
+    \fill[radarOrange] (0.05,0.38) circle (0.02);
+    
+    % Human figure in darkness
+    \begin{scope}[shift={(-0.05,-0.08)}]
+      \TikZHuman[0.8]{radarNavy}
+    \end{scope}
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% 2. \RainDrop (Adverse Weather / Rain)
+% ---------------------------------------------------------------
+\newcommand{\RainDrop}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=3pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    
+    % Cloud
+    \path[fill=radarBlue!25, draw=radarBlue, line width=0.6pt] 
+      (-0.3,0.3) arc (180:290:0.12) arc (220:10:0.18) arc (160:-10:0.15) arc (50:-110:0.12) -- cycle;
+      
+    % Rain streaks
+    \foreach \x/\y in {-0.32/0.1, -0.18/0.05, 0.05/0.12, 0.22/0.02, -0.28/-0.2, 0.15/-0.22}{
+      \draw[radarBlue, line width=0.8pt, cap=round] (\x,\y) -- (\x-0.06,\y-0.12);
+    }
+    
+    % Human figure in rain
+    \begin{scope}[shift={(0.02,-0.08)}]
+      \TikZHuman[0.85]{radarNavy}
+    \end{scope}
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% 3. \Occlusion (Occlusion / Wall Barrier)
+% ---------------------------------------------------------------
+\newcommand{\Occlusion}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=3pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    
+    % Human figure (behind wall)
+    \begin{scope}[shift={(-0.08,-0.05)}]
+      \TikZHuman[0.9]{radarNavy}
+    \end{scope}
+    
+    % Wall / Obstacle (Occluder)
+    \draw[iconStroke, fill=radarGrey!40, line width=0.8pt] (-0.05,-0.48) rectangle (0.28,0.48);
+    \foreach \y in {-0.3,-0.1,0.1,0.3}{
+      \draw[radarNavy!40, line width=0.4pt] (-0.05,\y) -- (0.28,\y+0.1);
+    }
+    
+    % Radar Wave penetrating wall
+    \draw[radarGreen, line width=0.9pt, dashed] (-0.45,0.1) -- (0.45,0.1);
+    \draw[radarGreen, line width=0.9pt, dashed] (-0.45,-0.15) -- (0.45,-0.15);
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% 4. \Privacy (Privacy Preserving / Identity Shield)
+% ---------------------------------------------------------------
+\newcommand{\Privacy}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=3pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    
+    % Human figure
+    \begin{scope}[shift={(0,-0.08)}]
+      \TikZHuman[0.85]{radarNavy}
+    \end{scope}
+    
+    % Facial Privacy Mask / Sensor Shield over the head
+    \begin{scope}[shift={(0,0.18)}]
+      % Blurring rings
+      \draw[radarPurple!40, line width=1.0pt] (0,0) circle (0.18);
+      \draw[radarPurple!70, line width=0.8pt] (0,0) circle (0.13);
+      \fill[radarPurple, opacity=0.85] (0,0) circle (0.08);
+      
+      % Small checkmark inside shield
+      \draw[white, line width=0.8pt, cap=round, join=round] (-0.03,0) -- (-0.01,-0.03) -- (0.04,0.03);
+    \end{scope}
+  \end{scope}
+}

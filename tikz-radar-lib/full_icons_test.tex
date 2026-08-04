@@ -8,6 +8,7 @@
 
 \begin{document}
 \begin{tikzpicture}[node distance=0.9cm]
+  % Row a: radar front‑end
   \ProcessCard{a1}{FMCW}{\FMCWChirp}
   \ProcessCard[right=1.4cm of a1]{a2}{Antenna}{\AntennaArray}
   \ProcessCard[right=1.4cm of a2]{a3}{Wave}{\RadarWave}
@@ -16,6 +17,7 @@
   \ProcessCard[right=1.4cm of a5]{a6}{Phase Unwrap}{\PhaseUnwrapping}
   \ProcessCard[right=1.4cm of a6]{a7}{Range-Doppler}{\RangeDoppler}
 
+  % Row b: radar processing / imaging
   \ProcessCard[below=1.9cm of a1]{b1}{Interferogram}{\Interferogram}
   \ProcessCard[right=1.4cm of b1]{b2}{CFAR}{\CFAR}
   \ProcessCard[right=1.4cm of b2]{b3}{EKF-JPDA}{\EKFJPDA}
@@ -24,6 +26,7 @@
   \ProcessCard[right=1.4cm of b5]{b6}{True/Ghost}{\TrueAndGhostCluster}
   \ProcessCard[right=1.4cm of b6]{b7}{MoCap Comp.}{\MoCapComparison}
 
+  % Row c: deep learning / transformers
   \ProcessCard[below=1.9cm of b1, card color=deepLearning]{c1}{Conv}{\ConvBlock}
   \ProcessCard[right=1.4cm of c1, card color=deepLearning]{c2}{FrameWise PCT}{\FrameWisePCT}
   \ProcessCard[right=1.4cm of c2, card color=deepLearning]{c3}{PCT Encoder}{\PCTEncoder}
@@ -32,6 +35,7 @@
   \ProcessCard[right=1.4cm of c5, card color=deepLearning]{c6}{Pre-trained MAML}{\PreTrainedMAML}
   \ProcessCard[right=1.4cm of c6, card color=deepLearning]{c7}{Feature Tensor}{\FeatureTensor}
 
+  % Row d: more ML / geometry
   \ProcessCard[below=1.9cm of c1, card color=deepLearning]{d1}{Pooling}{\PoolingBlock}
   \ProcessCard[right=1.4cm of d1, card color=deepLearning]{d2}{Classification}{\ClassificationBlock}
   \ProcessCard[right=1.4cm of d2, card color=deepLearning]{d3}{DBSCAN}{\DBSCANIcon}
@@ -40,6 +44,7 @@
   \ProcessCard[right=1.4cm of d5, card color=geometryColor]{d6}{Dense PCD}{\DensePointCloud}
   \ProcessCard[right=1.4cm of d6, card color=geometryColor]{d7}{Rigid Transform}{\RigidTransform}
 
+  % Row e: tracking / multipath
   \ProcessCard[below=1.9cm of d1, card color=radarProcessing]{e1}{Detection}{\Detection}
   \ProcessCard[right=1.4cm of e1, card color=radarProcessing]{e2}{Track}{\Track}
   \ProcessCard[right=1.4cm of e2, card color=radarProcessing]{e3}{Ghost Det.}{\GhostDetection}
@@ -47,6 +52,12 @@
   \ProcessCard[right=1.4cm of e4, card color=radarProcessing]{e5}{EKF Pred.}{\EKFPrediction}
   \ProcessCard[right=1.4cm of e5, card color=radarProcessing]{e6}{Trajectory}{\Trajectory}
   \ProcessCard[right=1.4cm of e6, card color=radarProcessing]{e7}{Multipath}{\MultipathScene}
+
+  % Row f: introduction icons (new)
+  \ProcessCard[below=1.9cm of e1]{f1}{Low Light}{\LightBulb}
+  \ProcessCard[right=1.4cm of f1]{f2}{Weather}{\RainDrop}
+  \ProcessCard[right=1.4cm of f2]{f3}{Occlusion}{\Occlusion}
+  \ProcessCard[right=1.4cm of f3]{f4}{Privacy}{\Privacy}
 
 \end{tikzpicture}
 \end{document}

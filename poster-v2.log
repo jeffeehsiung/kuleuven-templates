@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  4 AUG 2026 21:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  5 AUG 2026 12:51
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1250,31 +1250,31 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <20.74> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <14.4> on input line 108.
-<tikz-radar-lib/icon_light.pdf, id=31, 35.69836pt x 35.69836pt>
+<tikz-radar-lib/icon_light.pdf, id=33, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_light.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_light.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_light.pdf  used on input line 151.
 
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
-<tikz-radar-lib/icon_weather.pdf, id=32, 35.69836pt x 35.69836pt>
+<tikz-radar-lib/icon_weather.pdf, id=34, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_weather.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_weather.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_weather.pdf  used on input line 15
 1.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
-<tikz-radar-lib/icon_occlusion.pdf, id=33, 35.69836pt x 35.69836pt>
+<tikz-radar-lib/icon_occlusion.pdf, id=35, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_occlusion.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_occlusion.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_occlusion.pdf  used on input line 
 151.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
-<tikz-radar-lib/icon_privacy.pdf, id=34, 35.69836pt x 35.69836pt>
+<tikz-radar-lib/icon_privacy.pdf, id=36, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_privacy.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_privacy.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_privacy.pdf  used on input line 15
 1.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
-<tikz-radar-lib/problem_panel_strip.pdf, id=35, 412.7701pt x 100.01265pt>
+<tikz-radar-lib/problem_panel_strip.pdf, id=37, 412.7701pt x 100.01265pt>
 File: tikz-radar-lib/problem_panel_strip.pdf Graphic file (type pdf)
 <use tikz-radar-lib/problem_panel_strip.pdf>
 Package pdftex.def Info: tikz-radar-lib/problem_panel_strip.pdf  used on input 
@@ -1285,36 +1285,30 @@ Underfull \hbox (badness 1371) in paragraph at lines 187--187
 \T1/lmr/m/n/24.88 noisy point clouds with lim-ited an-gu-lar res-o-lu-tion,
  []
 
-
-Underfull \hbox (badness 1997) in paragraph at lines 187--187
-\T1/lmr/m/n/24.88 Ex-ist-ing meth-ods [[]] need $\OML/lmm/m/it/24.88 >$\T1/lmr/
-m/n/24.88 100 se-quences/person.
- []
-
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
 18.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<figures/fig_radar_vs_camera_p3_0053.png, id=43, 1199.48125pt x 491.8375pt>
+<figures/fig_radar_vs_camera_p3_0053.png, id=47, 1199.48125pt x 491.8375pt>
 File: figures/fig_radar_vs_camera_p3_0053.png Graphic file (type png)
 <use figures/fig_radar_vs_camera_p3_0053.png>
 Package pdftex.def Info: figures/fig_radar_vs_camera_p3_0053.png  used on input
  line 273.
 (pdftex.def)             Requested size: 268.06216pt x 109.91568pt.
-<figures/fig_radar_vs_camera_p5_0065.png, id=44, 1574.88374pt x 562.1pt>
+<figures/fig_radar_vs_camera_p5_0065.png, id=48, 1574.88374pt x 562.1pt>
 File: figures/fig_radar_vs_camera_p5_0065.png Graphic file (type png)
 <use figures/fig_radar_vs_camera_p5_0065.png>
 Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0065.png  used on input
  line 273.
 (pdftex.def)             Requested size: 268.06216pt x 95.66724pt.
-<figures/fig_radar_vs_camera_p5_0029.png, id=45, 1606.0pt x 803.0pt>
+<figures/fig_radar_vs_camera_p5_0029.png, id=49, 1606.0pt x 803.0pt>
 File: figures/fig_radar_vs_camera_p5_0029.png Graphic file (type png)
 <use figures/fig_radar_vs_camera_p5_0029.png>
 Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0029.png  used on input
  line 273.
 (pdftex.def)             Requested size: 275.88448pt x 137.94177pt.
-<figures/other_p4cn0_frame29.png, id=46, 1361.085pt x 562.1pt>
+<figures/other_p4cn0_frame29.png, id=50, 1361.085pt x 562.1pt>
 File: figures/other_p4cn0_frame29.png Graphic file (type png)
 <use figures/other_p4cn0_frame29.png>
 Package pdftex.def Info: figures/other_p4cn0_frame29.png  used on input line 27
@@ -1330,13 +1324,13 @@ rsion 0-M.>
 <Copying the QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_pe
 rson_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in 
 version 8-M as previously calculated.>
-<figures/01_system_architecture_colored.pdf, id=49, 845.11491pt x 201.1264pt>
+<figures/01_system_architecture_colored.pdf, id=53, 845.11491pt x 201.1264pt>
 File: figures/01_system_architecture_colored.pdf Graphic file (type pdf)
 <use figures/01_system_architecture_colored.pdf>
 Package pdftex.def Info: figures/01_system_architecture_colored.pdf  used on in
 put line 308.
 (pdftex.def)             Requested size: 1581.17964pt x 376.34999pt.
-<tikz-radar-lib/inisar_pipeline_strip_landscape.pdf, id=50, 486.06593pt x 190.0
+<tikz-radar-lib/inisar_pipeline_strip_landscape.pdf, id=54, 486.06593pt x 190.0
 8818pt>
 File: tikz-radar-lib/inisar_pipeline_strip_landscape.pdf Graphic file (type pdf
 )
@@ -1349,13 +1343,13 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<figures/other_p4cn0_iou_frame_65.png, id=53, 713.3049pt x 193.6836pt>
+<figures/other_p4cn0_iou_frame_65.png, id=57, 713.3049pt x 193.6836pt>
 File: figures/other_p4cn0_iou_frame_65.png Graphic file (type png)
 <use figures/other_p4cn0_iou_frame_65.png>
 Package pdftex.def Info: figures/other_p4cn0_iou_frame_65.png  used on input li
 ne 433.
 (pdftex.def)             Requested size: 397.26897pt x 107.87099pt.
-<figures/other_p4cn0_iou_frame_71.png, id=54, 706.0779pt x 190.7928pt>
+<figures/other_p4cn0_iou_frame_71.png, id=58, 706.0779pt x 190.7928pt>
 File: figures/other_p4cn0_iou_frame_71.png Graphic file (type png)
 <use figures/other_p4cn0_iou_frame_71.png>
 Package pdftex.def Info: figures/other_p4cn0_iou_frame_71.png  used on input li
@@ -1366,7 +1360,7 @@ Overfull \hbox (4.91135pt too wide) in paragraph at lines 433--433
 []$[]$  $[]$ 
  []
 
-<figures/fig_pcttrans_architecture.pdf, id=55, 613.33138pt x 200.6697pt>
+<figures/fig_pcttrans_architecture.pdf, id=59, 613.33138pt x 200.6697pt>
 File: figures/fig_pcttrans_architecture.pdf Graphic file (type pdf)
 <use figures/fig_pcttrans_architecture.pdf>
 Package pdftex.def Info: figures/fig_pcttrans_architecture.pdf  used on input l
@@ -1383,13 +1377,13 @@ rsion 0-M.>
 rson_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in 
 version 8-M as previously calculated.>
 (./poster-v2.bbl
-LaTeX Font Info:    Calculating math sizes for size <0.05> on input line 61.
+LaTeX Font Info:    Calculating math sizes for size <0.05> on input line 66.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.05> on input line 61.
+(Font)              <0.05> on input line 66.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.03499> on input line 61.
+(Font)              <0.03499> on input line 66.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.025> on input line 61.
+(Font)              <0.025> on input line 66.
 ) [1
 
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/us
@@ -1423,13 +1417,17 @@ Package rerunfilecheck Info: File `poster-v2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29978 strings out of 469006
- 603994 string characters out of 5454813
- 1449897 words of memory out of 5000000
- 58031 multiletter control sequences out of 15000+600000
+ 29990 strings out of 469006
+ 604122 string characters out of 5454813
+ 1451432 words of memory out of 5000000
+ 58037 multiletter control sequences out of 15000+600000
  798123 words of font info for 147 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  117i,18n,121p,2738b,1650s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{cite.Meng20} has been referenced but does not exist
+, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{cite.Puri20} has been referenced but does not exist
 , replaced by a fixed one
@@ -1439,8 +1437,16 @@ pdfTeX warning (dest): name{cite.finn17} has been referenced but does not exist
 , replaced by a fixed one
 
 
+pdfTeX warning (dest): name{cite.Lin20} has been referenced but does not exist,
+ replaced by a fixed one
+
+
 pdfTeX warning (dest): name{cite.Javadi_ISAR} has been referenced but does not 
 exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{cite.meucci23} has been referenced but does not exi
+st, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{cite.Guo20} has been referenced but does not exist,
@@ -1449,6 +1455,10 @@ pdfTeX warning (dest): name{cite.Guo20} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{cite.Pegoraro21} has been referenced but does not e
 xist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{cite.Ma23} has been referenced but does not exist, 
+replaced by a fixed one
 
 
 pdfTeX warning (dest): name{cite.RuoyuMultipath} has been referenced but does n
@@ -1470,6 +1480,14 @@ es not exist, replaced by a fixed one
 pdfTeX warning (dest): name{cite.ZhangMUSIC2010} has been referenced but does n
 ot exist, replaced by a fixed one
 
+
+pdfTeX warning (dest): name{cite.Javadi_hpe} has been referenced but does not e
+xist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{cite.Javadi_pid} has been referenced but does not e
+xist, replaced by a fixed one
+
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.p
 fb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
 7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
@@ -1486,10 +1504,10 @@ e/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/202
 6basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/te
 xlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
 /local/texlive/2026basic/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on poster-v2.pdf (1 page, 4006132 bytes).
+Output written on poster-v2.pdf (1 page, 4006853 bytes).
 PDF statistics:
- 224 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
- 12 named destinations out of 1000 (max. 500000)
+ 241 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
+ 18 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
 

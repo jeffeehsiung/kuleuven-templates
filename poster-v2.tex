@@ -119,7 +119,7 @@
 \block{\textcolor{white}{\large \ding{202}\ \ Introduction}}{
 \begin{minipage}{\linewidth}
     \vspace{1mm}
-    Vision-based person identification struggle under conditions:
+    Vision-based person identification struggle under conditions ~\cite{Javadi_pid, Javadi_hpe}:
     \vspace{3mm}
 
     % 2x2 Clean Tabular Icon Layout
@@ -174,7 +174,7 @@
     \vspace{3mm}
     
     \textbf{Challenge 4: Data Scarcity}\\[1mm]
-    Existing methods~\cite{Pegoraro21} need $>$100 sequences/person. PCT~\cite{Guo20} handles spatial structure but targets \emph{static} objects, not evolving radar sequences.
+    Existing methods~\cite{Ma23, Pegoraro21} need $>$100 sequences/person. PCT~\cite{Guo20} handles spatial structure but targets \emph{static} objects~\cite{meucci23}, not evolving radar sequences.
     \vspace{3mm}
 \end{minipage}
 \begin{minipage}{\linewidth}
@@ -448,7 +448,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \item Random padding to $n_{\max}=1000$
         \item Output: $\mathcal{S} = \{\mathcal{P}_t\}_{t=1}^{10}$, $\mathcal{P}_t \in \mathbb{R}^{1000 \times 5}$
     \end{itemize}
-    \textbf{Spatial (PCT Encoder):}
+    \textbf{Spatial (PCT Encoder~\cite{Guo20}):}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item SG1: FPS $n_1=200$, $r_1=0.2$; SG2: FPS $n_2=100$, $r_2=0.3$
@@ -474,7 +474,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{itemize}
     \end{minipage}
     }
-    \block{\textcolor{white}{\large \ding{209}\ \ Pre-trained Meta-Learning}}{
+    \block{\textcolor{white}{\large \ding{209}\ \ Pre-trained Meta-Learning~\cite{Lin20}}}{
         \normalsize
         \centering
         \textbf{Two-Phase Algorithm:}\\
@@ -502,7 +502,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \renewcommand{\arraystretch}{1.5}
         \begin{tabular}{l c c c c}
             \toprule
-            \textbf{Query Type} & \textbf{TCPCN} & \makecell{\textbf{PCT-T}\\\textbf{(sup.)}} & \makecell{\textbf{MAML}\\\textbf{(rand.)}} & \makecell{\textbf{MAML}\\\textbf{(pre-train)}} \\
+            \textbf{Query Type} & \textbf{TCPCN}~\cite{Pegoraro21} & \makecell{\textbf{PCT-T}\\\textbf{(sup.)}} & \makecell{\textbf{MAML}\\\textbf{(rand.)}} & \makecell{\textbf{MAML}\\\textbf{(pre-train)}} \\
             \midrule
             \textbf{Q1} (same session)  & 96.18 & \textbf{98.99} & 76.67 & 94.44 \\
             \textbf{Q2} (cross-session) & 35.10 & 32.05          & 54.44 & \textbf{70.00} \\
@@ -518,7 +518,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
                 \setlength\itemsep{2mm}
                 \item \textbf{Supervised:} PCT-T outperforms TCPCN \(\to\) \textbf{+2.81pp} (98.99\%).
                 \item \textbf{Few-Shot:} Pre-trained MAML vs Random \(\to\) \textbf{+15.56pp} (70.00\%).
-                \item \textbf{mmGait Benchmark:} PCT-T leads by \textbf{+11.5pp} on fixed trajectories.
+                \item \textbf{mmGait Benchmark:} PCT-T leads by \textbf{+11.5pp} on fixed trajectories~\cite{Meng20}.
             \end{itemize}
         }}
     }

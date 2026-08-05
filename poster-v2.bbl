@@ -21,6 +21,16 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Javadi_pid}
+S.~H. Javadi, L.~Keuninckx, H.~Cappelle, and T.~Gielen, ``Person identification
+  based on mm-wave radars,'' in \emph{2024 21st European Radar Conference
+  ({EuRAD})}, 2024, pp. 160--163.
+
+\bibitem{Javadi_hpe}
+S.~H. Javadi, A.~Bourdoux, N.~Deligiannis, and H.~Sahli, ``Human pose
+  estimation based on {ISAR} and deep learning,'' \emph{IEEE Sensors Journal},
+  vol.~24, no.~17, pp. 28\,324--28\,337, 2024.
+
 \bibitem{ZhangMUSIC2010}
 X.~Zhang, L.~Xu, L.~Xu, and D.~Xu, ``Direction of departure ({DOD}) and
   direction of arrival ({DOA}) estimation in {MIMO} radar with
@@ -48,6 +58,14 @@ R.~Feng, E.~D. Greef, M.~Rykunov, H.~Sahli, S.~Pollin, and A.~Bourdoux,
   ``Multipath ghost recognition for indoor {MIMO} radar,'' \emph{IEEE
   Transactions on Geoscience and Remote Sensing}, vol.~60, pp. 1--10, 2022.
 
+\bibitem{Ma23}
+\BIBentryALTinterwordspacing
+C.~Ma and Z.~Liu, ``A novel spatial–temporal network for gait recognition
+  using millimeter-wave radar point cloud videos,'' \emph{Electronics},
+  vol.~12, no.~23, 2023. [Online]. Available:
+  \url{https://www.mdpi.com/2079-9292/12/23/4785}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Pegoraro21}
 J.~Pegoraro and M.~Rossi, ``Real-time people tracking and identification from
   sparse mm-wave radar point-clouds,'' \emph{IEEE Access}, vol.~9, pp.
@@ -61,10 +79,20 @@ M.-H. Guo, J.~Cai, Z.-N. Liu, T.-J. Mu, R.~R. Martin, and S.~Hu, ``{PCT}: Point
   \url{https://api.semanticscholar.org/CorpusID:229297794}
 \BIBentrySTDinterwordspacing
 
+\bibitem{meucci23}
+G.~Meucci, F.~Mancuso, E.~Giusti, A.~Kumar, S.~Ghio, and M.~Martorella, ``Point
+  cloud transformer ({PCT}) for 3{D}-{InISAR} automatic target recognition,''
+  in \emph{2023 IEEE Radar Conference (RadarConf23)}, 2023, pp. 1--6.
+
 \bibitem{Javadi_ISAR}
 S.~H. Javadi, A.~Bourdoux, and H.~Sahli, ``{ISAR} imaging pipeline for
   pedestrian monitoring using {MIMO} {FMCW} mm-wave radars,'' in \emph{2025
   IEEE Radar Conference (RadarConf25)}, 2025, pp. 291--296.
+
+\bibitem{Lin20}
+C.-F. Lin and H.-Y. Lee, ``Master of puppets: Model-agnostic meta-learning via
+  pre-trained parameters for natural language generation,'' in \emph{{NeurIPS}
+  Workshop on Meta Learning}, 2020.
 
 \bibitem{finn17}
 C.~Finn, P.~Abbeel, and S.~Levine, ``Model-agnostic meta-learning for fast
@@ -74,5 +102,14 @@ C.~Finn, P.~Abbeel, and S.~Levine, ``Model-agnostic meta-learning for fast
 R.~Puri, A.~Zakhor, and R.~Puri, ``Few shot learning for point cloud data using
   model agnostic meta learning,'' in \emph{2020 IEEE International Conference
   on Image Processing (ICIP)}, 2020, pp. 1906--1910.
+
+\bibitem{Meng20}
+\BIBentryALTinterwordspacing
+Z.~Meng, S.~Fu, J.~Yan, H.~Liang, A.~Zhou, S.~Zhu, H.~Ma, J.~Liu, and N.~Yang,
+  ``Gait recognition for co-existing multiple people using millimeter wave
+  sensing,'' \emph{Proceedings of the {AAAI} Conference on Artificial
+  Intelligence}, vol.~34, no.~01, pp. 849--856, 4 2020. [Online]. Available:
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/5430}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}

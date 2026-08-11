@@ -150,15 +150,15 @@
 \vspace{2mm}
 {\renewcommand{\arraystretch}{1.05} % Tight spacing to save vertical space
 \normalsize
-\begin{tabular}{@{}c p{0.85\linewidth}@{}}
+\begin{tabular}{@{}c p{0.82\linewidth}@{}}
     \includegraphics[width=1.3cm]{icon_sparse.pdf} & \textbf{Low Angular Resolution} \\
-    & Conventional angle-of-arrival~\cite{ZhangMUSIC2010} yields motion-defocused clouds and multipath ghost artifacts. \\[4mm]
+    & Conventional angle-of-arrival~\cite{ZhangMUSIC2010} yields motion-defocused clouds and multipath artifacts. \\[4mm]
     \includegraphics[width=1.3cm]{icon_rigid.pdf} & \textbf{Rigid-Target Bias} \\
     & Interferometric Inverse Synthetic Aperture Radar (InISAR) improves resolution but is validated only on large \emph{rigid} targets~\cite{QunZhangInISAR2004, Martorella2DISARto3D2013}. \\[4mm]
     \includegraphics[width=2.3cm]{icon_multipath.pdf} & \textbf{Multipath Ghosts} \\
-    & Ghosts overlap in range-Doppler and mimic real 3D clusters~\cite{RuoyuMultipath}; indistinguishable for DBSCAN. \\[4mm]
+    & Ghosts overlap in range-Doppler and mimic real 3D clusters~\cite{RuoyuMultipath} \\[4mm]
     \includegraphics[width=1.1cm]{icon_scarcity.pdf} & \textbf{Data Scarcity} \\
-    & Existing SOTA~\cite{Ma23, Pegoraro21} demand \(>100\) sequences/person; Point Cloud Transformer (PCT)~\cite{Guo20} handles spatial structure but targets \emph{static} objects~\cite{meucci23}. \\
+    & Existing SOTA~\cite{Ma23, Pegoraro21} demand \(>100\) seq/person; Point Cloud Transformer (PCT)~\cite{Guo20} handles spatial structure but targets \emph{static} objects~\cite{meucci23}. \\
 \end{tabular}}
 \vspace{3mm}
 \colorbox{resultsColor!12}{\parbox{0.96\linewidth}{\centering\normalsize\textbf{Gap:} Tracking-integrated InISAR + pre-trained meta-learning.}}
@@ -183,11 +183,11 @@
     \centering\normalsize
     \textbf{Contributions \& System Impact}\\
     \vspace{2mm}
-    \begin{tabular}{@{}c p{0.75\linewidth}@{}}
-        \includegraphics[width=1.3cm]{icon_radar_recon.pdf} & \textbf{Articulated Validation:} First InISAR on humans in multipath-rich indoor environments. \\[5mm]
-        \includegraphics[width=1.3cm]{icon_ruler.pdf} & \textbf{Resolution-level Error:} \(<5.5\) cm (median 3.87 cm) approaches \(\Delta r\)=4.55 cm limit (vs. prior 0.2--1.6 m errors). \\[5mm]
-        \includegraphics[width=1.3cm]{icon_accuracy.pdf} & \textbf{SOTA Supervised:} PCT-T achieves 98.99\% supervised (+2.81pp over TCPCN). \\[5mm]
-        \includegraphics[width=1.3cm]{icon_maml.pdf} & \textbf{MAML Gains:} Pre-trained MAML gives 70.0\% cross-session (+15.6pp over random). \\
+    \begin{tabular}{@{}c p{0.8\linewidth}@{}}
+        \includegraphics[width=1.3cm]{icon_radar_recon.pdf} & \textbf{Articulated Validation:}  First InISAR validated on humans in multipath-rich indoor envs. \\[5mm]
+        \includegraphics[width=1.3cm]{icon_ruler.pdf} & \textbf{Resolution-level Error:} \(<5.5\) cm (med. 3.87 cm) approaches \(\Delta r\)=4.55 cm limit (vs. prior 0.2--1.6 m errors). \\[5mm]
+        \includegraphics[width=1.3cm]{icon_accuracy.pdf} & \textbf{SOTA Supervised:} PCT-Trans achieves 98.99\% supervised (+2.81pp over TCPCN). \\[5mm]
+        \includegraphics[width=1.3cm]{icon_maml.pdf} & \textbf{MAML Gains:} Pre-trained MAML yields 70.0\% cross-session (+15.6pp over random). \\
     \end{tabular}
 
     \vspace{3mm}
@@ -233,242 +233,309 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \end{minipage}
 }
 
+% % ============================================================
+% % SECTION 4 -- InISAR PIPELINE: 3D RECONSTRUCTION (Sub-column split)
+% % ============================================================
+% \begin{subcolumns}
+
+% \subcolumn{0.5}
+%     \block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
+    
+%     \vspace{4mm}
+
+%     \normalsize
+%     \begin{minipage}{\linewidth}
+    
+%         \vspace{4mm}
+    
+%         \textbf{Step 1: Range FFT}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item FMCW chirp compression to range profile \(S_{R,m}(f,t)\). The physical limit \(\Delta r = c/(2B)\) bounds our achieved height error.
+%         \end{itemize}
+%         \vspace{2mm}
+%         \textbf{Step 2: Motion Compensation (ICBA)}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Translational motion model~\cite{Martorella2DISARto3D2013, Javadi_ISAR}:
+%         \end{itemize}
+%         \begin{align*}
+%             R_0(t) = r_0 + \beta t + \gamma t^2
+%         \end{align*}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Nelder-Mead optimizes image contrast \([\hat{\beta}, \hat{\gamma}]\) to estimate global translation, correcting smearing caused by human motion.
+%         \end{itemize}
+%         \begin{align*}
+%             [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
+%         \end{align*}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Yields signal-to-noise ratio (SNR) enhanced range profile $S_{C,m}(f,t)$.
+%         \end{itemize}
+%         \vspace{2mm}
+%         \textbf{Step 3:  Coherent Combination \& Doppler FFT}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Geometric phase corrections align all MIMO virtual antennas (SNR boost) \(\to\) focused 2D ISAR Range-Doppler Profiles (RDP).
+%         \end{itemize}
+%         \vspace{2mm}
+%         \textbf{Step 4: CFAR Segmentation}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item SOCA-CFAR ($N_T=6$, $P_{FA}=10^{-10}$) isolates the target cells from noise/clutter.
+%         \end{itemize}
+%         \vspace{2mm}
+%         \textbf{Step 5: Interferometry}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Phase difference between coherently combined top/bottom MIMO rows yields elevation:
+%         \end{itemize}
+%         \begin{align*}
+%             I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right)
+%         \end{align*}
+%         \begin{align*}
+%             \phi = \frac{2\pi}{\lambda} L\frac{h}{R}, \quad h = \frac{\lambda \phi R}{2\pi L}
+%         \end{align*}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item Exploiting MIMO antenna pairs reduces measurement noise.
+%         \end{itemize}
+%         \vspace{2mm}
+%         \textbf{Step 6: EKF-JPDA Tracking}
+%         \begin{itemize}
+%             \setlength\itemsep{0.5mm}
+%             \item JPDA handles data association; EKF filters state covariance.
+%             \item Max miss count=1 prunes multipath ghosts while tolerating occlusions.
+%         \end{itemize}
+%         \vspace{4mm}
+%         \centering
+%         \begin{minipage}{\linewidth}
+%             \centering
+%             \begin{minipage}{0.35\linewidth}
+%                 \centering
+%                 \posterfig{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
+%             \end{minipage}
+%             \begin{minipage}{0.35\linewidth}
+%                 \centering
+%                 \posterfig{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR-pipeline RDP}
+%             \end{minipage}
+%         \end{minipage}
+%         \vspace{4mm}
+%     \end{minipage}
+%     }
+
+
 % ============================================================
 % SECTION 4 -- InISAR PIPELINE: 3D RECONSTRUCTION (Sub-column split)
 % ============================================================
 \begin{subcolumns}
 
 \subcolumn{0.5}
-    % \block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
-    % \normalsize
-    % \begin{minipage}{\linewidth}
-    % \vspace{2mm}
-    % \textbf{Step 1: Range FFT}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item FMCW radar transmits linear frequency-modulated chirps:
-    % \end{itemize}
-    % \begin{align*}
-    %     \Delta r = \frac{c}{2B} \quad \text{(range resolution)}
-    % \end{align*}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item For $m$-th MIMO antenna, compute Range-compressed signal $S_{R,m}(f,t)$.
-    % \end{itemize}
-    % \vspace{1mm}
-    % \textbf{Step 2: Motion Compensation (ICBA)}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item Target motion during CPI smears energy across cells, degrading SNR and defocusing images. ~\cite{Javadi_ISAR}.
-    %     \item Translational motion model:
-    % \end{itemize}
-    % \begin{align*}
-    %     R_0(t) = r_0 + \beta t + \gamma t^2
-    % \end{align*}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item ICBA~\cite{Martorella2DISARto3D2013} maximizes image contrast to estimate $[\hat{\beta}, \hat{\gamma}]$:
-    % \end{itemize}
-    % \begin{align*}
-    %     [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
-    % \end{align*}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item Output: Enhanced range profile $S_{C,m}(f,t)$.
-    % \end{itemize}
-    % \vspace{1mm}
-    % \textbf{Step 3: Doppler FFT (ISAR Image)}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item Output: Slow-time FFT produces the 2D ISAR image (Range-Doppler Profile, RDP) with focused target signatures.
-    % \end{itemize}
-    % \vspace{1mm}
-    % \textbf{Step 4: CFAR Segmentation}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item SOCA-CFAR ($N_T=6$, $P_{FA}=10^{-10}$) segments the target cells from noise/clutter.
-    % \end{itemize}
-    % \vspace{1mm}
-    % \textbf{Step 5: Interferometry}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item Leverages phase differences between top/bottom MIMO virtual antennas:
-    % \end{itemize}
-    % \begin{align*}
-    %     I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right)
-    % \end{align*}
-    % \begin{align*}
-    %     \phi = \frac{2\pi}{\lambda} L\frac{h}{R}, \quad h = \frac{\lambda \phi R}{2\pi L}
-    % \end{align*}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item Multiple antenna pairs helps average out measurement noise for stable elevation estimates
-    % \end{itemize}
-    % \vspace{1mm}
-    % \textbf{Step 6: EKF-JPDA Tracking}
-    % \begin{itemize}
-    %     \setlength\itemsep{0.5mm}
-    %     \item JPDA handles data association; EKF filters state with covariance.
-    %     \item Max miss count=1 prunes multipath ghosts while tolerating occlusions.
-    % \end{itemize}
-    % \centering
-    % \begin{minipage}{\linewidth}
-    %     \centering
-    %     \begin{minipage}{0.35\linewidth}
-    %         \centering
-    %         \posterfig{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
-    %     \end{minipage}
-    %     \begin{minipage}{0.35\linewidth}
-    %         \centering
-    %         \posterfig{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR-pipeline RDP}
-    %     \end{minipage}
-    % \end{minipage}
-    % \end{minipage}
-    % }
-
     \block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
     
-    \vspace{4mm}
-
+    \vspace{2mm}
+    {\renewcommand{\arraystretch}{1.2}
     \normalsize
-    \begin{minipage}{\linewidth}
-    
-        \vspace{4mm}
-    
-        \textbf{Step 1: Range FFT}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item FMCW chirp compression to range profile \(S_{R,m}(f,t)\). Physical range limit \(\Delta r = c/(2B)\) bounds our achieved height error.
-        \end{itemize}
-        \vspace{2mm}
-        \textbf{Step 2: Motion Compensation (ICBA)}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Translational motion model~\cite{Martorella2DISARto3D2013, Javadi_ISAR}:
-        \end{itemize}
-        \begin{align*}
-            R_0(t) = r_0 + \beta t + \gamma t^2
-        \end{align*}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Nelder-Mead optimizes image contrast \([\hat{\beta}, \hat{\gamma}]\) to estimate global translation, correcting smearing caused by human motion.
-        \end{itemize}
-        \begin{align*}
-            [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\}
-        \end{align*}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Yields signal-to-noise ratio (SNR) enhanced range profile $S_{C,m}(f,t)$.
-        \end{itemize}
-        \vspace{2mm}
-        \textbf{Step 3:  Coherent Combination \& Doppler FFT}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Geometric phase corrections align all MIMO virtual antennas (SNR boost) \(\to\) focused 2D ISAR Range-Doppler Profiles (RDP).
-        \end{itemize}
-        \vspace{2mm}
-        \textbf{Step 4: CFAR Segmentation}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item SOCA-CFAR ($N_T=6$, $P_{FA}=10^{-10}$) isolates the target cells from noise/clutter.
-        \end{itemize}
-        \vspace{2mm}
-        \textbf{Step 5: Interferometry}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Phase difference between coherently combined top/bottom MIMO rows yields elevation:
-        \end{itemize}
-        \begin{align*}
-            I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right)
-        \end{align*}
-        \begin{align*}
-            \phi = \frac{2\pi}{\lambda} L\frac{h}{R}, \quad h = \frac{\lambda \phi R}{2\pi L}
-        \end{align*}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item Exploiting MIMO antenna pairs reduces measurement noise.
-        \end{itemize}
-        \vspace{2mm}
-        \textbf{Step 6: EKF-JPDA Tracking}
-        \begin{itemize}
-            \setlength\itemsep{0.5mm}
-            \item JPDA handles data association; EKF filters state covariance.
-            \item Max miss count=1 prunes multipath ghosts while tolerating occlusions.
-        \end{itemize}
-        \vspace{4mm}
+    \begin{tabular}{@{}c p{0.9\linewidth}@{}}
+        % --- Step 1 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_range_fft.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{1. Range FFT} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item FMCW chirp compression to \(S_{R,m}(f,t)\) per $m$-th antenna.
+                \item Physical range limit \(\Delta r = c/(2B)\) \textit{bounds our achieved height error}.
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- Step 2 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_motion_comp.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{2. Motion Compensation (ICBA)} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item Translational model \(R_0(t) = r_0 + \beta t + \gamma t^2\).
+                \item Nelder-Mead optimizes contrast \([\hat{\beta}, \hat{\gamma}]\) to remove smearing \(\to\) yields \textit{signal-to-noise ratio (SNR) enhanced} \(S_{C,m}(f,t)\):
+            \end{itemize}
+            \vspace{1.5pt}\hspace*{2.5em}\( [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\} \)
+        \end{minipage} \\[1mm]
+
+        % --- Step 3 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_doppler_fft.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{3. Coherent Combination \& Doppler FFT} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item Geometric phase corrections align all MIMO virtual antennas (SNR boost) \(\to\) \textit{focused} 2D Range-Doppler Profile (RDP).
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- Step 4 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_cfar.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{4. CFAR Segmentation} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item SOCA-CFAR (\(N_T=6,\ P_{FA}=10^{-10}\)) \textit{isolates target cells} from noise/clutter.
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- Step 5 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_interferometry.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{5. Interferometry} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item Phase difference between top/bottom MIMO rows \textit{yields elevation}:
+            \end{itemize}
+            \vspace{1.5pt}\hspace*{2.5em}\( I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right) \quad \to \quad h = \frac{\lambda \phi R}{2\pi L} \)
+            \vspace{1.5pt}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item Exploiting MIMO antenna pairs reduces measurement noise.
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- Step 6 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_ekf_jpda.pdf}
+        \end{minipage} &
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{6. EKF-JPDA Tracking} \\ \vspace{-1.75ex}
+            \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+                \item Spatial-domain JPDA handles data association; EKF filters state covariance.
+                \item Max miss count=1 \(\to\) \textit{prunes multipath ghosts} while tolerating occlusions.
+            \end{itemize}
+        \end{minipage} \\[1mm]
+    \end{tabular}}
+
+    \vspace{3mm}
+    \begin{center}
+    \begin{minipage}{0.35\linewidth}
         \centering
-        \begin{minipage}{\linewidth}
-            \centering
-            \begin{minipage}{0.35\linewidth}
-                \centering
-                \posterfig{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
-            \end{minipage}
-            \begin{minipage}{0.35\linewidth}
-                \centering
-                \posterfig{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR-pipeline RDP}
-            \end{minipage}
-        \end{minipage}
-        \vspace{4mm}
+        \posterfig{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
     \end{minipage}
+    \begin{minipage}{0.35\linewidth}
+        \centering
+        \posterfig{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR RDP}
+    \end{minipage}
+    \end{center}
     }
 
+
 % ----------------------------------------------------------------------
-% COLUMN 3: PCTtrans + MAML + RESULTS
+% COLUMN 3: PCTtrans + MAML + RESULTS (PROPORTIONAL SPACING FIXED)
 % ----------------------------------------------------------------------
 \subcolumn{0.5}
     \block{\textcolor{white}{\large \ding{207}\ \ Few-Shot PID with PCTtrans}}{
+    \posterfig{\linewidth}{fig_pcttrans_architecture_v2.pdf}{PCTtrans: Shared Spatial Extractor + Temporal Gait Model}
+    \vspace{1mm}
+    {\renewcommand{\arraystretch}{1.2}
     \normalsize
-    \posterfig{\linewidth}{fig_pcttrans_architecture.pdf}{PCTtrans (PCT-T): frame-wise PCT $+$ Temporal Transformer}
-    \begin{minipage}{\linewidth}
-    \textbf{Postprocessing:}
-    \begin{itemize}
-        \setlength\itemsep{0.5mm}
-        \item DBSCAN ($k=8$, $S=1.0$) + near-field filter
-        \item Centroid normalization: $p_i' = p_i - (\bar{x}, \bar{y}, 0)$
-        \item Random padding to $n_{\max}=1000$
-        \item Output: $\mathcal{S} = \{\mathcal{P}_t\}_{t=1}^{10}$, $\mathcal{P}_t \in \mathbb{R}^{1000 \times 5}$
-    \end{itemize}
-    \textbf{Spatial (PCT Encoder~\cite{Guo20}):}
-    \begin{itemize}
-        \setlength\itemsep{0.5mm}
-        \item Sampling-and-Grouping (SG): SG1: Farthest Point Sampling (FPS) $n_1=200$, $r_1=0.2$; SG2: FPS $n_2=100$, $r_2=0.3$
-        \item Neighbor Embedding: $\Delta F(p) = \text{concat}_{q \in \text{knn}(p,k)} (F(q) - F(p))$
-        \item Offset-Attention: $F_{\text{out}} = \text{LBR}(F_{\text{in}} - F_{\text{sa}}) + F_{\text{in}}$
-        \item Output: $\mathbf{f}_t \in \mathbb{R}^{192}$
-    \end{itemize}
-    \textbf{Temporal (Transformer):}
-    \begin{itemize}
-        \setlength\itemsep{0.5mm}
-        \item Positional encoding: $\mathbf{f}_t^{\text{pos}} = \mathbf{f}_t + \text{PE}_t$
-        \item Multi-head self-attention ($h=4$)
-        \item Max + average pooling $\to$ $\mathbf{g} \in \mathbb{R}^{192}$
-        \item Classification:
-        $$p(y|\mathcal{S}) = \text{Softmax}(W_2 \cdot \text{ReLU}(W_1 \mathbf{g} + b_1) + b_2)$$
-    \end{itemize}
-    \textbf{Key Design Choices:}
-    \begin{itemize}
-        \setlength\itemsep{0.5mm}
-        \item FPS + Ball Query handles non-uniform density.
-        \item Offset-Attention emphasizes local structure.
-        \item Temporal transformer models gait dynamics.
-    \end{itemize}
-    \end{minipage}
+    \begin{tabular}{@{}c p{0.85\linewidth}@{}}
+        % --- ROW 1 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_norm.pdf}
+        \end{minipage} & 
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{Gait-Invariant Processing}  \\ \vspace{-2.25ex} % Kills the massive gap
+            \begin{itemize} 
+                \setlength{\itemsep}{3pt}     % Spacing between items
+                \setlength{\topsep}{0pt}      % Space between title and first item
+                \setlength{\partopsep}{0pt}   
+                \setlength{\parsep}{0pt}      
+                \setlength{\leftmargin}{1.5em}
+                \item Centroid norm. \(p_i' = p_i - (\bar{x}, \bar{y}, 0)\) prevents path overfitting
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- ROW 2 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_pct.pdf}
+        \end{minipage} & 
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{Spatial PCT Encoder} \\ \vspace{-2.25ex} % Kills the massive gap
+            \begin{itemize} 
+                \setlength{\itemsep}{3pt}     % Spacing between items
+                \setlength{\topsep}{0pt}      % Space between title and first item
+                \setlength{\partopsep}{0pt}   
+                \setlength{\parsep}{0pt}      
+                \setlength{\leftmargin}{1.5em}
+                \item Farthest Point Sampling \(\to\) non-uniform density
+                \item Ball Query \(\to\) rotation-invariant neighborhoods.
+                \item Neighbor Embedding: $\Delta F(p) = \text{concat}_{q \in \text{knn}(p,k)} (F(q) - F(p))$
+                \item Offset-Attention acts as a discrete Laplacian: \\
+                \(F_{\text{out}} = \text{LBR}(F_{\text{in}} - F_{\text{sa}}) + F_{\text{in}} \ (\mathbf{f}_t \in \mathbb{R}^{192})\)
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+        % --- ROW 3 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_temporal.pdf}
+        \end{minipage} & 
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{Temporal Transformer} \\ \vspace{-2.25ex} % Kills the massive gap
+            \begin{itemize} 
+                \setlength{\itemsep}{3pt}     % Spacing between items
+                \setlength{\topsep}{0pt}      
+                \setlength{\partopsep}{0pt}   
+                \setlength{\parsep}{0pt}      
+                \setlength{\leftmargin}{1.5em}
+                \item Positional encoding injects order
+                \item Multi-head self-attention captures cross-frame gait dynamics:
+                \(p(y|\mathcal{S}) = \text{Softmax}(W_2 \cdot \text{ReLU}(W_1 \mathbf{g} + b_1) + b_2)\)
+            \end{itemize}
+        \end{minipage} \\[1mm]
+
+    \end{tabular}}
     }
+
     \block{\textcolor{white}{\large \ding{209}\ \ Pre-trained Meta-Learning~\cite{Lin20}}}{
-        \normalsize
-        \centering
-        \textbf{Two-Phase Algorithm:}\\
-        \vspace{1mm}
-        \textbf{Phase 1:} Supervised training on 3 subjects $\to \theta_0^{PT}$ \\
-        \textbf{Phase 2:} Model-Agnostic Meta-Learning (MAML)~\cite{finn17, Puri20} meta-training with $\theta_0^{PT}$\\
-        \vspace{2mm}
-        Inner loop: $\theta_i' = \theta - \alpha\nabla\mathcal{L}$ ($\alpha{=}0.1$). Outer loop: $\theta \leftarrow \theta - \beta\nabla\sum_i\mathcal{L}$ ($\beta{=}0.001$).
-        \vspace{2mm}
-        \centering
-        \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering
-            \textbf{Gain:} +15.6pp over random MAML
-        }}
+    {\renewcommand{\arraystretch}{1.2}
+    \normalsize
+    \begin{tabular}{@{}c p{0.85\linewidth}@{}}
+        % --- ROW 4 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_maml.pdf}
+        \end{minipage} & 
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{Two-Phase Domain-Aware Adaptation} \\ \vspace{-2.25ex} % Kills the massive gap
+            \begin{itemize} 
+                \setlength{\itemsep}{3pt}     % Spacing between items
+                \setlength{\topsep}{0pt}      
+                \setlength{\partopsep}{0pt}   
+                \setlength{\parsep}{0pt}      
+                \setlength{\leftmargin}{1.5em}
+                \item \textbf{Phase 1:} Supervised pre-training (3 subjects) \(\to \theta_0^{PT}\) (session-invariant patterns).
+                \item \textbf{Phase 2:} Model-Agnostic Meta-Learning (MAML) meta-training~\cite{finn17, Puri20}.
+            \end{itemize}
+
+            \vspace{1mm}
+            Inner: \(\theta_i' = \theta - \alpha \nabla \mathcal{L}\) \quad Outer: \(\theta \leftarrow \theta - \beta \nabla\sum_i\mathcal{L}\)
+        \end{minipage} \\[1mm]
+
+        % --- ROW 5 ---
+        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+            \includegraphics[width=1.3cm]{icon_theory.pdf}
+        \end{minipage} & 
+        \begin{minipage}[t]{\linewidth}\vspace{0pt}
+            \textbf{Key Insight:} \(\theta_0^{PT}\) lies closer to optimal \(\theta^*\), enabling faster convergence than random initialization.
+        \end{minipage} \\[1mm]
+    
+    \end{tabular}}
+
+    \vspace{4mm}
+
+    \centering
+    \colorbox{resultsColor!12}{\parbox{0.95\linewidth}{\centering \textbf{Gain:} +15.6pp over random MAML}}
     }
+    \vspace{1mm}
+
 
 \end{subcolumns}
 \end{columns}
@@ -503,7 +570,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \begin{minipage}[t]{0.55\linewidth}
             \centering
             \posterfig{\linewidth}{other_p4cn0_frame57}{}
-            \posterfig{\linewidth}{other_p4cn0_iou_frame_71_cropped.png}{} % InISAR (blue) vs MoCap (red)
+            \posterfig{\linewidth}{other_p4cn0_iou_frame_71_cropped.png}{}
         \end{minipage}
         \hfill
         \begin{minipage}[t]{0.4\linewidth}
@@ -523,7 +590,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
             \vspace{2mm}
             \textbf{Dataset:} 5 subj. (164--185 cm), $B=3.3$ GHz ($\Delta r=4.55$ cm).
         \end{minipage}
-        \vspace{0mm}
+        \vspace{-4mm}
         \colorbox{resultsColor!12}{\parbox{0.98\linewidth}{\centering \textbf{Reconstruction} Height Error \(<5.5\) cm (median 3.87 cm)}}
     \end{minipage}
     \hfill
@@ -561,8 +628,9 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 % ============================================================
 % FOOTER (FIXED with -0.5cm offset and minipage wrapper)
 % ============================================================
-\block[titlewidthscale=0, bodyoffsety=-0.5cm, roundedcorners=0]{}{
-    \begin{minipage}{0.95\linewidth}
+\block[titlewidthscale=0, bodyoffsety=-1.0cm, roundedcorners=0]{}{
+    \vspace{-4mm}
+    \begin{minipage}{0.98\linewidth}
         \centering\small\color{radarGrey}
         jeffee.hsiung@icloud.com $\cdot$ torun10@imec.be $\cdot$ hamed.javadi@imec.be $\cdot$ hichem.sahli@imec.be
         $\cdot$ EUSIPCO 2026, Bruges $\cdot$ imec / KU Leuven / VUB
@@ -570,7 +638,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \qrcode[height=1.25cm]{https://jeffeehsiung.github.io/few_shot_gait_based_person_identification_from_inisar_point_clouds_with_pretrained_meta_learning}
         \quad \textit{Full references: scan QR}
         \hfill
-        \setbox0=\vbox{\fontsize{0.05pt}{0.05pt}\selectfont\bibliographystyle{IEEEtran}\bibliography{references}}
+        \setbox0=\vbox{\fontsize{0.02pt}{0.02pt}\selectfont\bibliographystyle{IEEEtran}\bibliography{references}}
     \end{minipage}
 }
 \end{document}

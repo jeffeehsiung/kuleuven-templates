@@ -79,11 +79,6 @@ G.~Meucci, F.~Mancuso, E.~Giusti, A.~Kumar, S.~Ghio, and M.~Martorella, ``Point
   cloud transformer ({PCT}) for 3{D}-{InISAR} automatic target recognition,''
   in \emph{2023 IEEE Radar Conference (RadarConf23)}, 2023, pp. 1--6.
 
-\bibitem{Javadi_ISAR}
-S.~H. Javadi, A.~Bourdoux, and H.~Sahli, ``{ISAR} imaging pipeline for
-  pedestrian monitoring using {MIMO} {FMCW} mm-wave radars,'' in \emph{2025
-  IEEE Radar Conference (RadarConf25)}, 2025, pp. 291--296.
-
 \bibitem{Lin20}
 C.-F. Lin and H.-Y. Lee, ``Master of puppets: Model-agnostic meta-learning via
   pre-trained parameters for natural language generation,'' in \emph{{NeurIPS}

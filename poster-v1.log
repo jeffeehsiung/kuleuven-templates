@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  5 AUG 2026 12:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  11 AUG 2026 12:53
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**poster-v2.tex
-(./poster-v2.tex
+**poster-v1.tex
+(./poster-v1.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/tikzposter/tikzposter.cls
@@ -1091,7 +1091,7 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (./tikz-radar-lib/ml_icons.tex)
 \c@listctr=\count367
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
-6.
+3.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -1100,31 +1100,31 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count368
-) (./poster-v2.aux
+) (./poster-v1.aux
 <Reading QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_person
 _identification_from_inisar_point_clouds_with_pretrained_meta_learning" at leve
 l 8-M from aux file.>
 )
-\openout1 = `poster-v2.aux'.
+\openout1 = `poster-v1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
  (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count369
@@ -1184,51 +1184,51 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-06.
+03.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-06.
+03.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-106.
+103.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-106.
+103.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 106.
+(Font)              <17.28> on input line 103.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 106.
+(Font)              <12> on input line 103.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 106.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 106
+(Font)              <10> on input line 103.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 103
 .
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 106
+LaTeX Font Info:    Trying to load font information for U+msb on input line 103
 .
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package hyperref Info: Link coloring OFF on input line 106.
+Package hyperref Info: Link coloring OFF on input line 103.
 
-(./poster-v2.out) (./poster-v2.out)
+(./poster-v1.out) (./poster-v1.out)
 \@outlinefile=\write4
-\openout4 = `poster-v2.out'.
+\openout4 = `poster-v1.out'.
 
 
 Missing character: There is no 1 in font nullfont!
@@ -1236,136 +1236,173 @@ Missing character: There is no = in font nullfont!
 Missing character: There is no 1 in font nullfont!
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 108.
+(Font)              using `T1/lmr/bx/n' instead on input line 105.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <61.92> on input line 108.
+(Font)              <61.92> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <43> on input line 108.
+(Font)              <43> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <29.86> on input line 108.
+(Font)              <29.86> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <24.88> on input line 108.
+(Font)              <24.88> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 108.
+(Font)              <20.74> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 108.
+(Font)              <14.4> on input line 105.
 <tikz-radar-lib/icon_light.pdf, id=33, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_light.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_light.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_light.pdf  used on input line 151.
+Package pdftex.def Info: tikz-radar-lib/icon_light.pdf  used on input line 140.
 
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
 <tikz-radar-lib/icon_weather.pdf, id=34, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_weather.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_weather.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_weather.pdf  used on input line 15
-1.
+Package pdftex.def Info: tikz-radar-lib/icon_weather.pdf  used on input line 14
+0.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
 <tikz-radar-lib/icon_occlusion.pdf, id=35, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_occlusion.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_occlusion.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_occlusion.pdf  used on input line 
-151.
+140.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
 <tikz-radar-lib/icon_privacy.pdf, id=36, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_privacy.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_privacy.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_privacy.pdf  used on input line 15
-1.
+Package pdftex.def Info: tikz-radar-lib/icon_privacy.pdf  used on input line 14
+0.
 (pdftex.def)             Requested size: 68.28644pt x 68.29164pt.
 <tikz-radar-lib/problem_panel_strip.pdf, id=37, 412.7701pt x 100.01265pt>
 File: tikz-radar-lib/problem_panel_strip.pdf Graphic file (type pdf)
 <use tikz-radar-lib/problem_panel_strip.pdf>
 Package pdftex.def Info: tikz-radar-lib/problem_panel_strip.pdf  used on input 
-line 187.
+line 165.
 (pdftex.def)             Requested size: 558.46783pt x 135.31949pt.
+<tikz-radar-lib/icon_sparse.pdf, id=38, 35.69836pt x 35.69836pt>
+File: tikz-radar-lib/icon_sparse.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_sparse.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_sparse.pdf  used on input line 165
+.
+(pdftex.def)             Requested size: 36.98866pt x 36.9914pt.
+<tikz-radar-lib/icon_rigid.pdf, id=40, 35.69836pt x 35.69836pt>
+File: tikz-radar-lib/icon_rigid.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_rigid.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_rigid.pdf  used on input line 165.
 
-Underfull \hbox (badness 1371) in paragraph at lines 187--187
-\T1/lmr/m/n/24.88 noisy point clouds with lim-ited an-gu-lar res-o-lu-tion,
+(pdftex.def)             Requested size: 36.98866pt x 36.9914pt.
+
+Underfull \hbox (badness 8075) in paragraph at lines 165--165
+[]|\T1/lmr/m/n/24.88 Interferometric In-verse Syn-thetic Aper-ture
  []
 
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
-18.
+<tikz-radar-lib/icon_multipath.pdf, id=43, 67.73807pt x 48.06357pt>
+File: tikz-radar-lib/icon_multipath.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_multipath.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_multipath.pdf  used on input line 
+165.
+(pdftex.def)             Requested size: 65.44142pt x 46.43604pt.
+<tikz-radar-lib/icon_scarcity.pdf, id=45, 35.89812pt x 40.40094pt>
+File: tikz-radar-lib/icon_scarcity.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_scarcity.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_scarcity.pdf  used on input line 1
+65.
+(pdftex.def)             Requested size: 31.2982pt x 35.22495pt.
+
+Underfull \hbox (badness 1708) in paragraph at lines 165--165
+[]|\T1/lmr/m/n/24.88 Existing SOTA [[], []] de-mand $\OML/lmm/m/it/24.88 > \OT1
+/lmr/m/n/24.88 100$ \T1/lmr/m/n/24.88 se-
+ []
+
+
+Underfull \hbox (badness 7486) in paragraph at lines 165--165
+\T1/lmr/m/n/24.88 quences/person; Point Cloud Trans-former
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
+98.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<figures/fig_radar_vs_camera_p3_0053.png, id=47, 1199.48125pt x 491.8375pt>
-File: figures/fig_radar_vs_camera_p3_0053.png Graphic file (type png)
-<use figures/fig_radar_vs_camera_p3_0053.png>
-Package pdftex.def Info: figures/fig_radar_vs_camera_p3_0053.png  used on input
- line 273.
-(pdftex.def)             Requested size: 268.06216pt x 109.91568pt.
-<figures/fig_radar_vs_camera_p5_0065.png, id=48, 1574.88374pt x 562.1pt>
-File: figures/fig_radar_vs_camera_p5_0065.png Graphic file (type png)
-<use figures/fig_radar_vs_camera_p5_0065.png>
-Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0065.png  used on input
- line 273.
-(pdftex.def)             Requested size: 268.06216pt x 95.66724pt.
-<figures/fig_radar_vs_camera_p5_0029.png, id=49, 1606.0pt x 803.0pt>
-File: figures/fig_radar_vs_camera_p5_0029.png Graphic file (type png)
-<use figures/fig_radar_vs_camera_p5_0029.png>
-Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0029.png  used on input
- line 273.
-(pdftex.def)             Requested size: 275.88448pt x 137.94177pt.
-<figures/other_p4cn0_frame29.png, id=50, 1361.085pt x 562.1pt>
-File: figures/other_p4cn0_frame29.png Graphic file (type png)
-<use figures/other_p4cn0_frame29.png>
-Package pdftex.def Info: figures/other_p4cn0_frame29.png  used on input line 27
-3.
-(pdftex.def)             Requested size: 275.88448pt x 113.93613pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <35.83> on input line 198.
+<tikz-radar-lib/icon_radar_recon.pdf, id=50, 45.94063pt x 35.69836pt>
+File: tikz-radar-lib/icon_radar_recon.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_radar_recon.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_radar_recon.pdf  used on input lin
+e 198.
+(pdftex.def)             Requested size: 36.98866pt x 28.74391pt.
+<tikz-radar-lib/icon_ruler.pdf, id=51, 47.94612pt x 42.91734pt>
+File: tikz-radar-lib/icon_ruler.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_ruler.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_ruler.pdf  used on input line 198.
 
+(pdftex.def)             Requested size: 36.98866pt x 33.1093pt.
+<tikz-radar-lib/icon_accuracy.pdf, id=52, 35.69836pt x 43.54669pt>
+File: tikz-radar-lib/icon_accuracy.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_accuracy.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_accuracy.pdf  used on input line 1
+98.
+(pdftex.def)             Requested size: 36.98866pt x 45.12402pt.
 
+Underfull \hbox (badness 10000) in paragraph at lines 198--198
+\T1/lmr/m/n/24.88 98.99% su-per-vised (+2.81pp over
+ []
 
-<QR code requested for "https://jeffeehsiung.github.io/few_shot_gait_based_pers
-on_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in ve
-rsion 0-M.>
+<tikz-radar-lib/icon_maml.pdf, id=53, 41.30331pt x 35.69836pt>
+File: tikz-radar-lib/icon_maml.pdf Graphic file (type pdf)
+<use tikz-radar-lib/icon_maml.pdf>
+Package pdftex.def Info: tikz-radar-lib/icon_maml.pdf  used on input line 198.
+(pdftex.def)             Requested size: 36.98866pt x 31.97078pt.
 
-<Copying the QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_pe
-rson_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in 
-version 8-M as previously calculated.>
-<figures/01_system_architecture_colored.pdf, id=53, 845.11491pt x 201.1264pt>
-File: figures/01_system_architecture_colored.pdf Graphic file (type pdf)
-<use figures/01_system_architecture_colored.pdf>
-Package pdftex.def Info: figures/01_system_architecture_colored.pdf  used on in
-put line 308.
-(pdftex.def)             Requested size: 1581.17964pt x 376.34999pt.
-<tikz-radar-lib/inisar_pipeline_strip_landscape.pdf, id=54, 486.06593pt x 190.0
-8818pt>
-File: tikz-radar-lib/inisar_pipeline_strip_landscape.pdf Graphic file (type pdf
-)
-<use tikz-radar-lib/inisar_pipeline_strip_landscape.pdf>
-Package pdftex.def Info: tikz-radar-lib/inisar_pipeline_strip_landscape.pdf  us
-ed on input line 393.
-(pdftex.def)             Requested size: 722.3032pt x 282.47469pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-93.
+Underfull \hbox (badness 1097) in paragraph at lines 198--198
+[]|\T1/lmr/bx/n/24.88 MAML Gains: \T1/lmr/m/n/24.88 Pre-trained MAML
+ []
+
+<tikz-radar-lib/framework_landscape.pdf, id=54, 819.08511pt x 209.98752pt>
+File: tikz-radar-lib/framework_landscape.pdf Graphic file (type pdf)
+<use tikz-radar-lib/framework_landscape.pdf>
+Package pdftex.def Info: tikz-radar-lib/framework_landscape.pdf  used on input 
+line 234.
+(pdftex.def)             Requested size: 1581.17964pt x 405.40474pt.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
+13.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<figures/other_p4cn0_iou_frame_65.png, id=57, 713.3049pt x 193.6836pt>
-File: figures/other_p4cn0_iou_frame_65.png Graphic file (type png)
-<use figures/other_p4cn0_iou_frame_65.png>
-Package pdftex.def Info: figures/other_p4cn0_iou_frame_65.png  used on input li
-ne 433.
-(pdftex.def)             Requested size: 397.26897pt x 107.87099pt.
-<figures/other_p4cn0_iou_frame_71.png, id=58, 706.0779pt x 190.7928pt>
-File: figures/other_p4cn0_iou_frame_71.png Graphic file (type png)
-<use figures/other_p4cn0_iou_frame_71.png>
-Package pdftex.def Info: figures/other_p4cn0_iou_frame_71.png  used on input li
-ne 433.
-(pdftex.def)             Requested size: 397.26897pt x 107.34978pt.
-
-Overfull \hbox (4.91135pt too wide) in paragraph at lines 433--433
-[]$[]$  $[]$ 
- []
-
-<figures/fig_pcttrans_architecture.pdf, id=59, 613.33138pt x 200.6697pt>
+<figures/other_range_doppler_profile_0_v2.png, id=57, 161.60374pt x 157.58875pt
+>
+File: figures/other_range_doppler_profile_0_v2.png Graphic file (type png)
+<use figures/other_range_doppler_profile_0_v2.png>
+Package pdftex.def Info: figures/other_range_doppler_profile_0_v2.png  used on 
+input line 413.
+(pdftex.def)             Requested size: 252.81052pt x 246.54198pt.
+<figures/other_range_doppler_profile_1_v2.png, id=59, 161.60374pt x 153.57375pt
+>
+File: figures/other_range_doppler_profile_1_v2.png Graphic file (type png)
+<use figures/other_range_doppler_profile_1_v2.png>
+Package pdftex.def Info: figures/other_range_doppler_profile_1_v2.png  used on 
+input line 413.
+(pdftex.def)             Requested size: 252.81052pt x 240.26067pt.
+<figures/fig_pcttrans_architecture.pdf, id=60, 613.33138pt x 200.6697pt>
 File: figures/fig_pcttrans_architecture.pdf Graphic file (type pdf)
 <use figures/fig_pcttrans_architecture.pdf>
 Package pdftex.def Info: figures/fig_pcttrans_architecture.pdf  used on input l
-ine 476.
+ine 456.
 (pdftex.def)             Requested size: 722.3032pt x 236.32887pt.
+<figures/fig_radar_vs_camera_p3_0053.png, id=65, 1199.48125pt x 491.8375pt>
+File: figures/fig_radar_vs_camera_p3_0053.png Graphic file (type png)
+<use figures/fig_radar_vs_camera_p3_0053.png>
+Package pdftex.def Info: figures/fig_radar_vs_camera_p3_0053.png  used on input
+ line 559.
+(pdftex.def)             Requested size: 436.65059pt x 179.04263pt.
+<figures/fig_radar_vs_camera_p5_0065.png, id=66, 1574.88374pt x 562.1pt>
+File: figures/fig_radar_vs_camera_p5_0065.png Graphic file (type png)
+<use figures/fig_radar_vs_camera_p5_0065.png>
+Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0065.png  used on input
+ line 559.
+(pdftex.def)             Requested size: 436.65059pt x 155.84308pt.
 
 
 
@@ -1376,31 +1413,61 @@ rsion 0-M.>
 <Copying the QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_pe
 rson_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in 
 version 8-M as previously calculated.>
-(./poster-v2.bbl
-LaTeX Font Info:    Calculating math sizes for size <0.05> on input line 66.
+<figures/other_p4cn0_frame57.png, id=68, 1316.41812pt x 466.74374pt>
+File: figures/other_p4cn0_frame57.png Graphic file (type png)
+<use figures/other_p4cn0_frame57.png>
+Package pdftex.def Info: figures/other_p4cn0_frame57.png  used on input line 55
+9.
+(pdftex.def)             Requested size: 468.0081pt x 165.93376pt.
+<figures/other_p4cn0_iou_frame_71_cropped.png, id=69, 435.7881pt x 152.4897pt>
+File: figures/other_p4cn0_iou_frame_71_cropped.png Graphic file (type png)
+<use figures/other_p4cn0_iou_frame_71_cropped.png>
+Package pdftex.def Info: figures/other_p4cn0_iou_frame_71_cropped.png  used on 
+input line 559.
+(pdftex.def)             Requested size: 468.0081pt x 163.765pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 559--559
+
+ []
+
+
+
+
+<QR code requested for "https://jeffeehsiung.github.io/few_shot_gait_based_pers
+on_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in ve
+rsion 0-M.>
+
+<Copying the QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_pe
+rson_identification_from_inisar_point_clouds_with_pretrained_meta_learning" in 
+version 8-M as previously calculated.>
+(./poster-v1.bbl
+LaTeX Font Info:    Calculating math sizes for size <0.05> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.05> on input line 66.
+(Font)              <0.05> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.03499> on input line 66.
+(Font)              <0.03499> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <0.025> on input line 66.
+(Font)              <0.025> on input line 61.
 ) [1
 
 {/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/us
 r/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/t
 exlive/2026basic/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texliv
 e/2026basic/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/202
-6basic/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2026basic/t
-exmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2026basic/texmf-dist
+6basic/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2026basic/te
+xmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2026basic/texmf-dist
 /fonts/enc/dvips/lm/lm-mathex.enc} <./tikz-radar-lib/icon_light.pdf> <./tikz-ra
 dar-lib/icon_weather.pdf> <./tikz-radar-lib/icon_occlusion.pdf> <./tikz-radar-l
-ib/icon_privacy.pdf> <./tikz-radar-lib/problem_panel_strip.pdf> <./figures/fig_
-radar_vs_camera_p3_0053.png> <./figures/fig_radar_vs_camera_p5_0065.png> <./fig
-ures/fig_radar_vs_camera_p5_0029.png (PNG copy)> <./figures/other_p4cn0_frame29
-.png> <./figures/01_system_architecture_colored.pdf> <./tikz-radar-lib/inisar_p
-ipeline_strip_landscape.pdf> <./figures/other_p4cn0_iou_frame_65.png> <./figure
-s/other_p4cn0_iou_frame_71.png> <./figures/fig_pcttrans_architecture.pdf>] (./p
-oster-v2.aux
+ib/icon_privacy.pdf> <./tikz-radar-lib/problem_panel_strip.pdf> <./tikz-radar-l
+ib/icon_sparse.pdf> <./tikz-radar-lib/icon_rigid.pdf> <./tikz-radar-lib/icon_mu
+ltipath.pdf> <./tikz-radar-lib/icon_scarcity.pdf> <./tikz-radar-lib/icon_radar_
+recon.pdf> <./tikz-radar-lib/icon_ruler.pdf> <./tikz-radar-lib/icon_accuracy.pd
+f> <./tikz-radar-lib/icon_maml.pdf> <./tikz-radar-lib/framework_landscape.pdf> 
+<./figures/other_range_doppler_profile_0_v2.png> <./figures/other_range_doppler
+_profile_1_v2.png> <./figures/fig_pcttrans_architecture.pdf> <./figures/fig_rad
+ar_vs_camera_p3_0053.png> <./figures/fig_radar_vs_camera_p5_0065.png> <./figure
+s/other_p4cn0_frame57.png> <./figures/other_p4cn0_iou_frame_71_cropped.png>] (.
+/poster-v1.aux
 <Reading QR code for "https://jeffeehsiung.github.io/few_shot_gait_based_person
 _identification_from_inisar_point_clouds_with_pretrained_meta_learning" at leve
 l 8-M from aux file.>
@@ -1413,17 +1480,17 @@ L3 programming layer <2026-01-19>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `poster-v2.out' has not changed.
+Package rerunfilecheck Info: File `poster-v1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29990 strings out of 469006
- 604122 string characters out of 5454813
- 1451432 words of memory out of 5000000
- 58037 multiletter control sequences out of 15000+600000
- 798123 words of font info for 147 fonts, out of 8000000 for 9000
+ 30067 strings out of 469006
+ 606659 string characters out of 5454813
+ 1447318 words of memory out of 5000000
+ 58115 multiletter control sequences out of 15000+600000
+ 796028 words of font info for 149 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 117i,18n,121p,2738b,1650s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,19n,121p,2738b,1650s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{cite.Meng20} has been referenced but does not exist
 , replaced by a fixed one
@@ -1465,10 +1532,6 @@ pdfTeX warning (dest): name{cite.RuoyuMultipath} has been referenced but does n
 ot exist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{cite.SalvettiMartorellaMultistaticMultiTemporal2016
-} has been referenced but does not exist, replaced by a fixed one
-
-
 pdfTeX warning (dest): name{cite.Martorella2DISARto3D2013} has been referenced 
 but does not exist, replaced by a fixed one
 
@@ -1488,26 +1551,29 @@ xist, replaced by a fixed one
 pdfTeX warning (dest): name{cite.Javadi_pid} has been referenced but does not e
 xist, replaced by a fixed one
 
-</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.p
+</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.p
 fb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmss8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmssbx10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm
-/lmbx12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmex
-10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmmi12.pf
-b></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmr12.pfb></us
-r/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/loca
-l/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/tex
-live/2026basic/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texliv
-e/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/202
-6basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/te
-xlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
-/local/texlive/2026basic/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on poster-v2.pdf (1 page, 4006853 bytes).
+5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmss8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmssbx10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/p
+ublic/lm/lmbx12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public
+/lm/lmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/l
+mmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmr17.
+pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmri12.pfb><
+/usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></us
+r/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/loc
+al/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb><
+/usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msb
+m10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/zapfding/uzdr.
+pfb>
+Output written on poster-v1.pdf (1 page, 3339764 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 18 named destinations out of 1000 (max. 500000)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 306 PDF objects out of 1000 (max. 8388607)
+ 200 compressed objects within 2 object streams
+ 17 named destinations out of 1000 (max. 500000)
+ 214 words of extra memory for PDF output out of 10000 (max. 10000000)
 

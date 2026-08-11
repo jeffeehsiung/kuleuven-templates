@@ -361,3 +361,55 @@
     }
   \end{scope}
 }
+
+% ---------------------------------------------------------------
+% \NormalizationIcon -- Centroid Normalization (Zero-mean shift)
+% ---------------------------------------------------------------
+\newcommand{\NormalizationIcon}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Original points
+    \foreach \p in {(-0.3,0.2),(-0.25,-0.25),(-0.05,0.3),(0.2,-0.05)}{
+      \fill[iconFaint] \p circle (0.035);
+    }
+    % Arrows converging to origin (Normalization)
+    \draw[deepLearning, line width=0.6pt, ->] (-0.3,0.2) -- (0,0);
+    \draw[deepLearning, line width=0.6pt, ->] (-0.25,-0.25) -- (0,0);
+    \draw[deepLearning, line width=0.6pt, ->] (-0.05,0.3) -- (0,0);
+    \draw[deepLearning, line width=0.6pt, ->] (0.2,-0.05) -- (0,0);
+    % Centered points after normalization
+    \fill[deepLearning] (0,0) circle (0.05);
+    \node[font=\tiny, color=radarGrey, anchor=north] at (0,-0.4) {\(p' = p - \bar{p}\)};
+  \end{scope}
+}
+
+% ---------------------------------------------------------------
+% \FilteringGroupingIcon -- FPS + Ball Query (Sampling & Grouping)
+% ---------------------------------------------------------------
+\newcommand{\FilteringGroupingIcon}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Background 2D Point Cloud
+    \foreach \x in {-0.4,-0.3,-0.2,-0.1,0.0,0.1,0.2,0.3,0.4}{
+      \foreach \y in {-0.3,-0.2,-0.1,0.0,0.1,0.2,0.3}{
+        \fill[radarGrey!30] (\x,\y) circle (0.02);
+      }
+    }
+    % FPS (Farthest Point Sampling) Centers
+    \coordinate (c1) at (-0.3,0.1);
+    \coordinate (c2) at (0.2,0.2);
+    \coordinate (c3) at (0.1,-0.25);
+    \coordinate (c4) at (-0.2,-0.3);
+    \fill[deepLearning] (c1) circle (0.04);
+    \fill[deepLearning] (c2) circle (0.04);
+    \fill[deepLearning] (c3) circle (0.04);
+    \fill[deepLearning] (c4) circle (0.04);
+    % Ball Query grouping
+    \draw[deepLearning, line width=0.5pt, dashed] (c1) circle (0.15);
+    \draw[deepLearning, line width=0.5pt, dashed] (c2) circle (0.15);
+    \draw[deepLearning, line width=0.5pt, dashed] (c3) circle (0.15);
+    \draw[deepLearning, line width=0.5pt, dashed] (c4) circle (0.15);
+    % Label
+    \node[font=\tiny, text=radarGrey, anchor=north] at (0,-0.48) {FPS + Ball Query};
+  \end{scope}
+}

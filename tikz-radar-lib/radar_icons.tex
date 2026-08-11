@@ -671,3 +671,118 @@
     \end{scope}
   \end{scope}
 }
+
+% ---------------------------------------------------------------
+% NEW ICONS FOR PANEL 2 & 3
+% ---------------------------------------------------------------
+
+% 1. \IconSparsePCD - Low Angular Resolution
+% ---------------------------------------------------------------
+\newcommand{\IconSparsePCD}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[iconFaint, line width=0.3pt, dashed] (-0.48,-0.48) grid (0.48,0.48);
+    \foreach \p in {(-0.35,0.25),(-0.25,-0.35),(0.1,0.3),(0.3,-0.1),(-0.1,0.05)}{
+      \fill[radarOrange] \p circle (0.035);
+    }
+    \node[font=\tiny\bfseries, color=radarOrange] at (0.0,0.0) {?};
+  \end{scope}
+}
+
+% 2. \IconRigidBias - Rigid-Target vs Articulated Human
+% ---------------------------------------------------------------
+\newcommand{\IconRigidBias}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Rigid target (airplane)
+    \draw[geometryColor, line width=0.8pt, rounded corners=1pt] (-0.45,0.1) -- (-0.35,-0.05) -- (-0.15,-0.05) -- (-0.25,0.1) -- cycle;
+    \draw[geometryColor, line width=0.6pt] (-0.35,-0.05) -- (-0.35,-0.15);
+    \node[color=resultsColor, font=\tiny\bfseries] at (-0.3,0.2) {X};
+    % Human (articulated)
+    \begin{scope}[shift={(0.18,0)}]
+      \TikZHuman[0.9]{radarGreen}
+    \end{scope}
+    \node[color=radarGreen, font=\tiny\bfseries] at (0.18,0.22) {$\checkmark$};
+  \end{scope}
+}
+
+% 3. \IconDataScarcity - Need >100 sequences
+% ---------------------------------------------------------------
+\newcommand{\IconDataScarcity}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Database cylinder
+    \draw[iconStroke, fill=radarGrey!20, line width=0.8pt] (-0.3,-0.2) ellipse (0.25 and 0.05);
+    \draw[iconStroke, fill=radarGrey!10, line width=0.8pt] (-0.3,0.2) ellipse (0.25 and 0.05);
+    \draw[iconStroke, line width=0.8pt] (-0.05,0.2) -- (-0.05,-0.2);
+    \draw[iconStroke, line width=0.8pt] (-0.55,0.2) -- (-0.55,-0.2);
+    % Red slash
+    \draw[resultsColor, line width=1.5pt] (-0.4,0.25) -- (0.3,-0.25);
+    \node[font=\tiny, color=radarGrey, below] at (0,-0.35) {>100};
+  \end{scope}
+}
+
+% 4. \IconArticulated - Articulated Validation (Panel 3)
+% ---------------------------------------------------------------
+\newcommand{\IconArticulated}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Human Silhouette + Radar waves
+    \begin{scope}[shift={(0.0,-0.1)}]
+      \TikZHuman[0.8]{radarNavy}
+    \end{scope}
+    \draw[radarGreen, line width=0.8pt, dashed] (-0.3,0.1) -- (0.4,0.1);
+    \draw[radarGreen, line width=0.8pt, dashed] (-0.3,-0.1) -- (0.4,-0.1);
+    % IoU badge
+    \node[fill=radarPurple, text=white, rounded corners=1pt, inner sep=2pt, font=\tiny\bfseries] at (0,-0.45) {73.8\% IoU};
+  \end{scope}
+}
+
+% 5. \IconRuler - Height Error vs Range Resolution (Panel 3)
+% ---------------------------------------------------------------
+\newcommand{\IconRuler}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \draw[iconStroke, line width=0.8pt] (-0.4,-0.35) -- (0.4,-0.35) -- (0.4,-0.15) -- (-0.4,-0.15) -- cycle;
+    \foreach \i in {0,1,...,7}{
+      \pgfmathsetmacro{\x}{-0.35 + \i*0.1}
+      \draw[iconStroke, line width=0.4pt] (\x,-0.35) -- (\x,-0.25);
+    }
+    \draw[radarGreen, line width=1.5pt, -{Latex[length=2mm]}] (0.0,-0.35) -- (0.0,-0.15);
+    \node[font=\tiny, color=resultsColor] at (0,-0.1) {\(<5.5\) cm};
+    \node[font=\tiny, color=radarGrey, below] at (0,-0.45) {\(\Delta r\)=4.55 cm};
+  \end{scope}
+}
+
+% 6. \IconTarget - SOTA Accuracy (Panel 3)
+% ---------------------------------------------------------------
+\newcommand{\IconTarget}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    \foreach \r in {0.45,0.35,0.25,0.15}{
+      \draw[radarProcessing, line width=0.5pt] (0,0) circle (\r);
+    }
+    \draw[radarProcessing, line width=0.8pt] (-0.45,0) -- (0.45,0);
+    \draw[radarProcessing, line width=0.8pt] (0,-0.45) -- (0,0.45);
+    \fill[radarGreen] (0,0) circle (0.06);
+    \node[font=\tiny\bfseries, color=radarNavy, below] at (0,-0.45) {98.99\%};
+  \end{scope}
+}
+
+% 7. \IconMAMLGraph - MAML +15.6pp Gain (Panel 3)
+% ---------------------------------------------------------------
+\newcommand{\IconMAMLGraph}{%
+  \begin{scope}
+    \draw[iconStroke, fill=white, rounded corners=2pt] (-0.55,-0.55) rectangle (0.55,0.55);
+    % Axes
+    \draw[iconStroke, line width=0.6pt, -{Latex[length=2mm]}] (-0.4,-0.2) -- (0.4,-0.2);
+    \draw[iconStroke, line width=0.6pt, -{Latex[length=2mm]}] (-0.4,-0.2) -- (-0.4,0.4);
+    % Random MAML bar (shorter)
+    \fill[radarOrange, fill opacity=0.6] (-0.3,0.0) rectangle (-0.1,-0.2);
+    % Pre-trained MAML bar (tall, results green)
+    \fill[resultsColor, fill opacity=0.8] (0.1,0.3) rectangle (0.3,-0.2);
+    % Upward gain arrow
+    \draw[resultsColor, line width=1.5pt, -{Latex[length=2.5mm]}] (0.1,-0.15) -- (0.1,0.1);
+    \node[font=\tiny, text=resultsColor] at (0.2,0.35) {+15.6pp};
+  \end{scope}
+}

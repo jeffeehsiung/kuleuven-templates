@@ -1,0 +1,62 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\renewcommand{\familydefault}{\sfdefault}
+
+\input{radar_styles.tex}
+\input{radar_icons.tex}
+\input{geometry_icons.tex}
+\input{tracking_icons.tex}
+\input{ml_icons.tex}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=0.9cm,
+    every node/.style={align=center}
+]
+
+% ======================================================================
+% ROW 1: RADAR SIGNAL PROCESSING CHAIN
+% ======================================================================
+\ProcessCard[card color=radarProcessing]{p1}{Raw Radar}{\RadarSensor}
+\ProcessCard[right=0.8cm of p1, card color=radarProcessing]{p2}{Range FFT}{\RangeFFT}
+\ProcessCard[right=0.8cm of p2, card color=radarProcessing]{p3}{Motion Comp.}{\MotionCompensation}
+\ProcessCard[right=0.8cm of p3, card color=radarProcessing]{p4}{Doppler FFT}{\RangeDoppler}
+\ProcessCard[right=0.8cm of p4, card color=radarProcessing]{p5}{CFAR}{\CFAR}
+\ProcessCard[right=0.8cm of p5, card color=radarProcessing]{p6}{Interferometry}{\Interferometry}
+\ProcessCard[right=0.8cm of p6, card color=radarProcessing]{p7}{EKF-JPDA}{\EKFJPDA}
+\ProcessCard[right=0.8cm of p7, card color=resultsColor]{p8}{3D Point Cloud}{\PointCloudHuman}
+
+% Flow arrows (Row 1)
+\foreach \s/\t in {p1/p2, p2/p3, p3/p4, p4/p5, p5/p6, p6/p7, p7/p8}{
+    \draw[flow] (\s) -- (\t);
+}
+
+% ======================================================================
+% ROW 2: DEEP LEARNING PIPELINE
+% ======================================================================
+% Point Sequence (receives from 3D Point Cloud)
+\ProcessCard[below=1.8cm of p2, card color=deepLearning]{d1}{Point Cloud Sequence}{\PointCloud}
+\ProcessCard[right=0.6cm of d1, card color=deepLearning]{d2}{DBSCAN}{\DBSCANIcon}
+\ProcessCard[right=0.6cm of d2, card color=deepLearning]{d3}{Normalization}{\NormalizationIcon}
+\ProcessCard[right=0.6cm of d3, card color=deepLearning]{d4}{Filtering \& Grouping}{\FilteringGroupingIcon}
+\ProcessCard[right=0.8cm of d4, card color=deepLearning]{d5}{Frame-wise PCT}{\PCTBlock}
+\ProcessCard[right=0.8cm of d5, card color=deepLearning]{d6}{Temporal Trans.}{\TemporalTransformerBlock}
+\ProcessCard[right=0.8cm of d6, card color=deepLearning]{d7}{MAML}{\MAMLBlock}
+\ProcessCard[right=0.8cm of d7, card color=resultsColor]{d8}{Few-shot ID}{\SupportQuerySplit}
+
+% Connection: 3D Point Cloud → Point Sequence
+\draw[flow, dashed, color=deepLearning] (p8.south) -- ($(p8.south) + (0,-0.8)$) -| (d1.north);
+% Flow arrows (Row 2)
+\foreach \s/\t in {d1/d2, d2/d3, d3/d4, d4/d5, d5/d6, d6/d7, d7/d8}{
+    \draw[flow, color=deepLearning] (\s) -- (\t);
+}
+
+% Pre-training Badge
+\node[draw=radarOrange, fill=radarOrange!15, rounded corners=3pt,
+      minimum width=1.6cm, minimum height=0.6cm, font=\sffamily\bfseries\small,
+      text=radarOrange, anchor=south] (ptbadge) at ($(d7.north)+(0,0.5)$) {Pre-trained};
+\draw[radarOrange, line width=1.2pt, -{Latex[length=2mm]}] (ptbadge.south) -- (d7.north);
+
+\end{tikzpicture}
+\end{document}

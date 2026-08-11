@@ -3,9 +3,6 @@
 % Few-Shot Radar Person Identification via Tracking-Integrated
 % InISAR and Pre-Trained Meta-Learning
 % ============================================================
-% Compile with: pdflatex poster.tex  (run twice)
-% Requires: tikzposter class (texlive-full or scheme-full)
-% ============================================================
 
 \documentclass[a0paper,portrait]{tikzposter}
 
@@ -119,7 +116,7 @@
 \block{\textcolor{white}{\large \ding{202}\ \ Introduction}}{
 \begin{minipage}{\linewidth}
     \vspace{1mm}
-    Vision-based person identification struggle under conditions ~\cite{Javadi_pid, Javadi_hpe}:
+    Vision-based person identification (PID) struggle under conditions ~\cite{Javadi_pid, Javadi_hpe}:
     \vspace{3mm}
 
     % 2x2 Clean Tabular Icon Layout
@@ -136,16 +133,8 @@
     \hrule height 0.2pt
     \vspace{4mm}
     
-    \begin{center}
-        \textbf{Radar Advantages:}\\[1mm]
-        \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{r l}
-            \textcolor{radarGreen}{\checkmark} & Zero optical exposure \\
-            \textcolor{radarGreen}{\checkmark} & All-weather operation \\
-            \textcolor{radarGreen}{\checkmark} & Penetrates thin barriers \\
-            \textcolor{radarGreen}{\checkmark} & Privacy preserving \\
-        \end{tabular}
-    \end{center}
+    \centering
+    \textbf{Radar Advantages:}\quad Zero optical exposure \(\cdot\) All-weather operation \(\cdot\) Penetrates thin barriers \(\cdot\) Privacy preserving
 
 \end{minipage}
 }
@@ -161,20 +150,20 @@
 \begin{minipage}{\linewidth}
     \normalsize
     \vspace{2mm}
-    \textbf{Challenge 1: Poor Point Cloud Quality}\\[1mm]
+    \textbf{Low Angular Resolution}\\[1mm]
     Conventional angle-of-arrival processing~\cite{ZhangMUSIC2010} yields sparse, noisy point clouds with limited angular resolution, motion-induced defocusing, and multipath ghost artifacts.
     \vspace{3mm}
     
-    \textbf{Challenge 2: Rigid-Target Bias in InISAR}\\[1mm]
-    InISAR improves angular resolution but existing works \cite{QunZhangInISAR2004, Martorella2DISARto3D2013, SalvettiMartorellaMultistaticMultiTemporal2016} validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
+    \textbf{Rigid-Target Bias}\\[1mm]
+    Interferometric Inverse Synthetic Aperture Radar (InISAR) improves angular resolution but existing works \cite{QunZhangInISAR2004, Martorella2DISARto3D2013, SalvettiMartorellaMultistaticMultiTemporal2016} validate it only on large \emph{rigid} targets -- \textbf{not} articulated human targets.
     \vspace{3mm}
     
-    \textbf{Challenge 3: Multipath Cannot Be Ignored}\\[1mm]
+    \textbf{Multipath}\\[1mm]
     DBSCAN alone cannot distinguish true targets from multipath ghosts~\cite{RuoyuMultipath}, which overlap in range-Doppler and mimic real 3D clusters.
     \vspace{3mm}
     
-    \textbf{Challenge 4: Data Scarcity}\\[1mm]
-    Existing methods~\cite{Ma23, Pegoraro21} need $>$100 sequences/person. PCT~\cite{Guo20} handles spatial structure but targets \emph{static} objects~\cite{meucci23}, not evolving radar sequences.
+    \textbf{Data Scarcity}\\[1mm]
+    Existing methods~\cite{Ma23, Pegoraro21} need $>$100 sequences/person. Point Cloud Transformer (PCT)~\cite{Guo20} handles spatial structure but targets \emph{static} objects~\cite{meucci23}, not evolving radar sequences.
     \vspace{3mm}
 \end{minipage}
 \begin{minipage}{\linewidth}
@@ -187,80 +176,63 @@
 }
 
 % ============================================================
-% COLUMN 1: KEY VISUAL HIGHLIGHTS + INTERACTIVE DEMO
+% SECTION 3 -- KEY RESULTS (ICON-GRID)
 % ============================================================
-
 \block{\textcolor{white}{\large \ding{204}\ \ Key Results}}{
-
-    % 1. Big Metric Callouts
+    % Big Metric Callouts
     \begin{center}
     \begin{tikzpicture}[scale=0.9, transform shape]
-    \MetricBox{m1}{0,0}{\Huge\bfseries 73.8\%}{\textbf{InISAR IoU}}
-    \MetricBox{m2}{8.0,0}{\Huge\bfseries $<$5.5\,cm}{\textbf{Height Error}}
-    \MetricBox{m3}{4,-4}{\Huge\bfseries 70.0\%}{\textbf{Cross-Session PID}}
+    \MetricBox{m1}{0,0}{\Large\bfseries 73.8\%}{\textbf{InISAR IoU}}
+    \MetricBox{m2}{8.0,0}{\Large\bfseries \(<5.5\)\,cm}{\textbf{Height Error}}
+    \MetricBox{m3}{4,-4}{\Large\bfseries 70.0\%}{\textbf{Cross-Session PID}}
     \end{tikzpicture}
     \end{center}
-
     \vspace{4mm}
     \hrule height 0.2pt
     \vspace{4mm}
 
-    % Condensed, non-repetitive textual takeaways
     \centering\normalsize
-    \textbf{System Impact:} High-fidelity 3D reconstruction \(\cdot\) SOTA supervised classification \(\cdot\) Robust few-shot generalization \textbf{(+15.6pp gain)}.
+    \textbf{Contributions \& System Impact}\\
+    \vspace{2mm}
+    \begin{tabular}{@{}c p{0.75\linewidth}@{}}
+        \includegraphics[width=1.3cm]{icon_radar_recon.pdf} & \textbf{Articulated Validation:} First InISAR on humans in multipath-rich indoor environments. \\[5mm]
+        \includegraphics[width=1.3cm]{icon_ruler.pdf} & \textbf{Resolution-level Error:} \(<5.5\) cm (median 3.87 cm) approaches \(\Delta r\)=4.55 cm limit (vs. prior 0.2--1.6 m errors). \\[5mm]
+        \includegraphics[width=1.3cm]{icon_accuracy.pdf} & \textbf{SOTA Supervised:} PCT-T achieves 98.99\% supervised (+2.81pp over TCPCN). \\[5mm]
+        \includegraphics[width=1.3cm]{icon_maml.pdf} & \textbf{MAML Gains:} Pre-trained MAML gives 70.0\% cross-session (+15.6pp over random). \\
+    \end{tabular}
 
-    \vspace{5mm}
-
+    \vspace{3mm}
     \centering
     \colorbox{resultsColor!12}{\parbox{0.96\linewidth}{\centering\normalsize
     \textbf{Deployable few-shot radar PID with minimal training data.}
     }}\\
 }
 
-% ================== NEW BLOCK 2: VISUAL DEMOS ==================
+% ============================================================
+% SECTION 3.5 -- VISUAL & DEMO
+% ============================================================
 \block{\textcolor{white}{\large \ding{231}\ \ Visual \& Demo}}{
-
     \vspace{1mm}
     % 2. Ghost Removal Proof
     \centering{\small\bfseries\color{radarNavy} Ghost Removal (EKF-JPDA Tracking)}
     \vspace{1.5mm}
-    \begin{minipage}{0.48\linewidth}
+    \begin{minipage}{0.6\linewidth}
     \centering
     \includegraphics[width=\linewidth]{fig_radar_vs_camera_p3_0053.png}\\[0.5mm]
     {\scriptsize\color{radarGrey}(a) Before: Ghost remains}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{fig_radar_vs_camera_p5_0065.png}\\[0.5mm]
     {\scriptsize\color{radarNavy}(b) After: Ghost rejected}
     \end{minipage}
-
-    \vspace{4mm}
-    \hrule height 0.2pt
-    \vspace{4mm}
-
-    % 3. Interactive Video Demonstration Callout Box
-    \parbox{0.95\linewidth}{
-        \vspace{1mm}
-        \centering
-        {\small\bfseries\color{radarNavy} \ding{228}\ Real-Time Tracking Video Demo}\\[2mm]
-        
-        \begin{minipage}{0.52\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig_radar_vs_camera_p5_0029.png}\\[1mm]
-        \includegraphics[width=\linewidth]{other_p4cn0_frame29.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.42\linewidth}
-        \centering
-        % Enlarge QR code for easy phone scanning from distance
-        \qrcode[height=1.85cm]{https://jeffeehsiung.github.io/few_shot_gait_based_person_identification_from_inisar_point_clouds_with_pretrained_meta_learning}\\[1.5mm]
-        {\footnotesize\bfseries\color{radarNavy} Scan to Watch}\\
-        {\tiny\color{radarGrey} Dynamic Radar vs. Camera GT Videos}
-        \end{minipage}
-        \vspace{1mm}
-    }
+    \hfill
+    \begin{minipage}{0.4\linewidth}
+    \vspace{1mm}
+    \centering
+    \qrcode[height=2cm]{https://jeffeehsiung.github.io/few_shot_gait_based_person_identification_from_inisar_point_clouds_with_pretrained_meta_learning}\\[1.5mm]
+    {\footnotesize\bfseries\color{radarNavy} Scan to Watch}\\
+    {\tiny\color{radarGrey} Dynamic Radar vs. Camera GT Videos}
+    \vspace{1mm}
+    \end{minipage}
 
     \vspace{4mm}
     \hrule height 0.2pt
@@ -269,7 +241,6 @@
     \centering\small\color{radarNavy}\textbf{Future Scope:}\\
     \vspace{1.5mm}
     \color{radarGrey}Evaluating larger population scales \(\cdot\) Adaptive tracking for high-acceleration scenarios.
-
 }
 
 % ----------------------------------------------------------------------
@@ -334,7 +305,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \textbf{Step 2: Motion Compensation (ICBA)}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Target motion during CPI smears energy across cellse ~\cite{Javadi_ISAR}.
+        \item Target motion during CPI smears energy across cells, degrading SNR and defocusing images. ~\cite{Javadi_ISAR}.
         \item Translational motion model:
     \end{itemize}
     \begin{align*}
@@ -349,7 +320,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{align*}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Output: Motion-compensated range profile $S_{C,m}(f,t)$.
+        \item Output: Enhanced range profile $S_{C,m}(f,t)$.
     \end{itemize}
     \vspace{1mm}
     \textbf{Step 3: Doppler FFT (ISAR Image)}
@@ -367,7 +338,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \textbf{Step 5: Interferometry}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item Uses phase difference between top and bottom antennas:
+        \item Leverages phase differences between top/bottom MIMO virtual antennas:
     \end{itemize}
     \begin{align*}
         I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right)
@@ -382,15 +353,20 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \begin{align*}
         x = R\cos\theta_{el}\sin\theta_{az} \quad y = R\cos\theta_{el}\cos\theta_{az} \quad z = R\sin\theta_{el}
     \end{align*}
+    \begin{itemize}
+        \setlength\itemsep{0.5mm}
+        \item Multiple antenna pairs helps average out measurement noise for stable elevation estimates
+    \end{itemize}
     \vspace{1mm}
     \textbf{Step 6: EKF-JPDA Tracking}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
         \item JPDA handles data association; EKF filters state with covariance.
-        \item Output: Clean 3D point cloud with ghosts removed.
+        \item A max miss count of 1 prunes multipath ghosts while tolerating temporary occlusions.
     \end{itemize}
     \end{minipage}
     }
+
     % ============================================================
     % SECTION 5 -- VALIDATION: InISAR vs MOTION CAPTURE
     % ============================================================
@@ -398,9 +374,9 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \normalsize
     \begin{minipage}{0.55\linewidth}
         \centering
-        \posterfig{\linewidth}{other_p4cn0_iou_frame_65.png}{}
-        \centering
-        \posterfig{\linewidth}{other_p4cn0_iou_frame_71.png}{InISAR (blue) vs MoCap (green)}
+        \posterfig{\linewidth}{other_p4cn0_iou_frame_65.pdf}{InISAR (blue) vs MoCap (red)}
+        % \centering
+        % \posterfig{\linewidth}{other_p4cn0_iou_frame_71.png}{InISAR (blue) vs MoCap (red)}
     \end{minipage}
     \hfill
     \begin{minipage}{0.45\linewidth}
@@ -438,7 +414,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 \subcolumn{0.5}
     \block{\textcolor{white}{\large \ding{208}\ \ Few-Shot PID with PCTtrans}}{
     \normalsize
-    \posterfig{\linewidth}{fig_pcttrans_architecture.pdf}{PCTtrans: frame-wise PCT $+$ Temporal Transformer}
+    \posterfig{\linewidth}{fig_pcttrans_architecture.pdf}{PCTtrans (PCT-T): frame-wise PCT $+$ Temporal Transformer}
     \begin{minipage}{\linewidth}
     \textbf{Preprocessing:}
     \begin{itemize}
@@ -451,7 +427,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \textbf{Spatial (PCT Encoder~\cite{Guo20}):}
     \begin{itemize}
         \setlength\itemsep{0.5mm}
-        \item SG1: FPS $n_1=200$, $r_1=0.2$; SG2: FPS $n_2=100$, $r_2=0.3$
+        \item Sampling-and-Grouping (SG): SG1: Farthest Point Sampling (FPS) $n_1=200$, $r_1=0.2$; SG2: FPS $n_2=100$, $r_2=0.3$
         \item Neighbor Embedding: $\Delta F(p) = \text{concat}_{q \in \text{knn}(p,k)} (F(q) - F(p))$
         \item Offset-Attention: $F_{\text{out}} = \text{LBR}(F_{\text{in}} - F_{\text{sa}}) + F_{\text{in}}$
         \item Output: $\mathbf{f}_t \in \mathbb{R}^{192}$
@@ -480,7 +456,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \textbf{Two-Phase Algorithm:}\\
         \vspace{1mm}
         \textbf{Phase 1:} Supervised training on 3 subjects $\to \theta_0^{PT}$ \\
-        \textbf{Phase 2:} MAML~\cite{finn17, Puri20} meta-training with $\theta_0^{PT}$\\
+        \textbf{Phase 2:} Model-Agnostic Meta-Learning (MAML)~\cite{finn17, Puri20} meta-training with $\theta_0^{PT}$\\
         \vspace{2mm}
         Inner loop: $\theta_i' = \theta - \alpha\nabla\mathcal{L}$ ($\alpha{=}0.1$). Outer loop: $\theta \leftarrow \theta - \beta\nabla\sum_i\mathcal{L}$ ($\beta{=}0.001$).
         \vspace{2mm}

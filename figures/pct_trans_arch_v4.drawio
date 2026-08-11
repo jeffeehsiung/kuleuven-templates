@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="H5HRKoO9zRcLw_YLfW5r">
-    <mxGraphModel dx="1384" dy="744" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="969" dy="521" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -657,7 +657,7 @@
         <mxCell id="KMrbo717YuDaXb0Yk757-62" parent="KMrbo717YuDaXb0Yk757-175" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;container=0;" value="" vertex="1">
           <mxGeometry height="120" width="420" x="61.1099999999999" y="23" as="geometry" />
         </mxCell>
-        <mxCell id="KMrbo717YuDaXb0Yk757-63" parent="KMrbo717YuDaXb0Yk757-175" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=7;container=0;" value="Point Cloud Feature Extraction Blocks" vertex="1">
+        <mxCell id="KMrbo717YuDaXb0Yk757-63" parent="KMrbo717YuDaXb0Yk757-175" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=7;container=0;" value="Point Cloud Feature Representation Blocks" vertex="1">
           <mxGeometry height="30" width="180" x="171.1099999999999" as="geometry" />
         </mxCell>
         <mxCell id="KMrbo717YuDaXb0Yk757-65" edge="1" parent="KMrbo717YuDaXb0Yk757-175" source="KMrbo717YuDaXb0Yk757-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KMrbo717YuDaXb0Yk757-68" value="">

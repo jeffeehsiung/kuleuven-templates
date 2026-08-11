@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  11 AUG 2026 18:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  11 AUG 2026 19:16
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1370,10 +1370,10 @@ line 234.
 File: tikz-radar-lib/icon_range_fft.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_range_fft.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_range_fft.pdf  used on input line 
-428.
+427.
 (pdftex.def)             Requested size: 36.98866pt x 30.58183pt.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
-28.
+27.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -1382,88 +1382,88 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: tikz-radar-lib/icon_motion_comp.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_motion_comp.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_motion_comp.pdf  used on input lin
-e 428.
+e 427.
 (pdftex.def)             Requested size: 36.98866pt x 30.58183pt.
 <tikz-radar-lib/icon_doppler_fft.pdf, id=57, 43.79262pt x 42.14545pt>
 File: tikz-radar-lib/icon_doppler_fft.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_doppler_fft.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_doppler_fft.pdf  used on input lin
-e 428.
+e 427.
 (pdftex.def)             Requested size: 36.98866pt x 35.59998pt.
 <tikz-radar-lib/icon_cfar.pdf, id=58, 42.08423pt x 29.0957pt>
 File: tikz-radar-lib/icon_cfar.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_cfar.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_cfar.pdf  used on input line 428.
+Package pdftex.def Info: tikz-radar-lib/icon_cfar.pdf  used on input line 427.
 (pdftex.def)             Requested size: 36.98866pt x 25.57364pt.
 <tikz-radar-lib/icon_interferometry.pdf, id=59, 37.97487pt x 27.16147pt>
 File: tikz-radar-lib/icon_interferometry.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_interferometry.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_interferometry.pdf  used on input 
-line 428.
+line 427.
 (pdftex.def)             Requested size: 36.98866pt x 26.45723pt.
 <tikz-radar-lib/icon_ekf_jpda.pdf, id=60, 32.85274pt x 27.16147pt>
 File: tikz-radar-lib/icon_ekf_jpda.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_ekf_jpda.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_ekf_jpda.pdf  used on input line 4
-28.
+27.
 (pdftex.def)             Requested size: 36.98866pt x 30.58183pt.
 <figures/other_range_doppler_profile_0_v2.png, id=61, 161.60374pt x 157.58875pt
 >
 File: figures/other_range_doppler_profile_0_v2.png Graphic file (type png)
 <use figures/other_range_doppler_profile_0_v2.png>
 Package pdftex.def Info: figures/other_range_doppler_profile_0_v2.png  used on 
-input line 428.
+input line 427.
 (pdftex.def)             Requested size: 252.81052pt x 246.54198pt.
 <figures/other_range_doppler_profile_1_v2.png, id=63, 161.60374pt x 153.57375pt
 >
 File: figures/other_range_doppler_profile_1_v2.png Graphic file (type png)
 <use figures/other_range_doppler_profile_1_v2.png>
 Package pdftex.def Info: figures/other_range_doppler_profile_1_v2.png  used on 
-input line 428.
+input line 427.
 (pdftex.def)             Requested size: 252.81052pt x 240.26067pt.
 <figures/fig_pcttrans_architecture_v2.pdf, id=64, 610.19968pt x 203.80139pt>
 File: figures/fig_pcttrans_architecture_v2.pdf Graphic file (type pdf)
 <use figures/fig_pcttrans_architecture_v2.pdf>
 Package pdftex.def Info: figures/fig_pcttrans_architecture_v2.pdf  used on inpu
-t line 496.
+t line 495.
 (pdftex.def)             Requested size: 722.3032pt x 241.24542pt.
 <tikz-radar-lib/icon_norm.pdf, id=65, 42.38335pt x 43.86388pt>
 File: tikz-radar-lib/icon_norm.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_norm.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_norm.pdf  used on input line 496.
+Package pdftex.def Info: tikz-radar-lib/icon_norm.pdf  used on input line 495.
 (pdftex.def)             Requested size: 36.98866pt x 38.28105pt.
 <tikz-radar-lib/icon_pct.pdf, id=66, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_pct.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_pct.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_pct.pdf  used on input line 496.
+Package pdftex.def Info: tikz-radar-lib/icon_pct.pdf  used on input line 495.
 (pdftex.def)             Requested size: 36.98866pt x 36.9914pt.
 <tikz-radar-lib/icon_temporal.pdf, id=67, 27.7306pt x 27.27992pt>
 File: tikz-radar-lib/icon_temporal.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_temporal.pdf>
 Package pdftex.def Info: tikz-radar-lib/icon_temporal.pdf  used on input line 4
-96.
+95.
 (pdftex.def)             Requested size: 36.98866pt x 36.38756pt.
 File: tikz-radar-lib/icon_maml.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_maml.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_maml.pdf  used on input line 536.
+Package pdftex.def Info: tikz-radar-lib/icon_maml.pdf  used on input line 535.
 (pdftex.def)             Requested size: 36.98866pt x 31.97078pt.
 <tikz-radar-lib/icon_theory.pdf, id=71, 35.69836pt x 35.69836pt>
 File: tikz-radar-lib/icon_theory.pdf Graphic file (type pdf)
 <use tikz-radar-lib/icon_theory.pdf>
-Package pdftex.def Info: tikz-radar-lib/icon_theory.pdf  used on input line 536
+Package pdftex.def Info: tikz-radar-lib/icon_theory.pdf  used on input line 535
 .
 (pdftex.def)             Requested size: 36.98866pt x 36.9914pt.
 <figures/fig_radar_vs_camera_p3_0053.png, id=72, 1199.48125pt x 491.8375pt>
 File: figures/fig_radar_vs_camera_p3_0053.png Graphic file (type png)
 <use figures/fig_radar_vs_camera_p3_0053.png>
 Package pdftex.def Info: figures/fig_radar_vs_camera_p3_0053.png  used on input
- line 626.
+ line 625.
 (pdftex.def)             Requested size: 436.65059pt x 179.04263pt.
 <figures/fig_radar_vs_camera_p5_0065.png, id=73, 1574.88374pt x 562.1pt>
 File: figures/fig_radar_vs_camera_p5_0065.png Graphic file (type png)
 <use figures/fig_radar_vs_camera_p5_0065.png>
 Package pdftex.def Info: figures/fig_radar_vs_camera_p5_0065.png  used on input
- line 626.
+ line 625.
 (pdftex.def)             Requested size: 436.65059pt x 155.84308pt.
 
 
@@ -1479,16 +1479,16 @@ version 8-M as previously calculated.>
 File: figures/other_p4cn0_frame57.png Graphic file (type png)
 <use figures/other_p4cn0_frame57.png>
 Package pdftex.def Info: figures/other_p4cn0_frame57.png  used on input line 62
-6.
+5.
 (pdftex.def)             Requested size: 468.0081pt x 165.93376pt.
 <figures/other_p4cn0_iou_frame_71_cropped.png, id=76, 435.7881pt x 152.4897pt>
 File: figures/other_p4cn0_iou_frame_71_cropped.png Graphic file (type png)
 <use figures/other_p4cn0_iou_frame_71_cropped.png>
 Package pdftex.def Info: figures/other_p4cn0_iou_frame_71_cropped.png  used on 
-input line 626.
+input line 625.
 (pdftex.def)             Requested size: 468.0081pt x 163.765pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 626--626
+Underfull \hbox (badness 10000) in paragraph at lines 625--625
 
  []
 
@@ -1553,7 +1553,7 @@ Package rerunfilecheck Info: File `poster-v1.out' has not changed.
 Here is how much of TeX's memory you used:
  30153 strings out of 469006
  609996 string characters out of 5454813
- 1451852 words of memory out of 5000000
+ 1451828 words of memory out of 5000000
  58202 multiletter control sequences out of 15000+600000
  796028 words of font info for 149 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
@@ -1633,7 +1633,7 @@ l/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/tex
 live/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/l
 ocal/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on poster-v1.pdf (1 page, 3387104 bytes).
+Output written on poster-v1.pdf (1 page, 3387096 bytes).
 PDF statistics:
  372 PDF objects out of 1000 (max. 8388607)
  242 compressed objects within 3 object streams

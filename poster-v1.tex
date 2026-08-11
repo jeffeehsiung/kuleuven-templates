@@ -221,7 +221,7 @@ human motion, validated against motion-capture ground truth.}}
 \begin{minipage}{0.31\linewidth}
 \centering
 \colorbox{radarPurple!12}{\parbox{0.9\linewidth}{\centering\color{radarNavy}\textbf{(2) ML domain}\\[1mm]
-\small Spatio-temporal transformer (PCTtrans) embedded in MAML; task-specific pre-trained
+\small Spatio-temporal transformer (PCTtrans) embedded in Model-Agnostic Meta-Learning (MAML); task-specific pre-trained
 initialization substantially improves few-shot adaptation.}}
 \end{minipage}
 \hfill
@@ -413,8 +413,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
             \end{itemize}
         \end{minipage} \\[1mm]
     \end{tabular}}
-
-    \vspace{3mm}
+    \vspace{1mm}
     \begin{center}
     \begin{minipage}{0.35\linewidth}
         \centering
@@ -495,7 +494,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \end{tabular}}
     }
 
-    \block{\textcolor{white}{\large \ding{209}\ \ Pre-trained Meta-Learning~\cite{Lin20}}}{
+    \block{\textcolor{white}{\large \ding{208}\ \ Pre-trained Meta-Learning~\cite{Lin20}}}{
     {\renewcommand{\arraystretch}{1.2}
     \normalsize
     \begin{tabular}{@{}c p{0.85\linewidth}@{}}
@@ -512,7 +511,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
                 \setlength{\parsep}{0pt}      
                 \setlength{\leftmargin}{1.5em}
                 \item \textbf{Phase 1:} Supervised pre-training (3 subjects) \(\to \theta_0^{PT}\) (session-invariant patterns).
-                \item \textbf{Phase 2:} Model-Agnostic Meta-Learning (MAML) meta-training~\cite{finn17, Puri20}.
+                \item \textbf{Phase 2:} MAML meta-training~\cite{finn17, Puri20}.
             \end{itemize}
 
             \vspace{1mm}
@@ -543,7 +542,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 % ============================================================
 % UNIFIED BOTTOM RESULTS BLOCK (LEFT-CENTER-RIGHT)
 % ============================================================
-\block{\textcolor{white}{\large \ding{208}\ \ Experimental Results}}{
+\block{\textcolor{white}{\large \ding{209}\ \ Experimental Results}}{
     \begin{minipage}[t]{0.3\linewidth}
         \vspace{0mm}
         \centering\normalsize

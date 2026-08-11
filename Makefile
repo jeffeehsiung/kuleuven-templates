@@ -11,7 +11,7 @@ FIG_PDFS = $(addprefix $(FIG_DIR)/, $(addsuffix .pdf, $(FIG_NAMES)))
 # Possible poster files (without extension)
 POSTERS = poster-v1 poster-v2 poster-v3
 # Default target: build poster
-MAIN = poster-v2
+MAIN = poster-v1
 
 # ------------------------------------------------------------
 # Default target

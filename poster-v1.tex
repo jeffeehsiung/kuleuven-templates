@@ -60,11 +60,12 @@
 % ------------------------------------------------------------
 % helper command: consistent figure block with caption strip
 % ------------------------------------------------------------
-\newcommand{\posterfig}[3]{%
-  % #1 = width, #2 = filename, #3 = caption
+\newcommand{\posterfig}[4][1.5mm]{%
+  % #1 = vertical gap (optional, default 1.5mm)
+  % #2 = width, #3 = filename, #4 = caption
   \begin{center}
-    \includegraphics[width=#1]{#2}\\[1.5mm]
-    {\small\color{radarGrey}\textit{#3}}
+    \includegraphics[width=#2]{#3}\\[#1]
+    {\small\color{radarGrey}\textit{#4}}
   \end{center}
 }
 
@@ -145,9 +146,11 @@
 \block{\textcolor{white}{\large \ding{203}\ \ Challenges in Radar-Based PID}}{
 \begin{minipage}{\linewidth}
     \small
-    \posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Radar point clouds are sparse, noisy, and contaminated by multipath ghosts}
+    \posterfig{\linewidth}{tikz-radar-lib/problem_panel_strip.pdf}{Sparse, noisy point clouds with multipath ghosts.} % Radar point clouds are sparse, noisy, and contaminated by multipath ghosts
 \end{minipage}
-\vspace{2mm}
+
+\vspace{4mm}
+
 {\renewcommand{\arraystretch}{1.05} % Tight spacing to save vertical space
 \normalsize
 \begin{tabular}{@{}c p{0.82\linewidth}@{}}
@@ -326,6 +329,106 @@ radar PID, reducing dependence on large subject-specific datasets.}}
 %     }
 
 
+% % ============================================================
+% % SECTION 4 -- InISAR PIPELINE: 3D RECONSTRUCTION (Sub-column split)
+% % ============================================================
+% \begin{subcolumns}
+
+% \subcolumn{0.5}
+%     \block{\textcolor{white}{\large \ding{206}\ \ InISAR Pipeline: 3D Reconstruction}}{
+    
+%     \vspace{2mm}
+%     {\renewcommand{\arraystretch}{1.2}
+%     \normalsize
+%     \begin{tabular}{@{}c p{0.9\linewidth}@{}}
+%         % --- Step 1 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_range_fft.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{1. Range FFT} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item FMCW chirp compression to \(S_{R,m}(f,t)\) per $m$-th antenna.
+%                 \item Physical range limit \(\Delta r = c/(2B)\) \textit{bounds achieved error}.
+%             \end{itemize}
+%         \end{minipage} \\[1mm]
+
+%         % --- Step 2 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_motion_comp.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{2. Motion Compensation (ICBA)} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item Translational model \(R_0(t) = r_0 + \beta t + \gamma t^2\).
+%                 \item Nelder-Mead optimizes contrast \([\hat{\beta}, \hat{\gamma}]\) to remove smearing \(\to\) yields \textit{signal-to-noise ratio (SNR) enhanced} \(S_{C,m}(f,t)\):
+%             \end{itemize}
+%             \vspace{3pt}\hspace*{6.5em}\( [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\} \)
+%         \end{minipage} \\[1mm]
+
+%         % --- Step 3 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_doppler_fft.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{3. Coherent Combination \& Doppler FFT} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item Geometric phase corrections align all MIMO virtual antennas (SNR boost) \(\to\) \textit{focused} 2D Range-Doppler Profile (RDP).
+%             \end{itemize}
+%         \end{minipage} \\[1mm]
+
+%         % --- Step 4 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_cfar.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{4. CFAR Segmentation} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item SOCA-CFAR (\(N_T=6,\ P_{FA}=10^{-10}\)) \textit{isolates target cells} from noise/clutter.
+%             \end{itemize}
+%         \end{minipage} \\[1mm]
+
+%         % --- Step 5 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_interferometry.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{5. Interferometry} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item Phase difference between top/bottom MIMO rows \textit{yields elevation}:
+%             \end{itemize}
+%             \vspace{3pt}\hspace*{3.5em}\( I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right) \quad \to \quad h = \frac{\lambda \phi R}{2\pi L} \)
+%             \vspace{3pt}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item Exploiting MIMO antenna pairs reduces measurement noise.
+%             \end{itemize}
+%         \end{minipage} \\[1mm]
+
+%         % --- Step 6 ---
+%         \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
+%             \includegraphics[width=1.3cm]{icon_ekf_jpda.pdf}
+%         \end{minipage} &
+%         \begin{minipage}[t]{\linewidth}\vspace{0pt}
+%             \textbf{6. EKF-JPDA Tracking} \\ \vspace{-1.725ex}
+%             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
+%                 \item Spatial-domain JPDA handles data association; EKF filters state covariance.
+%                 \item Max miss count=1 \(\to\) \textit{prunes multipath ghosts} while tolerating occlusions.
+%             \end{itemize}
+%         \end{minipage} \\[1mm]
+%     \end{tabular}}
+%     \begin{center}
+%     \begin{minipage}{0.35\linewidth}
+%         \centering
+%         \posterfig[0mm]{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
+%     \end{minipage}
+%     \begin{minipage}{0.35\linewidth}
+%         \centering
+%         \posterfig[0mm]{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR RDP}
+%     \end{minipage}
+%     \end{center}
+%     }
+
+
 % ============================================================
 % SECTION 4 -- InISAR PIPELINE: 3D RECONSTRUCTION (Sub-column split)
 % ============================================================
@@ -339,89 +442,73 @@ radar PID, reducing dependence on large subject-specific datasets.}}
     \normalsize
     \begin{tabular}{@{}c p{0.9\linewidth}@{}}
         % --- Step 1 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_range_fft.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{1. Range FFT} \\ \vspace{-1.75ex}
+            \textbf{1. Range FFT} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item FMCW chirp compression to \(S_{R,m}(f,t)\) per $m$-th antenna.
-                \item Physical range limit \(\Delta r = c/(2B)\) \textit{bounds our achieved height error}.
+                \item Physical range limit \(\Delta r = c/(2B)\) \textit{bounds achieved error}.
             \end{itemize}
         \end{minipage} \\[1mm]
 
         % --- Step 2 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_motion_comp.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{2. Motion Compensation (ICBA)} \\ \vspace{-1.75ex}
+            \textbf{2. Motion Compensation (ICBA)} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item Translational model \(R_0(t) = r_0 + \beta t + \gamma t^2\).
                 \item Nelder-Mead optimizes contrast \([\hat{\beta}, \hat{\gamma}]\) to remove smearing \(\to\) yields \textit{signal-to-noise ratio (SNR) enhanced} \(S_{C,m}(f,t)\):
             \end{itemize}
-            \vspace{1.5pt}\hspace*{2.5em}\( [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\} \)
+            \vspace{3pt}\hspace*{6.5em}\( [\hat{\beta}, \hat{\gamma}] = \arg\max \left\{ \frac{\sqrt{\frac{1}{N}\sum(I_i - \bar{I})^2}}{\bar{I}} \right\} \)
         \end{minipage} \\[1mm]
 
         % --- Step 3 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_doppler_fft.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{3. Coherent Combination \& Doppler FFT} \\ \vspace{-1.75ex}
+            \textbf{3. Coherent Combination \& Doppler FFT} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item Geometric phase corrections align all MIMO virtual antennas (SNR boost) \(\to\) \textit{focused} 2D Range-Doppler Profile (RDP).
             \end{itemize}
         \end{minipage} \\[1mm]
 
         % --- Step 4 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_cfar.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{4. CFAR Segmentation} \\ \vspace{-1.75ex}
+            \textbf{4. CFAR Segmentation} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item SOCA-CFAR (\(N_T=6,\ P_{FA}=10^{-10}\)) \textit{isolates target cells} from noise/clutter.
             \end{itemize}
         \end{minipage} \\[1mm]
 
         % --- Step 5 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_interferometry.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{5. Interferometry} \\ \vspace{-1.75ex}
+            \textbf{5. Interferometry} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item Phase difference between top/bottom MIMO rows \textit{yields elevation}:
             \end{itemize}
-            \vspace{1.5pt}\hspace*{2.5em}\( I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right) \quad \to \quad h = \frac{\lambda \phi R}{2\pi L} \)
-            \vspace{1.5pt}
+            \vspace{3pt}\hspace*{3.5em}\( I_1 \cdot I_2^* = |I_1||I_2| \exp\left(j\frac{2\pi}{\lambda}\Delta R\right) \quad \to \quad h = \frac{\lambda \phi R}{2\pi L} \)
+            \vspace{3pt}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item Exploiting MIMO antenna pairs reduces measurement noise.
             \end{itemize}
         \end{minipage} \\[1mm]
 
         % --- Step 6 ---
-        \begin{minipage}[t]{1.3cm}\vspace{0pt}\centering
-            \includegraphics[width=1.3cm]{icon_ekf_jpda.pdf}
-        \end{minipage} &
         \begin{minipage}[t]{\linewidth}\vspace{0pt}
-            \textbf{6. EKF-JPDA Tracking} \\ \vspace{-1.75ex}
+            \textbf{6. EKF-JPDA Tracking} \\ \vspace{-1.7ex}
             \begin{itemize} \setlength\itemsep{3pt} \setlength{\topsep}{0pt} \setlength{\leftmargin}{1.5em}
                 \item Spatial-domain JPDA handles data association; EKF filters state covariance.
                 \item Max miss count=1 \(\to\) \textit{prunes multipath ghosts} while tolerating occlusions.
             \end{itemize}
         \end{minipage} \\[1mm]
     \end{tabular}}
-    \vspace{1mm}
+
+    \vspace{2mm}
+
     \begin{center}
     \begin{minipage}{0.35\linewidth}
         \centering
-        \posterfig{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
+        \posterfig[0.5mm]{\linewidth}{other_range_doppler_profile_0_v2.png}{Raw RDP}
     \end{minipage}
     \begin{minipage}{0.35\linewidth}
         \centering
-        \posterfig{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR RDP}
+        \posterfig[0.5mm]{\linewidth}{other_range_doppler_profile_1_v2.png}{Post-InISAR RDP}
     \end{minipage}
     \end{center}
     }
@@ -568,7 +655,7 @@ radar PID, reducing dependence on large subject-specific datasets.}}
         \textbf{InISAR vs Motion Capture}\\[3mm]
         \begin{minipage}[t]{0.55\linewidth}
             \centering
-            \posterfig{\linewidth}{other_p4cn0_frame57}{}
+            \posterfig{\linewidth}{other_p4cn0_frame57.png}{}
             \posterfig{\linewidth}{other_p4cn0_iou_frame_71_cropped.png}{}
         \end{minipage}
         \hfill
@@ -589,7 +676,9 @@ radar PID, reducing dependence on large subject-specific datasets.}}
             \vspace{2mm}
             \textbf{Dataset:} 5 subj. (164--185 cm), $B=3.3$ GHz ($\Delta r=4.55$ cm).
         \end{minipage}
-        \vspace{-4mm}
+
+        \vspace{-7mm}
+
         \colorbox{resultsColor!12}{\parbox{0.98\linewidth}{\centering \textbf{Reconstruction} Height Error \(<5.5\) cm (median 3.87 cm)}}
     \end{minipage}
     \hfill
